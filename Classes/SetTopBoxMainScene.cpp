@@ -44,7 +44,30 @@ bool SetTopBoxMainScene::init()
     this->addChild(background);
     background->setPosition(Point(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
     
+//    auto particle = ParticleSystemQuad::create("background_main.plist");
+//    particle->setPositionType(ParticleSystem::PositionType::GROUPED);
+//    particle->setPosition(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y);
+//    particle->setScale(1);
+//    this->addChild(particle,2);
+    
+    auto closeItem = MenuItemImage::create("CloseNormal.png",
+                                           "CloseSelected.png",
+                                           CC_CALLBACK_1(SetTopBoxMainScene::replayCallback, this));
+    
+	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+                                origin.y + closeItem->getContentSize().height/2));
+    
+    
+    auto menu = Menu::create(closeItem, NULL);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+    
     this->addChild(OpeningAnimation::create());
     
     return true;
+}
+
+void SetTopBoxMainScene::replayCallback(Ref* sender){
+    log("replay");
+    Director::getInstance()->replaceScene(SetTopBoxMainScene::createScene());
 }
