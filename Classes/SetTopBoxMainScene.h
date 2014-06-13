@@ -15,6 +15,8 @@ public:
     static cocos2d::Scene* createScene();
     static SetTopBoxMainScene* create();
     bool init();
+    
+    void replayCallback(Ref* sender);
 };
 
 #endif /* defined(__stbProject__SetTopBoxMainScene__) */
