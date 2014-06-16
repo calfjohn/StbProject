@@ -105,7 +105,11 @@ bool TextEffector::init()
                                          ));
     this->addChild(_lightNode,0);
     
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     auto label = Label::createWithTTF("Co Mi", "fonts/dassault.ttf", 50);
+#else
+    auto label = Label::createWithTTF("Co Mi", "dassault.ttf", 50);
+#endif
     label->setPosition(Vec2(0, -100));
     label->setRotation3D(Vec3(90, 0, 0));
     label->setColor(Color3B(163,241,255));

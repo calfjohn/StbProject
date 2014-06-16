@@ -64,7 +64,7 @@ bool OpeningAnimation::init()
     }), nullptr));
     
     
-    emitter = ParticleSystemQuad::create("star_up.plist");
+    emitter = ParticleSystemQuad::create("mystic.plist");
     addChild(emitter);
     
     emitter->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
