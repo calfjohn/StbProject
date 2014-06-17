@@ -24,6 +24,11 @@ public:
     void rotateLeft();
     void rotateRight();
     
+    virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
+    
     void onFocusChanged(cocos2d::ui::Widget* widgetLostFocus, cocos2d::ui::Widget* widgetGetFocus);
     void onKeyboardReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 protected:
@@ -35,6 +40,7 @@ protected:
     cocos2d::EventListenerFocus *_eventListener;
     cocos2d::EventListenerKeyboard* _keyboardListener;
     TextEffector *_textEffector;
+    cocos2d::Point _beginPoint;
 };
 
 #endif /* defined(__stbProject__RotateLayer__) */
