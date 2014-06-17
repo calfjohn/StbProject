@@ -8,6 +8,7 @@
 #include "RotateLayer.h"
 #include "SetTopBoxMainScene.h"
 #include "TextEffector.h"
+#include "PlayVideoLayer.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -71,7 +72,7 @@ bool RotateLayer::init()
     }
     _textEffector = TextEffector::create();
     this->addChild(_textEffector);
-
+    
     /* ==============test============== */
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
     layoutParams->setMargin(Margin(59,40,0,0));
@@ -94,6 +95,7 @@ bool RotateLayer::init()
     
     _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
     
+    this->setTouchEnabled(true);
     this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
     
     return true;
@@ -203,7 +205,8 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             if (iconGroup.at(i)->getTag() == 0){
                 switch (i){
                     case 0:
-                        MessageBox("tv", "pressed");
+                        //MessageBox("tv", "pressed");
+                        this->addChild(PlayVideoLayer::create());
                         break;
                     case 1:
                         MessageBox("game", "pressed");
@@ -241,4 +244,46 @@ void RotateLayer::onExit()
     Layer::onExit();
     _eventDispatcher->removeEventListener(_eventListener);
     _eventDispatcher->removeEventListener(_keyboardListener);
+}
+
+void RotateLayer::onTouchesBegan(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    Touch *touch = touches.at(0);
+    Point pt = touch->getLocationInView();
+    pt = Director::getInstance()->convertToGL(pt);
+    //    CCLOG("x=%f, y = %f", pt.x, pt.y);
+    _beginPoint = pt;
+}
+
+void RotateLayer::onTouchesMoved(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    
+}
+
+void RotateLayer::onTouchesCancelled(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    
+}
+void RotateLayer::onTouchesEnded(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    Touch *touch = touches.at(0);
+    Point pt = touch->getLocationInView();
+    pt = Director::getInstance()->convertToGL(pt);
+    
+    const float offest = 100;
+    if (pt.x - _beginPoint.x > offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_RIGHT, nullptr);
+    }
+    
+    if (pt.x - _beginPoint.x < -offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_LEFT, nullptr);
+    }
+    
+    if (pt.y - _beginPoint.y < -offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_CENTER, nullptr);
+    }
+    
+    if (pt.y - _beginPoint.y > offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_CENTER, nullptr);
+    }
 }
