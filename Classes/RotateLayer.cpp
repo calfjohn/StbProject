@@ -9,6 +9,7 @@
 #include "SetTopBoxMainScene.h"
 #include "TextEffector.h"
 #include "PlayVideoLayer.h"
+#include "MaskLayer.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -205,11 +206,12 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             if (iconGroup.at(i)->getTag() == 0){
                 switch (i){
                     case 0:
-                        //MessageBox("tv", "pressed");
-                        this->addChild(PlayVideoLayer::create());
+                        MessageBox("tv", "pressed");
+                        //this->addChild(PlayVideoLayer::create());
                         break;
                     case 1:
-                        MessageBox("game", "pressed");
+                        //MessageBox("game", "pressed");
+                        this->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
                         break;
                     case 2:
                         MessageBox("internet", "pressed");

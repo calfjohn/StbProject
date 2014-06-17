@@ -8,32 +8,25 @@
 
 #include "MoreDetailLayer.h"
 USING_NS_CC;
-MoreDetailLayer* MoreDetailLayer::create()
-{
-    MoreDetailLayer *pRet = new MoreDetailLayer();
-    if (pRet && pRet->init() && pRet->initWithColor(Color4B(255, 255, 255, 255))){
-        pRet->autorelease();
-        return pRet;
-    }
-    else{
-        delete pRet;
-        pRet = nullptr;
-        return nullptr;
-    }
-}
 
 bool MoreDetailLayer::init()
 {
-    auto bRet = false;
-    do {
-        bRet = true;
-    } while ( 0 );
-    return bRet;
+    if (! Layer::init()){
+        return false;
+    }
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    auto bg = Sprite::create("moreDetail/moreDetail_bg.png");
+    this->addChild(bg);
+    bg->setPosition(Vec2(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
+    
+    return true;
 }
 
 void MoreDetailLayer::onEnter()
 {
-    LayerColor::onEnter();
+    Layer::onEnter();
     auto winSize = Director::getInstance()->getWinSize();
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto myListener = EventListenerTouchOneByOne::create();
@@ -45,13 +38,13 @@ void MoreDetailLayer::onEnter()
         if (! rect.containsPoint(touchLocation)){
             return false;
         }
+        
         return true;
     };
     dispatcher->addEventListenerWithSceneGraphPriority(myListener, this);
-
 }
 
 void MoreDetailLayer::onExit()
 {
-    LayerColor::onExit();
+    Layer::onExit();
 }

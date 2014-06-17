@@ -26,6 +26,8 @@
 		2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
 		2606FA90195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
 		2606FA92195023E900FF577D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2606FA91195023E900FF577D /* MediaPlayer.framework */; };
+		2606FAA619504F6200FF577D /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 2606FAA519504F6200FF577D /* moreDetail */; };
+		2606FAA719504F6200FF577D /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 2606FAA519504F6200FF577D /* moreDetail */; };
 		265BB9A619484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9AB19484FE200D9A051 /* OpeningAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */; };
@@ -297,6 +299,7 @@
 		2606FA89195023B700FF577D /* PlayVideoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoLayer.h; sourceTree = "<group>"; };
 		2606FA8E195023C200FF577D /* cocosvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cocosvideo.mp4; sourceTree = "<group>"; };
 		2606FA91195023E900FF577D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		2606FAA519504F6200FF577D /* moreDetail */ = {isa = PBXFileReference; lastKnownFileType = folder; path = moreDetail; sourceTree = "<group>"; };
 		265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetTopBoxMainScene.cpp; path = ../Classes/SetTopBoxMainScene.cpp; sourceTree = "<group>"; };
 		265BB9A519484CEE00D9A051 /* SetTopBoxMainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTopBoxMainScene.h; path = ../Classes/SetTopBoxMainScene.h; sourceTree = "<group>"; };
 		265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpeningAnimation.cpp; path = ../Classes/OpeningAnimation.cpp; sourceTree = "<group>"; };
@@ -585,6 +588,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2606FAA519504F6200FF577D /* moreDetail */,
 				2606FA8E195023C200FF577D /* cocosvideo.mp4 */,
 				6622566319501F8A00EBC69D /* background.png */,
 				6622566419501F8A00EBC69D /* banner_01.jpg */,
@@ -823,6 +827,7 @@
 				662256A919501F8A00EBC69D /* radioNormal.png in Resources */,
 				662256B519501F8A00EBC69D /* text_light.png in Resources */,
 				6622569F19501F8A00EBC69D /* icon2.png in Resources */,
+				2606FAA619504F6200FF577D /* moreDetail in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				6622569519501F8A00EBC69D /* countdown_12.png in Resources */,
 				662256AD19501F8A00EBC69D /* star_up.plist in Resources */,
@@ -853,6 +858,7 @@
 				662256B419501F8A00EBC69D /* text_light_top.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				662256B219501F8A00EBC69D /* text_light_bottom.png in Resources */,
+				2606FAA719504F6200FF577D /* moreDetail in Resources */,
 				6622568C19501F8A00EBC69D /* britanic bold.ttf in Resources */,
 				6622568019501F8A00EBC69D /* background.png in Resources */,
 				6622568619501F8A00EBC69D /* banner_03.jpg in Resources */,
