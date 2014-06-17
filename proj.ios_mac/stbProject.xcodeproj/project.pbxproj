@@ -21,6 +21,11 @@
 		1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2606FA8A195023B700FF577D /* PlayVideoLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2606FA88195023B700FF577D /* PlayVideoLayer.cpp */; };
+		2606FA8B195023B700FF577D /* PlayVideoLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2606FA88195023B700FF577D /* PlayVideoLayer.cpp */; };
+		2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
+		2606FA90195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
+		2606FA92195023E900FF577D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2606FA91195023E900FF577D /* MediaPlayer.framework */; };
 		265BB9A619484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9AB19484FE200D9A051 /* OpeningAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */; };
@@ -288,6 +293,10 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* stbProject iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "stbProject iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2606FA88195023B700FF577D /* PlayVideoLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayVideoLayer.cpp; sourceTree = "<group>"; };
+		2606FA89195023B700FF577D /* PlayVideoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoLayer.h; sourceTree = "<group>"; };
+		2606FA8E195023C200FF577D /* cocosvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cocosvideo.mp4; sourceTree = "<group>"; };
+		2606FA91195023E900FF577D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetTopBoxMainScene.cpp; path = ../Classes/SetTopBoxMainScene.cpp; sourceTree = "<group>"; };
 		265BB9A519484CEE00D9A051 /* SetTopBoxMainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTopBoxMainScene.h; path = ../Classes/SetTopBoxMainScene.h; sourceTree = "<group>"; };
 		265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpeningAnimation.cpp; path = ../Classes/OpeningAnimation.cpp; sourceTree = "<group>"; };
@@ -377,6 +386,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2606FA92195023E900FF577D /* MediaPlayer.framework in Frameworks */,
 				1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */,
 				1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */,
@@ -439,6 +449,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2606FA88195023B700FF577D /* PlayVideoLayer.cpp */,
+				2606FA89195023B700FF577D /* PlayVideoLayer.h */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
@@ -505,6 +517,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2606FA91195023E900FF577D /* MediaPlayer.framework */,
 				D6B0611A1803AB670077942B /* CoreMotion.framework */,
 				503AE11A17EB9C5A00D1A890 /* IOKit.framework */,
 				503AE11117EB99EE00D1A890 /* libcurl.dylib */,
@@ -572,6 +585,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2606FA8E195023C200FF577D /* cocosvideo.mp4 */,
 				6622566319501F8A00EBC69D /* background.png */,
 				6622566419501F8A00EBC69D /* banner_01.jpg */,
 				6622566519501F8A00EBC69D /* banner_02.jpg */,
@@ -794,6 +808,7 @@
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				6622568B19501F8A00EBC69D /* britanic bold.ttf in Resources */,
+				2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */,
 				662256A719501F8A00EBC69D /* picture01.jpg in Resources */,
 				662256A519501F8A00EBC69D /* mystic.plist in Resources */,
 				6622569D19501F8A00EBC69D /* icon1.png in Resources */,
@@ -845,6 +860,7 @@
 				662256A219501F8A00EBC69D /* icon3.png in Resources */,
 				662256B619501F8A00EBC69D /* text_light.png in Resources */,
 				6622568419501F8A00EBC69D /* banner_02.jpg in Resources */,
+				2606FA90195023C200FF577D /* cocosvideo.mp4 in Resources */,
 				6622569019501F8A00EBC69D /* CloseSelected.png in Resources */,
 				6622568E19501F8A00EBC69D /* CloseNormal.png in Resources */,
 				6622568819501F8A00EBC69D /* banner_04.jpg in Resources */,
@@ -862,6 +878,7 @@
 				265BB9B11948546C00D9A051 /* TextEffector.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				2606FA8A195023B700FF577D /* PlayVideoLayer.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
@@ -885,6 +902,7 @@
 				26F7698519455D8F00723075 /* AdLayer.cpp in Sources */,
 				26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */,
 				265BB9AC19484FE200D9A051 /* OpeningAnimation.cpp in Sources */,
+				2606FA8B195023B700FF577D /* PlayVideoLayer.cpp in Sources */,
 				5087E75817EB910900C73F5D /* HelloWorldScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				26F769781945530E00723075 /* MaskLayer.cpp in Sources */,
