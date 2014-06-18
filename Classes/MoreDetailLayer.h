@@ -11,10 +11,10 @@
 
 #include "cocos2d.h"
 
-class MoreDetailLayer : public cocos2d::LayerColor{
+class MoreDetailLayer : public cocos2d::Layer{
 public:
-    static MoreDetailLayer* create();
-    bool init();
+    CREATE_FUNC(MoreDetailLayer);
+    virtual bool init();
     virtual void onEnter();
     virtual void onExit();
 };

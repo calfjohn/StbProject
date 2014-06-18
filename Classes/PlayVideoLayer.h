@@ -1,3 +1,4 @@
+/*
 //
 //  PlayVideoLayer.h
 //  stbProject
@@ -22,7 +23,7 @@ public:
     virtual bool init();
     /*
      ==========menuCallback============
-     */
+     * /
     void menuResourceVideoCallback(Ref* sender);
     void menuFullScreenCallback(Ref* sender);
     void menuPauseCallback(Ref* sender);
@@ -37,4 +38,5 @@ private:
     Layout* _widget;
 };
 
-#endif /* defined(__stbProject__PlayVideoLayer__) */
+#endif /* defined(__stbProject__PlayVideoLayer__) * /
+*/

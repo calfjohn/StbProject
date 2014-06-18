@@ -1,3 +1,4 @@
+/*
 //
 //  PlayVideoLayer.cpp
 //  stbProject
@@ -50,3 +51,4 @@ void PlayVideoLayer::createVideo()
     _videoPlayer->setContentSize(Size(800, 600));
     this->addChild(_videoPlayer);
 }
+*/

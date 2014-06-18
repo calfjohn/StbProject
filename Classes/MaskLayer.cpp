@@ -51,7 +51,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
         m_moreDetailLayer->setVisible(true);
         auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
         m_moreDetailLayer->setScale(0.4f);
-        auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.8f);
+        auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
         m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
         }), NULL));
     return true;
