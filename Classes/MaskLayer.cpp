@@ -59,7 +59,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
 
 void MaskLayer::onEnter()
 {
-    Layer::onEnter();
+    Layer::onEnter();/*
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     auto myListener = EventListenerTouchOneByOne::create();
     myListener->setSwallowTouches(true);
@@ -79,7 +79,7 @@ void MaskLayer::onEnter()
         }
         return true;
     };
-    dispatcher->addEventListenerWithSceneGraphPriority(myListener, this);
+    dispatcher->addEventListenerWithSceneGraphPriority(myListener, this);*/
 }
 
 void MaskLayer::onExit()

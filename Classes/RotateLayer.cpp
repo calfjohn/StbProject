@@ -10,6 +10,7 @@
 #include "TextEffector.h"
 #include "PlayVideoLayer.h"
 #include "MaskLayer.h"
+#include "HelloWorldScene.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -165,10 +166,6 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         Director::getInstance()->end();
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
-        CCLOG("enter pressed");
-        MessageBox("enter", "pressed");
-    }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         MessageBox("down", "pressed");
     }
@@ -201,7 +198,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         Director::getInstance()->getRunningScene()->removeAllChildrenWithCleanup(true);
         Director::getInstance()->getRunningScene()->addChild(SetTopBoxMainScene::create());
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
         for(auto i = 0; i < 4; i++){
             if (iconGroup.at(i)->getTag() == 0){
                 switch (i){
@@ -210,8 +207,12 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                         //this->addChild(PlayVideoLayer::create());
                         break;
                     case 1:
+                    {
                         //MessageBox("game", "pressed");
-                        this->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
+                        auto newScene = HelloWorld::createScene();
+                        Director::getInstance()->replaceScene(newScene);
+                        newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
+                    }
                         break;
                     case 2:
                         MessageBox("internet", "pressed");
