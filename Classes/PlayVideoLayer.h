@@ -1,4 +1,4 @@
-/*
+
 //
 //  PlayVideoLayer.h
 //  stbProject
@@ -14,6 +14,7 @@
 #include "extensions/cocos-ext.h"
 #include "ui/CocosGUI.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
@@ -23,7 +24,7 @@ public:
     virtual bool init();
     /*
      ==========menuCallback============
-     * /
+     */
     void menuResourceVideoCallback(Ref* sender);
     void menuFullScreenCallback(Ref* sender);
     void menuPauseCallback(Ref* sender);
@@ -34,9 +35,9 @@ public:
 private:
     void createVideo();
     experimental::ui::VideoPlayer* _videoPlayer;
+
     Rect _visibleRect;
     Layout* _widget;
 };
-
-#endif /* defined(__stbProject__PlayVideoLayer__) * /
-*/
+#endif
+#endif /*defined(__stbProject__PlayVideoLayer__) */

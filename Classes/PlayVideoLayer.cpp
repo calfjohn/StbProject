@@ -1,13 +1,14 @@
-/*
+
 //
 //  PlayVideoLayer.cpp
 //  stbProject
 //
-//  Created by LiuYuye on 14-6-17.
+//  Created by EnCaL on 14-6-17.
 //
 //
 
 #include "PlayVideoLayer.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 USING_NS_CC;
 using namespace cocos2d::experimental::ui;
 
@@ -24,11 +25,9 @@ bool PlayVideoLayer::init()
     resourceVideo->setPosition(Vec2(_visibleRect.origin.x + _visibleRect.size.width - 10,_visibleRect.origin.y + 50));
     
     createVideo();
-    if (_videoPlayer)
-    {
-        _videoPlayer->setFileName("cocosvideo.mp4");
-        _videoPlayer->play();
-    }
+    
+    menuResourceVideoCallback(NULL);
+    
     return true;
 }
 
@@ -51,4 +50,4 @@ void PlayVideoLayer::createVideo()
     _videoPlayer->setContentSize(Size(800, 600));
     this->addChild(_videoPlayer);
 }
-*/
+#endif
