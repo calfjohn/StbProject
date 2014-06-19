@@ -34,7 +34,7 @@ bool HelloWorld::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    auto bg = Sprite::create("moreDetail/test_background.png");
+    auto bg = Sprite::create("background.png");
     this->addChild(bg);
     bg->setPosition(Vec2(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
     return true;
