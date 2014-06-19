@@ -40,6 +40,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     m_moreDetailLayer = MoreDetailLayer::create();
     this->addChild(m_moreDetailLayer);
     m_moreDetailLayer->setVisible(false);
+    m_moreDetailLayer->setPreMaskLayer(this);
         
     m_pic = pic;
     this->addChild(pic);
@@ -57,32 +58,17 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     return true;
 }
 
-void MaskLayer::onEnter()
+void MaskLayer::closeMe()
 {
-    Layer::onEnter();/*
-    auto dispatcher = Director::getInstance()->getEventDispatcher();
-    auto myListener = EventListenerTouchOneByOne::create();
-    myListener->setSwallowTouches(true);
-    myListener->onTouchBegan = [=](Touch* touch, Event* event){
-        if (m_moreDetailLayer->isVisible()){
-            auto winSize = Director::getInstance()->getWinSize();
-            auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 360.0f, -90.0f, 0.0f, 0.0f);
-            m_moreDetailLayer->setScale(0.8f);
-            auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.4f);
-            m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL),CallFunc::create([this](){
-                    m_pic->setVisible(true);
-                    auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
-                    m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
-                        this->removeFromParentAndCleanup(true);
-                    }), NULL));
-                }) , NULL));
-        }
-        return true;
-    };
-    dispatcher->addEventListenerWithSceneGraphPriority(myListener, this);*/
-}
-
-void MaskLayer::onExit()
-{
-    Layer::onExit();
+    auto winSize = Director::getInstance()->getWinSize();
+    auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 360.0f, -90.0f, 0.0f, 0.0f);
+    m_moreDetailLayer->setScale(0.8f);
+    auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.4f);
+    m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL),CallFunc::create([this](){
+        m_pic->setVisible(true);
+        auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
+        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
+            this->removeFromParentAndCleanup(true);
+        }), NULL));
+    }) , NULL));
 }

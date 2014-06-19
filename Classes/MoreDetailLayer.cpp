@@ -7,6 +7,7 @@
 //
 
 #include "MoreDetailLayer.h"
+#include "MaskLayer.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -112,7 +113,7 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
 {
     
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        Director::getInstance()->end();
+        _preMaskLater->closeMe();
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
         CCLOG("enter pressed");
@@ -140,7 +141,6 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
 
 void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
-    //一般只管定义状态
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
         selectedLightSprite->setVisible(true);

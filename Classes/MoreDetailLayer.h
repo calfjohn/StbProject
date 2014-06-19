@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-
+class MaskLayer;
 class MoreDetailLayer : public cocos2d::Layer{
 public:
     CREATE_FUNC(MoreDetailLayer);
@@ -26,6 +26,7 @@ public:
     // remote control event
     void onFocusChanged(cocos2d::ui::Widget* widgetLostFocus, cocos2d::ui::Widget* widgetGetFocus);
     void onKeyboardReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
+    void setPreMaskLayer(MaskLayer* maskLayer){_preMaskLater = maskLayer;}
 private:
     cocos2d::ui::Widget *_widget;
     cocos2d::EventListenerFocus *_eventListener;
@@ -33,6 +34,7 @@ private:
     cocos2d::Sprite* selectedLightSprite;
     cocos2d::Sprite* playSprite;
     cocos2d::Point _beginPoint;
+    MaskLayer* _preMaskLater;
 };
 
 #endif /* defined(__MyCppGame__MoreDetailLayer__) */

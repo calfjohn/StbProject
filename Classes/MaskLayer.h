@@ -16,8 +16,7 @@ class MaskLayer : public cocos2d::Layer{
 public:
     static MaskLayer* create(cocos2d::Sprite* pic);
     bool init(cocos2d::Sprite* pic);
-    virtual void onEnter();
-    virtual void onExit();
+    void closeMe();
 private:
     cocos2d::Sprite *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
