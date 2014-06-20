@@ -16,11 +16,15 @@ public:
     virtual void onEnter() override;
     virtual void onExit() override;
         
-    static cellTv* createNode(const std::string& filename, float globalZorder);
-
+    static cellTv* createNode(const std::string& filename, float globalZorder, bool withCover = true);
+    
     void runRotateAction();
 
-    void runMoveAction();
+    void rotateDelay(int delayTime);
+    
+    void moveToDestination();
+    
+    void moveToSource();
     
     void setSourcePosition(Vec2 source){_source = source;}
     
@@ -33,6 +37,9 @@ public:
     void setDelayTime(float time){_time=time;}
     
     float getDelayTime(){return _time;}
+    
+    void setCoverVisible();
+
 protected:
     Vec2 _source;
     Vec2 _destination;

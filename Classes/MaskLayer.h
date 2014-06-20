@@ -32,6 +32,8 @@ protected:
     
     void createCellTv2();
     
+    void callback20();
+    
     void callback21();
     
     void callback22();
