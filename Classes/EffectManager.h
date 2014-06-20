@@ -11,4 +11,12 @@
 
 #include <iostream>
 
+class EffectManager{
+public:
+    void lazyInit();
+    void initAnimation();
+};
+
+extern EffectManager g_effectManager;
+
 #endif /* defined(__stbProject__EffectManager__) */
