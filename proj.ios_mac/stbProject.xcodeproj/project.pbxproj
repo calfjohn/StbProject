@@ -38,8 +38,6 @@
 		26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26B7AF9E1946AF67009893DA /* RotateLayer.cpp */; };
 		26C1458019540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
 		26C1458119540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
-		26C14584195415EF00EB091C /* language_cn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26C14583195415EF00EB091C /* language_cn.xml */; };
-		26C14585195415EF00EB091C /* language_cn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26C14583195415EF00EB091C /* language_cn.xml */; };
 		26C1458D19542B2500EB091C /* testbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1458C19542B2500EB091C /* testbg.png */; };
 		26C1458E19542B2500EB091C /* testbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1458C19542B2500EB091C /* testbg.png */; };
 		26F769771945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
@@ -325,7 +323,6 @@
 		26B7AF9E1946AF67009893DA /* RotateLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotateLayer.cpp; path = ../Classes/RotateLayer.cpp; sourceTree = "<group>"; };
 		26B7AF9F1946AF67009893DA /* RotateLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateLayer.h; path = ../Classes/RotateLayer.h; sourceTree = "<group>"; };
 		26C1457F19540F1000EB091C /* selectedBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBlock.png; sourceTree = "<group>"; };
-		26C14583195415EF00EB091C /* language_cn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = language_cn.xml; sourceTree = "<group>"; };
 		26C1458C19542B2500EB091C /* testbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testbg.png; sourceTree = "<group>"; };
 		26F769731945530E00723075 /* MaskLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLayer.cpp; sourceTree = "<group>"; };
 		26F769741945530E00723075 /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
@@ -628,7 +625,6 @@
 				6622566319501F8A00EBC69D /* background.png */,
 				6622566419501F8A00EBC69D /* banner_01.jpg */,
 				6622566519501F8A00EBC69D /* banner_02.jpg */,
-				26C14583195415EF00EB091C /* language_cn.xml */,
 				6622566619501F8A00EBC69D /* banner_03.jpg */,
 				6622566719501F8A00EBC69D /* banner_04.jpg */,
 				6622566819501F8A00EBC69D /* board.png */,
@@ -833,7 +829,6 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				6622569119501F8A00EBC69D /* Comet.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
-				26C14584195415EF00EB091C /* language_cn.xml in Resources */,
 				6622568719501F8A00EBC69D /* banner_04.jpg in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				662256AF19501F8A00EBC69D /* text_effect.plist in Resources */,
@@ -917,7 +912,6 @@
 				6622569019501F8A00EBC69D /* CloseSelected.png in Resources */,
 				6622568E19501F8A00EBC69D /* CloseNormal.png in Resources */,
 				6622568819501F8A00EBC69D /* banner_04.jpg in Resources */,
-				26C14585195415EF00EB091C /* language_cn.xml in Resources */,
 				662256A019501F8A00EBC69D /* icon2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

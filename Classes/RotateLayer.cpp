@@ -209,7 +209,8 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                     case 1:
                     {
                         //MessageBox("game", "pressed");
-                        auto newScene = HelloWorld::createScene();
+//                        auto newScene = HelloWorld::createScene();
+                        auto newScene = Scene::create();
                         Director::getInstance()->replaceScene(newScene);
                         newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
                     }
