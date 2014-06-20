@@ -27,3 +27,13 @@ void EffectManager::initAnimation(){
     cellAnimation->setLoops(1);
     AnimationCache::getInstance()->addAnimation(cellAnimation, "CellAnimation");
 }
+
+Animation* EffectManager::getAnimationByType(EffectTypes type){
+    switch (type) {
+        case EffectTypes::cellBlink:
+            return AnimationCache::getInstance()->getAnimation("CellAnimation");
+        default:
+            break;
+    }
+    return NULL;
+}

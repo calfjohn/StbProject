@@ -13,63 +13,63 @@
 	<key>configName</key>
 	<string>ExplodingRing(1)</string>
 	<key>duration</key>
-	<real>0.0099999997764825821</real>
+	<real>0.009999999776482582</real>
 	<key>emitterType</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorAlpha</key>
 	<real>0.8399999737739563</real>
 	<key>finishColorBlue</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorGreen</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorRed</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorVarianceAlpha</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorVarianceBlue</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorVarianceGreen</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishColorVarianceRed</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishParticleSize</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>finishParticleSizeVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>gravityx</key>
-	<real>1.1499999761581421</real>
+	<real>1.149999976158142</real>
 	<key>gravityy</key>
-	<real>1.5800000429153442</real>
+	<real>1.580000042915344</real>
 	<key>maxParticles</key>
 	<real>809</real>
 	<key>maxRadius</key>
 	<real>100</real>
 	<key>maxRadiusVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>minRadius</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>particleLifespan</key>
 	<real>0.05000000074505806</real>
 	<key>particleLifespanVariance</key>
 	<real>1.891226053237915</real>
 	<key>radialAccelVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>radialAcceleration</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>rotatePerSecond</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>rotatePerSecondVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>rotationStart</key>
 	<real>25.16105842590332</real>
 	<key>rotationStartVariance</key>
-	<real>11.228365898132324</real>
+	<real>11.22836589813232</real>
 	<key>sourcePositionVariancex</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>sourcePositionVariancey</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>speed</key>
-	<real>593.9453125</real>
+	<real>993.9453125</real>
 	<key>speedVariance</key>
 	<real>1</real>
 	<key>startColorAlpha</key>
@@ -77,25 +77,25 @@
 	<key>startColorBlue</key>
 	<real>1</real>
 	<key>startColorGreen</key>
-	<real>0.65227234363555908</real>
+	<real>0.6522723436355591</real>
 	<key>startColorRed</key>
-	<real>0.21383300423622131</real>
+	<real>0.2138330042362213</real>
 	<key>startColorVarianceAlpha</key>
 	<real>0.5</real>
 	<key>startColorVarianceBlue</key>
-	<real>0.38051757216453552</real>
+	<real>0.3805175721645355</real>
 	<key>startColorVarianceGreen</key>
-	<real>0.20000000298023224</real>
+	<real>0.2000000029802322</real>
 	<key>startColorVarianceRed</key>
-	<real>0.20000000298023224</real>
+	<real>0.2000000029802322</real>
 	<key>startParticleSize</key>
-	<real>42.830768585205078</real>
+	<real>42.83076858520508</real>
 	<key>startParticleSizeVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>tangentialAccelVariance</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>tangentialAcceleration</key>
-	<real>0.0</real>
+	<real>0</real>
 	<key>textureFileName</key>
 	<string>ExplodingRing(1).png</string>
 	<key>textureImageData</key>

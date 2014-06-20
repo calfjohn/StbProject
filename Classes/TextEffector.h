@@ -10,10 +10,18 @@
 #define __stbProject__TextEffector__
 
 #include "cocos2d.h"
+
+enum TextType{
+    Movie,
+    TV,
+    Game,
+    Setting
+};
+
 class TextEffector : public cocos2d::Layer{
 public:
-    static TextEffector* create();
-    bool init();
+    static TextEffector* create(TextType type);
+    bool init(TextType type);
     
 protected:
     float _rotateY = 90;

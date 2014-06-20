@@ -49,7 +49,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     
     Director::getInstance()->setDepthTest(false);
     Size visibleSize = Director::getInstance()->getVisibleSize();
-
+    
     /*  it should be somewhere else now--lijun modify it
     auto winSize = Director::getInstance()->getWinSize();
     auto maskLayer = LayerColor::create(Color4B(0, 0, 0, 160), winSize.width,winSize.height);
@@ -79,7 +79,9 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     initTvMap();
     
     createCellTv2();
-
+    
+    addLight();
+    
     return true;
 }
 
@@ -98,7 +100,15 @@ void MaskLayer::closeMe()
     }) , NULL));
 }
 
-
+void MaskLayer::addLight(){
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto rotateLight = Sprite::create("rotate_light.png");
+    rotateLight->setScale(2);
+    rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
+    rotateLight->setPosition(visibleSize.width/2,visibleSize.height + 100);
+    rotateLight->setGlobalZOrder(10);
+    this->addChild(rotateLight);
+}
 
 void MaskLayer::initTvMap()
 {
