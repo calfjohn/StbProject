@@ -8,6 +8,8 @@
 
 #include "OpeningAnimation.h"
 #include "RotateLayer.h"
+#include "ExplosionEffect.h"
+
 USING_NS_CC;
 
 OpeningAnimation* OpeningAnimation::create()
@@ -57,12 +59,14 @@ bool OpeningAnimation::init()
     progressLight->setPosition(Point(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y - 55));
     this->addChild(progressLight);
     
+    //auto explosionCallback =
     boardNode->runAction(Sequence::create(DelayTime::create(0.5),ScaleTo::create(0.7,1,0.25),CallFunc::create([&](){
-        progressLight->runAction(Spawn::create(EaseExponentialOut::create(ProgressTo::create(3.0f, 100)), Sequence::create(FadeIn::create(0.4f), CallFunc::create([&](){
-            this->addChild(RotateLayer::create());
-        }), nullptr), nullptr));
+        progressLight->runAction(Spawn::create(EaseExponentialOut::create(ProgressTo::create(3.0f, 100)),
+                                               Sequence::create(FadeIn::create(0.4f),
+                                                                CallFunc::create(std::bind(&OpeningAnimation::addExplosionCallback, this)),
+                                                                DelayTime::create(1.5),
+                                                                CallFunc::create(std::bind(&OpeningAnimation::addRotateLayerCallback, this)), nullptr), nullptr));
     }), nullptr));
-    
     
     emitter = ParticleSystemQuad::create("mystic.plist");
     addChild(emitter);
@@ -70,4 +74,16 @@ bool OpeningAnimation::init()
     emitter->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
 
     return true;
+}
+
+void OpeningAnimation::addExplosionCallback(){
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    auto explosion = ExplosionEffect::create();
+    explosion->setPosition(visibleSize.width/2 - 180 + origin.x,visibleSize.height/2 - 200 + origin.y);
+    this->addChild(explosion);
+}
+
+void OpeningAnimation::addRotateLayerCallback(){
+    this->addChild(RotateLayer::create());
 }

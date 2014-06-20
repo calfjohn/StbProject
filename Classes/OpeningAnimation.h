@@ -16,8 +16,10 @@ public:
     bool init();
 protected:
     cocos2d::ProgressTimer *progressLight;
-    
     cocos2d::ParticleSystemQuad*    emitter;
+    
+    void addExplosionCallback();
+    void addRotateLayerCallback();
 };
 
 #endif /* defined(__stbProject__OpeningAnimation__) */

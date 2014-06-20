@@ -29,6 +29,8 @@ protected:
     
     void createCellTv2();
     
+    void addLight();
+
     void callback20();
     
     void callback21();
