@@ -198,16 +198,16 @@ void MaskLayer::createCellTv2()
     
     Size s = Director::getInstance()->getVisibleSize();
     
-    Node *pTemp = Node::create();
+    Node *pTvNode = Node::create();
     
-    addChild(pTemp);
-    pTemp->setPosition(RectangleInterface::getCenterPosition());
-    pTemp->setTag(NODE_TAG);
-    pTemp->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    pTemp->setContentSize(RectangleInterface::getCellSize());
+    addChild(pTvNode);
+    pTvNode->setPosition(RectangleInterface::getCenterPosition());
+    pTvNode->setTag(NODE_TAG);
+    pTvNode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    pTvNode->setContentSize(RectangleInterface::getCellSize());
     
-    float marginX = s.width/2+100;
-    float marginY = s.height/2+100;
+    float marginX = s.width;
+    float marginY = s.height;
     
     float tempGlobalZ = 0.0;
     std::map<int, std::map<int, structCell>>::iterator iter1;
@@ -219,8 +219,8 @@ void MaskLayer::createCellTv2()
         {
             tempGlobalZ += 0.1;
             
-            auto sprite = cellTv::createNode((*iter2).second.fileName, tempGlobalZ);
-            pTemp->addChild(sprite, 1);
+            auto sprite = cellTv::createNode((*iter2).second.fileName, tempGlobalZ, (*iter2).second.type == 2);
+            pTvNode->addChild(sprite, 1);
             (*iter2).second.pNode = sprite;
             
             Vec2 destination = RectangleInterface::getPosition((*iter1).first, (*iter2).first);
@@ -278,24 +278,34 @@ void MaskLayer::createCellTv2()
             sprite->setSourcePosition(source);
             sprite->setDelayTime(time);
             sprite->setDestinationPosition(destination);
-            sprite->runMoveAction();
+            sprite->moveToDestination();
         }
     }
     
-    auto rotate_scale = Spawn::create(RotateBy::create(3, -30),
+    callback20();
+}
+
+void MaskLayer::callback20()
+{
+    Node *pNode = getChildByTag(NODE_TAG);
+    if (pNode == NULL) return;
+    
+    auto move_scale = Spawn::create(RotateBy::create(3, -30),
                                     ScaleTo::create(3, 1.5), NULL);
     
-    pTemp->runAction(Sequence::create(DelayTime::create(3), rotate_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL));
+    pNode->runAction(Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL));
 }
 
 void MaskLayer::callback21()
 {
     Node *pNode = getChildByTag(NODE_TAG);
+    if (pNode == NULL) return;
+    
     pNode->runAction(Sequence::create(
                                       Spawn::create(
-                                                    ScaleTo::create(0.5, 2),
+                                                    ScaleTo::create(0.5, 1.0),
                                                     RotateBy::create(0.5, Vec3(-30, 30, 5)),
-                                                    MoveBy::create(0.5, Vec2(200, 150)),
+                                                    MoveBy::create(0.5, Vec2(300, 250)),
                                                     NULL),
                                       DelayTime::create(0.1),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
@@ -305,10 +315,29 @@ void MaskLayer::callback21()
 void MaskLayer::callback22()
 {
     Node *pNode = getChildByTag(NODE_TAG);
+    if (pNode == NULL) return;
+    
+    std::map<int, structCell>::iterator iter;
+    for(int i = 1; i <=COL; i++)
+    {
+        for(int j = 1; j <=ROW; j++)
+        {
+            iter = _mapTv[j].find(i);
+            if( iter == _mapTv[j].end()) continue;
+            
+            cellTv *pcellTv = (cellTv* )(*iter).second.pNode;
+            if(pNode == NULL) continue;
+            
+            if((*iter).second.type == 1) continue;
+            
+            pcellTv->rotateDelay(i);
+        }
+    }
     
     pNode->runAction(Sequence::create(
-                                      MoveBy::create(10, Point(-250, -100)),
+                                      MoveBy::create(5.0, Point(-250, -100)),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
+                                      MoveBy::create(3.0, Point(-250, -100)),
                                       NULL)
                      );
 }
@@ -316,6 +345,7 @@ void MaskLayer::callback22()
 void MaskLayer::callback23()
 {
     Node *pNode = getChildByTag(NODE_TAG);
+    if (pNode == NULL) return;
     
     std::map<int, std::map<int, structCell>>::iterator iter1;
     std::map<int, structCell>::iterator iter2;
@@ -325,14 +355,14 @@ void MaskLayer::callback23()
         for(iter2 = tempMap.begin(); iter2 != tempMap.end(); ++iter2)
         {
             cellTv *pcellTv = (cellTv* )(*iter2).second.pNode;
-            float time = 1.5 + pcellTv->getDelayTime();
-            auto action = MoveTo::create(time, pcellTv->getSourcePosition());
-            pcellTv->runAction(EaseIn::create(action, time));
+            if(pNode == NULL) continue;
+            
+            pcellTv->moveToSource();
         }
     }
     
     pNode->runAction(Sequence::create(
-                                      DelayTime::create(2.0),
+                                      DelayTime::create(3.0),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback24,this)),
                                       NULL)
                      );
@@ -340,22 +370,13 @@ void MaskLayer::callback23()
 
 void MaskLayer::callback24()
 {
-    removeChildByTag(NODE_TAG);
+    Node *pNode = getChildByTag(NODE_TAG);
+    if (pNode == NULL) return;
     
-    Size s = Director::getInstance()->getVisibleSize();
+    pNode->setPosition(RectangleInterface::getCenterPosition());
+    pNode->setScale(1);
+    pNode->setRotation3D(Vec3::ZERO);
     
-    Node *pTemp = Node::create();
-    
-    addChild(pTemp);
-    pTemp->setPosition(RectangleInterface::getCenterPosition());
-    pTemp->setTag(NODE_TAG);
-    pTemp->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    pTemp->setContentSize(RectangleInterface::getCellSize());
-    
-    int marginX = s.width/2 + TEXTURE_WIDTH;
-    int marginY = s.height/2 + TEXTURE_HEIGHT;
-    
-    float tempGlobalZ = 0.0;
     std::map<int, std::map<int, structCell>>::iterator iter1;
     std::map<int, structCell>::iterator iter2;
     for(iter1 = _mapTv.begin(); iter1 != _mapTv.end(); ++iter1)
@@ -363,67 +384,11 @@ void MaskLayer::callback24()
         std::map<int, structCell> &tempMap = (*iter1).second;
         for(iter2 = tempMap.begin(); iter2 != tempMap.end(); ++iter2)
         {
-            tempGlobalZ += 0.1;
-            auto sprite = cellTv::createNode((*iter2).second.fileName, tempGlobalZ);
-            pTemp->addChild(sprite);
+            cellTv *pNode = (cellTv *)(*iter2).second.pNode;
+            if(pNode == NULL) continue;
             
-            Vec2 destination = RectangleInterface::getPosition((*iter1).first, (*iter2).first);
-            Vec2 source =destination;
-            
-            double degree = RectangleInterface::ConvertRadiansToDegrees(std::atan(destination.y/destination.x));
-            if (destination.x >= 0 && destination.y >= 0) {
-                if (degree < 45) {
-                    //from right
-                    source.x += marginX;
-                }
-                else{
-                    //from top
-                    source.y += marginY;
-                }
-            }
-            else if (destination.x <= 0 && destination.y >= 0){
-                degree += 180;
-                if (degree < 135) {
-                    //from top
-                    source.y += marginY;
-                }
-                else{
-                    //from left
-                    source.x -= marginX;
-                }
-            }
-            else if (destination.x <=0 && destination.y <= 0){
-                degree += 180;
-                if (degree < 225) {
-                    //from left
-                    source.x -= marginX;
-                }
-                else{
-                    //from bottom
-                    source.y -= marginY;
-                }
-            }
-            else if (destination.x >=0 && destination.y <= 0){
-                degree += 360;
-                if (degree < 315) {
-                    //from bottom
-                    source.y -= marginY;
-                }
-                else{
-                    //from right
-                    source.x += marginX;
-                }
-            }
-            
-            float time = sqrt( powf(destination.x, 2) + powf(destination.y, 2) ) / TEXTURE_WIDTH;
-            time += CCRANDOM_0_1();
-            
-            sprite->setPosition(source);
-            sprite->setSourcePosition(source);
-            sprite->setDelayTime(time);
-            sprite->setDestinationPosition(destination);
-            sprite->runMoveAction();
-            sprite->runRotateAction();
+            pNode->moveToDestination();
+            pNode->runRotateAction();
         }
     }
 }
