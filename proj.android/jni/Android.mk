@@ -15,7 +15,10 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/RotateLayer.cpp \
                    ../../Classes/SetTopBoxMainScene.cpp \
                    ../../Classes/OpeningAnimation.cpp \
-                   ../../Classes/TextEffector.cpp
+                   ../../Classes/TextEffector.cpp \
+                   ../../Classes/RectangleInterface.cpp \
+                   ../../Classes/cellTv.cpp
+                   
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
