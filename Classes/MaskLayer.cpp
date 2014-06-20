@@ -10,8 +10,8 @@
 #include "MoreDetailLayer.h"
 #include "cellTv.h"
 #include "RectangleInterface.h"
-
 USING_NS_CC;
+using namespace cocos2d::ui;
 
 #define FIRST_TIME 0.25f
 #define SECOND_TIME 0.5f
@@ -25,6 +25,17 @@ USING_NS_CC;
 #define TEXTURE_HEIGHT 133
 
 #define CELL_SPACE 5
+
+std::string mapStr[8]{
+    "XXXXXXXXXXXXX",
+    "X001000000000",
+    "X011100111100",
+    "X000110111110",
+    "X011111111100",
+    "X111111111110",
+    "X011111100001",
+    "X011001000111"
+};
 
 MaskLayer* MaskLayer::create(cocos2d::Sprite* pic)
 {
@@ -49,7 +60,8 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     
     Director::getInstance()->setDepthTest(false);
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
     /*  it should be somewhere else now--lijun modify it
     auto winSize = Director::getInstance()->getWinSize();
     auto maskLayer = LayerColor::create(Color4B(0, 0, 0, 160), winSize.width,winSize.height);
@@ -74,6 +86,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
         m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
         }), NULL));
 */
+    
     RectangleInterface::initialize(ROW, COL, Size(TEXTURE_WIDTH, TEXTURE_HEIGHT), CELL_SPACE, Vec2(visibleSize.width/2, visibleSize.height/2));
     
     initTvMap();
@@ -81,21 +94,21 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     createCellTv2();
     
     addLight();
-    
     return true;
 }
 
-void MaskLayer::closeMe()
+void MaskLayer::closeMoreDetailLayer()
 {
     auto winSize = Director::getInstance()->getWinSize();
     auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 360.0f, -90.0f, 0.0f, 0.0f);
     m_moreDetailLayer->setScale(0.8f);
     auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.4f);
-    m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL),CallFunc::create([this](){
+    m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL), CallFunc::create([this](){
         m_pic->setVisible(true);
         auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
-        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
-            this->removeFromParentAndCleanup(true);
+        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([&](){
+            _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
+            _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
         }), NULL));
     }) , NULL));
 }
@@ -210,11 +223,15 @@ void MaskLayer::createCellTv2()
     
     Node *pTvNode = Node::create();
     
-    addChild(pTvNode);
+    this->addChild(pTvNode);
     pTvNode->setPosition(RectangleInterface::getCenterPosition());
     pTvNode->setTag(NODE_TAG);
     pTvNode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     pTvNode->setContentSize(RectangleInterface::getCellSize());
+    
+    selectedSprite = Sprite::create("selectedBlock.png");
+    pTvNode->addChild(selectedSprite);
+    selectedSprite->setVisible(false);
     
     float marginX = s.width;
     float marginY = s.height;
@@ -401,4 +418,126 @@ void MaskLayer::callback24()
             pNode->runRotateAction();
         }
     }
+    
+    initRemoteControl();
+    
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    auto testBg = Sprite::create("testbg.png");
+    this->addChild(testBg);
+    testBg->setPosition(visibleSize * 0.5);
+}
+
+void MaskLayer::initRemoteControl()
+{
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+
+    VBox *outerLayout = VBox::create();
+    outerLayout->setPosition(Point(0, visibleSize.height));
+    outerLayout->setContentSize(Size(visibleSize.width, visibleSize.height));
+    LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
+    layoutParams->setMargin(Margin(0, 0, 0, 0));
+    
+    for(int y = 1; y <= ROW; y++){
+        HBox *bottomLayout = HBox::create();
+        bottomLayout->setLayoutParameter(layoutParams);
+        if (1 == y){
+            bottomLayout->setFocused(true);
+            _widget = bottomLayout;
+        }
+        for(int x = 1; x <= COL; x++){
+            if (mapStr[y][x] == '1'){
+                ImageView *imageView = ImageView::create();
+                imageView->setLayoutParameter(layoutParams);
+                bottomLayout->addChild(imageView);
+                imageView->setTag(x * 100 + y);
+            }
+        }
+        outerLayout->addChild(bottomLayout);
+    }
+    this->addChild(outerLayout);
+    //register focus event
+    _eventListener = EventListenerFocus::create();
+    _eventListener->onFocusChanged = CC_CALLBACK_2(MaskLayer::onFocusChanged, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
+    //register the keyboard event
+    _keyboardListener = EventListenerKeyboard::create();
+    _keyboardListener->onKeyReleased = CC_CALLBACK_2(MaskLayer::onKeyboardReleased, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
+}
+
+void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
+{
+    Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
+    if (!getLayout && widgetGetFocus) {
+        int x = widgetGetFocus->getTag() / 100;
+        int y = widgetGetFocus->getTag() % 100;
+        if (_mapTv[y][x].pNode){
+            _mapTv[y][x].pNode->setScale(1.1f);
+            _mapTv[y][x].pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
+            m_pic = (Sprite*)_mapTv[y][x].pNode;
+            selectedSprite->setVisible(true);
+            selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
+        }
+    }
+    Layout *loseLayout = dynamic_cast<Layout*>(widgetLostFocus);
+    if (!loseLayout && widgetLostFocus) {
+        /*
+        int x = widgetLostFocus->getTag() / 100;
+        int y = widgetLostFocus->getTag() % 100;
+        if (_mapTv[y][x].pNode){
+            _mapTv[y][x].pNode->setScale(1.0f);
+        }*/
+    }
+}
+
+void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
+{
+    if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
+        //_preMaskLater->closeMe();
+        Node* pTvNode = this->getChildByTag(NODE_TAG);
+        log("Zorder  %f %f", pTvNode->getGlobalZOrder(), pTvNode->getLocalZOrder() );
+        
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
+        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
+        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
+        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
+        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
+        MessageBox("menu", "pressed");
+    }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
+        auto winSize = Director::getInstance()->getWinSize();
+        auto maskLayer = LayerColor::create(Color4B(0, 0, 0, 160), winSize.width,winSize.height);
+        this->addChild(maskLayer, 10086);
+        
+        m_moreDetailLayer = MoreDetailLayer::create();
+        this->addChild(m_moreDetailLayer, 100);
+        m_moreDetailLayer->setVisible(false);
+        m_moreDetailLayer->setPreMaskLayer(this);
+        
+        auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
+        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
+            m_pic->setVisible(false);
+            m_moreDetailLayer->setVisible(true);
+            auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
+            m_moreDetailLayer->setScale(0.4f);
+            auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
+            m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
+        }), NULL));
+    }
+}
+
+void MaskLayer::onExit()
+{
+    Layer::onExit();
+    _eventDispatcher->removeEventListener(_eventListener);
+    _eventDispatcher->removeEventListener(_keyboardListener);
 }
