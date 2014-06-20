@@ -72,7 +72,7 @@ bool RotateLayer::init()
             }
         }), nullptr));
     }
-    _textEffector = TextEffector::create();
+    _textEffector = TextEffector::create(TextType::TV);
     this->addChild(_textEffector);
     
     /* ==============test============== */
@@ -179,7 +179,24 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             if (_textEffector){
                 _textEffector->removeFromParentAndCleanup(true);
             }
-            _textEffector = TextEffector::create();
+            for(auto i = 0; i < 4; i++){
+                if (iconGroup.at(i)->getTag() == 0){
+                    switch (i){
+                        case 0:
+                            _textEffector = TextEffector::create(TextType::TV);
+                            break;
+                        case 1:
+                            _textEffector = TextEffector::create(TextType::Game);
+                            break;
+                        case 2:
+                            _textEffector = TextEffector::create(TextType::Movie);
+                            break;
+                        case 3:
+                            _textEffector = TextEffector::create(TextType::Setting);
+                            break;
+                    }
+                }
+            }
             this->addChild(_textEffector);
         }
     }
@@ -190,7 +207,24 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             if (_textEffector){
                 _textEffector->removeFromParentAndCleanup(true);
             }
-            _textEffector = TextEffector::create();
+            for(auto i = 0; i < 4; i++){
+                if (iconGroup.at(i)->getTag() == 0){
+                    switch (i){
+                        case 0:
+                            _textEffector = TextEffector::create(TextType::TV);
+                            break;
+                        case 1:
+                            _textEffector = TextEffector::create(TextType::Game);
+                            break;
+                        case 2:
+                            _textEffector = TextEffector::create(TextType::Movie);
+                            break;
+                        case 3:
+                            _textEffector = TextEffector::create(TextType::Setting);
+                            break;
+                    }
+                }
+            }
             this->addChild(_textEffector);
         }
     }

@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "SetTopBoxMainScene.h"
+#include "EffectManager.h"
 
 USING_NS_CC;
 
@@ -35,6 +36,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
     auto scene = SetTopBoxMainScene::createScene();
 
+    g_effectManager.lazyInit();
+    
     // run
     director->runWithScene(scene);
 
