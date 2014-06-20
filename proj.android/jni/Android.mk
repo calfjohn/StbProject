@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/OpeningAnimation.cpp \
                    ../../Classes/TextEffector.cpp \
                    ../../Classes/RectangleInterface.cpp \
-                   ../../Classes/cellTv.cpp
+                   ../../Classes/cellTv.cpp 
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

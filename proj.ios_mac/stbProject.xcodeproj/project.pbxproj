@@ -36,6 +36,12 @@
 		265BB9B21948546C00D9A051 /* TextEffector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9AF1948546C00D9A051 /* TextEffector.cpp */; };
 		26B7AFA01946AF67009893DA /* RotateLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26B7AF9E1946AF67009893DA /* RotateLayer.cpp */; };
 		26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26B7AF9E1946AF67009893DA /* RotateLayer.cpp */; };
+		26C1458019540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
+		26C1458119540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
+		26C14584195415EF00EB091C /* language_cn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26C14583195415EF00EB091C /* language_cn.xml */; };
+		26C14585195415EF00EB091C /* language_cn.xml in Resources */ = {isa = PBXBuildFile; fileRef = 26C14583195415EF00EB091C /* language_cn.xml */; };
+		26C1458D19542B2500EB091C /* testbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1458C19542B2500EB091C /* testbg.png */; };
+		26C1458E19542B2500EB091C /* testbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1458C19542B2500EB091C /* testbg.png */; };
 		26F769771945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
 		26F769781945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
 		26F769791945530E00723075 /* MoreDetailLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769751945530E00723075 /* MoreDetailLayer.cpp */; };
@@ -318,6 +324,9 @@
 		265BB9B01948546C00D9A051 /* TextEffector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextEffector.h; path = ../Classes/TextEffector.h; sourceTree = "<group>"; };
 		26B7AF9E1946AF67009893DA /* RotateLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotateLayer.cpp; path = ../Classes/RotateLayer.cpp; sourceTree = "<group>"; };
 		26B7AF9F1946AF67009893DA /* RotateLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateLayer.h; path = ../Classes/RotateLayer.h; sourceTree = "<group>"; };
+		26C1457F19540F1000EB091C /* selectedBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBlock.png; sourceTree = "<group>"; };
+		26C14583195415EF00EB091C /* language_cn.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = language_cn.xml; sourceTree = "<group>"; };
+		26C1458C19542B2500EB091C /* testbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testbg.png; sourceTree = "<group>"; };
 		26F769731945530E00723075 /* MaskLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLayer.cpp; sourceTree = "<group>"; };
 		26F769741945530E00723075 /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
 		26F769751945530E00723075 /* MoreDetailLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreDetailLayer.cpp; sourceTree = "<group>"; };
@@ -609,6 +618,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				26C1458C19542B2500EB091C /* testbg.png */,
+				26C1457F19540F1000EB091C /* selectedBlock.png */,
 				ACDDE62A1952EDBA003C7847 /* tvMap.plist */,
 				ACDDE62B1952EDBA003C7847 /* tvMap.png */,
 				66A6758A1951319F00270337 /* MainMenu */,
@@ -617,6 +628,7 @@
 				6622566319501F8A00EBC69D /* background.png */,
 				6622566419501F8A00EBC69D /* banner_01.jpg */,
 				6622566519501F8A00EBC69D /* banner_02.jpg */,
+				26C14583195415EF00EB091C /* language_cn.xml */,
 				6622566619501F8A00EBC69D /* banner_03.jpg */,
 				6622566719501F8A00EBC69D /* banner_04.jpg */,
 				6622566819501F8A00EBC69D /* board.png */,
@@ -821,6 +833,7 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				6622569119501F8A00EBC69D /* Comet.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				26C14584195415EF00EB091C /* language_cn.xml in Resources */,
 				6622568719501F8A00EBC69D /* banner_04.jpg in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				662256AF19501F8A00EBC69D /* text_effect.plist in Resources */,
@@ -845,6 +858,7 @@
 				6622568519501F8A00EBC69D /* banner_03.jpg in Resources */,
 				6622568319501F8A00EBC69D /* banner_02.jpg in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				26C1458019540F1000EB091C /* selectedBlock.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
@@ -855,6 +869,7 @@
 				662256B519501F8A00EBC69D /* text_light.png in Resources */,
 				6622569F19501F8A00EBC69D /* icon2.png in Resources */,
 				2606FAA619504F6200FF577D /* moreDetail in Resources */,
+				26C1458D19542B2500EB091C /* testbg.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				6622569519501F8A00EBC69D /* countdown_12.png in Resources */,
 				662256AD19501F8A00EBC69D /* star_up.plist in Resources */,
@@ -868,9 +883,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				662256AA19501F8A00EBC69D /* radioNormal.png in Resources */,
+				26C1458E19542B2500EB091C /* testbg.png in Resources */,
 				662256A419501F8A00EBC69D /* light.png in Resources */,
 				66A6758C1951319F00270337 /* MainMenu in Resources */,
 				662256A819501F8A00EBC69D /* picture01.jpg in Resources */,
+				26C1458119540F1000EB091C /* selectedBlock.png in Resources */,
 				ACDDE62F1952EDBA003C7847 /* tvMap.png in Resources */,
 				6622569A19501F8A00EBC69D /* HelloWorld.png in Resources */,
 				662256A619501F8A00EBC69D /* mystic.plist in Resources */,
@@ -900,6 +917,7 @@
 				6622569019501F8A00EBC69D /* CloseSelected.png in Resources */,
 				6622568E19501F8A00EBC69D /* CloseNormal.png in Resources */,
 				6622568819501F8A00EBC69D /* banner_04.jpg in Resources */,
+				26C14585195415EF00EB091C /* language_cn.xml in Resources */,
 				662256A019501F8A00EBC69D /* icon2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
