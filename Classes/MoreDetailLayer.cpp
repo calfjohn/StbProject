@@ -82,26 +82,6 @@ bool MoreDetailLayer::init()
     return true;
 }
 
-void MoreDetailLayer::onEnter()
-{
-    Layer::onEnter();
-    /*auto winSize = Director::getInstance()->getWinSize();
-    auto dispatcher = Director::getInstance()->getEventDispatcher();
-    auto myListener = EventListenerTouchOneByOne::create();
-    myListener->setSwallowTouches(true);
-    myListener->onTouchBegan = [=](Touch* touch, Event* event){
-        Point touchLocation = touch->getLocation();
-        touchLocation = this->getParent()->convertToNodeSpace(touchLocation);
-        Rect rect = Rect( (winSize.width - this->getContentSize().width * 0.8) / 2, (winSize.height - this->getContentSize().height * 0.8) / 2, this->getContentSize().width * 0.8, this->getContentSize().height * 0.8);
-        if (! rect.containsPoint(touchLocation)){
-            return false;
-        }
-        
-        return true;
-    };
-    dispatcher->addEventListenerWithSceneGraphPriority(myListener, this);*/
-}
-
 void MoreDetailLayer::onExit()
 {
     Layer::onExit();
@@ -113,7 +93,7 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
 {
     
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        _preMaskLater->closeMe();
+        _preMaskLater->closeMoreDetailLayer();
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
         CCLOG("enter pressed");

@@ -16,7 +16,6 @@ class MoreDetailLayer : public cocos2d::Layer{
 public:
     CREATE_FUNC(MoreDetailLayer);
     virtual bool init();
-    virtual void onEnter();
     virtual void onExit();
     
     virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
