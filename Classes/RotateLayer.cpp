@@ -243,9 +243,9 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                     case 1:
                     {
                         //MessageBox("game", "pressed");
-//                        auto newScene = HelloWorld::createScene();
-                        auto newScene = Scene::create();
-                        Director::getInstance()->replaceScene(newScene);
+                        auto newScene = HelloWorld::createScene();
+                        auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
+                        Director::getInstance()->replaceScene(FadeScene);
                         newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
                     }
                         break;
