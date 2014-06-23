@@ -106,9 +106,11 @@ void MaskLayer::closeMoreDetailLayer()
     auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.4f);
     m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL), CallFunc::create([this](){
         m_pic->setVisible(true);
+        m_pic->setLocalZOrder(recoverzOrder);
         auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
         auto moveTo = MoveTo::create(FIRST_TIME, recoverPoint);
-        m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, NULL), CallFunc::create([&](){
+        auto scaleTo = ScaleTo::create(FIRST_TIME, 1.0f);
+        m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([&](){
             this->getFocus();
         }), NULL));
     }) , RemoveSelf::create(), NULL));
@@ -509,33 +511,9 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        /*auto newScene = SetTopBoxMainScene::createScene();
+        auto newScene = SetTopBoxMainScene::createScene();
         auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
-        Director::getInstance()->replaceScene(FadeScene);*/
-        if (m_pic){
-            this->lostFocus();
-            auto winSize = Director::getInstance()->getWinSize();
-            
-            m_moreDetailLayer = MoreDetailLayer::create();
-            Director::getInstance()->getRunningScene()->addChild(m_moreDetailLayer);
-            m_moreDetailLayer->setVisible(false);
-            m_moreDetailLayer->setPreMaskLayer(this);
-            
-            auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-            auto moveTo = MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5));
-            recoverPoint = m_pic->getPosition();
-            recoverzOrder = m_pic->getLocalZOrder();
-            m_pic->setLocalZOrder(<#int localZOrder#>);
-            m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, NULL), CallFunc::create([this](){
-                m_pic->setVisible(false);
-                m_moreDetailLayer->setVisible(true);
-                auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
-                m_moreDetailLayer->setScale(0.4f);
-                auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
-                m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
-            }), NULL));
-        }
-
+        Director::getInstance()->replaceScene(FadeScene);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
@@ -556,15 +534,19 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         if (m_pic){
             this->lostFocus();
             auto winSize = Director::getInstance()->getWinSize();
-        
+            
             m_moreDetailLayer = MoreDetailLayer::create();
             Director::getInstance()->getRunningScene()->addChild(m_moreDetailLayer);
             m_moreDetailLayer->setVisible(false);
             m_moreDetailLayer->setPreMaskLayer(this);
-        
+            
             auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-            auto moveTo = MoveTo::create(FIRST_TIME, RectangleInterface::getCenterPosition());
-            m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, NULL), CallFunc::create([this](){
+            auto moveTo = MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5));
+            auto scaleTo = ScaleTo::create(FIRST_TIME, 3.0f);
+            recoverPoint = m_pic->getPosition();
+            recoverzOrder = m_pic->getLocalZOrder();
+            m_pic->setLocalZOrder(TOP_ZORDER);
+            m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([this](){
                 m_pic->setVisible(false);
                 m_moreDetailLayer->setVisible(true);
                 auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
