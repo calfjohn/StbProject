@@ -82,7 +82,7 @@ void OpeningAnimation::addExplosionCallback(){
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto explosion = ExplosionEffect::create();
-    explosion->setPosition(visibleSize.width/2 - 180 + origin.x, origin.y);
+    explosion->setPosition(visibleSize.width/2 - 200 + origin.x, origin.y);
     this->addChild(explosion);
 }
 
