@@ -22,22 +22,21 @@ class PlayVideoLayer : public cocos2d::Layer{
 public:
     CREATE_FUNC(PlayVideoLayer);
     virtual bool init();
-    /*
-     ==========menuCallback============
-     */
-    void menuResourceVideoCallback(Ref* sender);
-    void menuFullScreenCallback(Ref* sender);
-    void menuPauseCallback(Ref* sender);
-    void menuResumeCallback(Ref* sender);
-    void menuStopCallback(Ref* sender);
-    void menuHintCallback(Ref* sender);
+    virtual void onExit();
+    void playResourceVideo();
+    void pauseVideo();
+    void resumeVideo();
     
+    void onFocusChanged(cocos2d::ui::Widget* widgetLostFocus, cocos2d::ui::Widget* widgetGetFocus);
+    void onKeyboardReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
 private:
     void createVideo();
     experimental::ui::VideoPlayer* _videoPlayer;
 
     Rect _visibleRect;
-    Layout* _widget;
+    cocos2d::ui::Widget *_widget;
+    cocos2d::EventListenerFocus *_eventListener;
+    cocos2d::EventListenerKeyboard* _keyboardListener;
 };
 #endif
 #endif /*defined(__stbProject__PlayVideoLayer__) */

@@ -28,7 +28,7 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
     auto node = cellTv::create();
     
     Sprite* pcellTv = Sprite::createWithSpriteFrameName(filename);
-    pcellTv->setGlobalZOrder(globalZorder);
+    pcellTv->setLocalZOrder(globalZorder);
     
     node->addChild(pcellTv);
     
@@ -36,7 +36,7 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
         Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
         pCover->setTag(COVER_TAG);
         pCover->setOpacity(255*3/4);
-        pCover->setGlobalZOrder(globalZorder+0.01);
+        pCover->setLocalZOrder(globalZorder+0.01);
         node->addChild(pCover, 1);
     }
 
