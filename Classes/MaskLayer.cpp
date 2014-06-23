@@ -10,6 +10,7 @@
 #include "MoreDetailLayer.h"
 #include "cellTv.h"
 #include "RectangleInterface.h"
+#include "SetTopBoxMainScene.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -25,7 +26,7 @@ using namespace cocos2d::ui;
 #define TEXTURE_HEIGHT 133
 
 #define CELL_SPACE 5
-
+#define TOP_ZORDER 1000
 std::string mapStr[8]{
     "XXXXXXXXXXXXX",
     "X001000000000",
@@ -105,12 +106,14 @@ void MaskLayer::closeMoreDetailLayer()
     auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.4f);
     m_moreDetailLayer->runAction(Sequence::create(Spawn::create(actionOrb, actionScaleTo, NULL), CallFunc::create([this](){
         m_pic->setVisible(true);
+        m_pic->setLocalZOrder(recoverzOrder);
         auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
-        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([&](){
-            _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
-            _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
+        auto moveTo = MoveTo::create(FIRST_TIME, recoverPoint);
+        auto scaleTo = ScaleTo::create(FIRST_TIME, 1.0f);
+        m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([&](){
+            this->getFocus();
         }), NULL));
-    }) , NULL));
+    }) , RemoveSelf::create(), NULL));
 }
 
 void MaskLayer::addLight(){
@@ -119,7 +122,8 @@ void MaskLayer::addLight(){
     _rotateLight->setScale(2);
     _rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
     _rotateLight->setPosition(winSize.width/2-300,winSize.height + 100);
-    _rotateLight->setGlobalZOrder(10);
+//    _rotateLight->setGlobalZOrder(10);
+    _rotateLight->setLocalZOrder(1000);
     this->addChild(_rotateLight);
 }
 
@@ -331,7 +335,7 @@ void MaskLayer::callback21()
     auto flash = LayerColor::create(Color4B::WHITE);
     this->addChild(flash);
     
-    flash->setGlobalZOrder(10000);
+    flash->setLocalZOrder(100);
     auto flashAction = Sequence::create(
                                         FadeIn::create(delayTime/2),
                                         FadeOut::create(delayTime/2),
@@ -474,19 +478,31 @@ void MaskLayer::initRemoteControl()
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
     layoutParams->setMargin(Margin(0, 0, 0, 0));
     
+    bool isFirst = true;
+    Size blockSize;
     for(int y = 1; y <= ROW; y++){
         HBox *bottomLayout = HBox::create();
         bottomLayout->setLayoutParameter(layoutParams);
-        if (1 == y){
-            bottomLayout->setFocused(true);
-            _widget = bottomLayout;
-        }
         for(int x = 1; x <= COL; x++){
             if (mapStr[y][x] == '1'){
                 ImageView *imageView = ImageView::create();
                 imageView->setLayoutParameter(layoutParams);
                 bottomLayout->addChild(imageView);
                 imageView->setTag(x * 100 + y);
+                if (isFirst){
+                    m_pic = (Sprite*)_mapTv[y][x].pNode;
+                    imageView->setFocused(true);
+                    _widget = imageView;
+                    blockSize = _mapTv[y][x].pNode->getContentSize();
+                    
+                    selectedSprite->setVisible(true);
+                    selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
+                    selectedSprite->setLocalZOrder(100);
+                    
+                    isFirst = false;
+                }
+                imageView->setContentSize(blockSize);
+                imageView->setPosition(RectangleInterface::getPosition(y, x));
             }
         }
         outerLayout->addChild(bottomLayout);
@@ -500,6 +516,9 @@ void MaskLayer::initRemoteControl()
     _keyboardListener = EventListenerKeyboard::create();
     _keyboardListener->onKeyReleased = CC_CALLBACK_2(MaskLayer::onKeyboardReleased, this);
     _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
+    
+    //for test
+    this->setTouchEnabled(true);
 }
 
 void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
@@ -512,7 +531,6 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
             _mapTv[y][x].pNode->setScale(1.1f);
             _mapTv[y][x].pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
             m_pic = (Sprite*)_mapTv[y][x].pNode;
-            selectedSprite->setVisible(true);
             selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
         }
     }
@@ -530,10 +548,9 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        //_preMaskLater->closeMe();
-        Node* pTvNode = this->getChildByTag(NODE_TAG);
-        log("Zorder  %f %f", pTvNode->getGlobalZOrder(), pTvNode->getLocalZOrder() );
-        
+        auto newScene = SetTopBoxMainScene::createScene();
+        auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
+        Director::getInstance()->replaceScene(FadeScene);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
@@ -551,25 +568,49 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         MessageBox("menu", "pressed");
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
-        auto winSize = Director::getInstance()->getWinSize();
-        auto maskLayer = LayerColor::create(Color4B(0, 0, 0, 160), winSize.width,winSize.height);
-        this->addChild(maskLayer, 10086);
-        
-        m_moreDetailLayer = MoreDetailLayer::create();
-        this->addChild(m_moreDetailLayer, 100);
-        m_moreDetailLayer->setVisible(false);
-        m_moreDetailLayer->setPreMaskLayer(this);
-        
-        auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-        m_pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
-            m_pic->setVisible(false);
-            m_moreDetailLayer->setVisible(true);
-            auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
-            m_moreDetailLayer->setScale(0.4f);
-            auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
-            m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
-        }), NULL));
+        if (m_pic){
+            this->lostFocus();
+            auto winSize = Director::getInstance()->getWinSize();
+            
+            m_moreDetailLayer = MoreDetailLayer::create();
+            Director::getInstance()->getRunningScene()->addChild(m_moreDetailLayer);
+            m_moreDetailLayer->setVisible(false);
+            m_moreDetailLayer->setPreMaskLayer(this);
+            
+            auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
+            auto moveTo = MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5));
+            auto scaleTo = ScaleTo::create(FIRST_TIME, 3.0f);
+            recoverPoint = m_pic->getPosition();
+            recoverzOrder = m_pic->getLocalZOrder();
+            m_pic->setLocalZOrder(TOP_ZORDER);
+            m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([this](){
+                m_pic->setVisible(false);
+                m_moreDetailLayer->setVisible(true);
+                auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
+                m_moreDetailLayer->setScale(0.4f);
+                auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
+                m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
+            }), NULL));
+        }
     }
+}
+
+void MaskLayer::lostFocus()
+{
+    _eventDispatcher->removeEventListener(_eventListener);
+    _eventDispatcher->removeEventListener(_keyboardListener);
+}
+
+void MaskLayer::getFocus()
+{
+    //register focus event
+    _eventListener = EventListenerFocus::create();
+    _eventListener->onFocusChanged = CC_CALLBACK_2(MaskLayer::onFocusChanged, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
+    //register the keyboard event
+    _keyboardListener = EventListenerKeyboard::create();
+    _keyboardListener->onKeyReleased = CC_CALLBACK_2(MaskLayer::onKeyboardReleased, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
 }
 
 void MaskLayer::onExit()
@@ -577,4 +618,46 @@ void MaskLayer::onExit()
     Layer::onExit();
     _eventDispatcher->removeEventListener(_eventListener);
     _eventDispatcher->removeEventListener(_keyboardListener);
+}
+
+void MaskLayer::onTouchesBegan(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    Touch *touch = touches.at(0);
+    Point pt = touch->getLocationInView();
+    pt = Director::getInstance()->convertToGL(pt);
+    //    CCLOG("x=%f, y = %f", pt.x, pt.y);
+    _beginPoint = pt;
+}
+
+void MaskLayer::onTouchesMoved(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    
+}
+
+void MaskLayer::onTouchesCancelled(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    
+}
+void MaskLayer::onTouchesEnded(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
+{
+    Touch *touch = touches.at(0);
+    Point pt = touch->getLocationInView();
+    pt = Director::getInstance()->convertToGL(pt);
+    
+    const float offest = 100;
+    if (pt.x - _beginPoint.x > offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_RIGHT, nullptr);
+    }
+    
+    if (pt.x - _beginPoint.x < -offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_LEFT, nullptr);
+    }
+    
+    if (pt.y - _beginPoint.y < -offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_DOWN, nullptr);
+    }
+    
+    if (pt.y - _beginPoint.y > offest) {
+        onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_UP, nullptr);
+    }
 }

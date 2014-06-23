@@ -8,6 +8,7 @@
 
 #include "MoreDetailLayer.h"
 #include "MaskLayer.h"
+#include "PlayVideoLayer.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -22,10 +23,19 @@ bool MoreDetailLayer::init()
     auto bg = Sprite::create("moreDetail/background.png");
     this->addChild(bg);
     bg->setPosition(Vec2(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
+    //bg->setGlobalZOrder(-20);
     
     auto fg = Sprite::create("moreDetail/foreground.png");
     bg->addChild(fg);
     fg->setPosition(Vec2(bg->getContentSize().width * 0.5, bg->getContentSize().height * 0.5));
+    //fg->setGlobalZOrder(20);
+    
+    selectedLightSprite = Sprite::create("moreDetail/selectedLight.png");
+    this->addChild(selectedLightSprite);
+    selectedLightSprite->setVisible(false);
+    playSprite = Sprite::create("moreDetail/play.png");
+    this->addChild(playSprite);
+    playSprite->setVisible(false);
     
     VBox *outerLayout = VBox::create();
     //only the first outer layout should care about the position, all the other layout and element
@@ -70,12 +80,7 @@ bool MoreDetailLayer::init()
     _keyboardListener->onKeyReleased = CC_CALLBACK_2(MoreDetailLayer::onKeyboardReleased, this);
     _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
     
-    selectedLightSprite = Sprite::create("moreDetail/selectedLight.png");
-    this->addChild(selectedLightSprite);
-    selectedLightSprite->setVisible(false);
-    playSprite = Sprite::create("moreDetail/play.png");
-    this->addChild(playSprite);
-    playSprite->setVisible(false);
+    onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_LEFT, nullptr);
     
     this->setTouchEnabled(true);
     this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
@@ -95,9 +100,11 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         _preMaskLater->closeMoreDetailLayer();
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
-        CCLOG("enter pressed");
-        MessageBox("enter", "pressed");
+    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        this->addChild(PlayVideoLayer::create());
+        lostFocus();
+#endif
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
@@ -114,9 +121,6 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
         MessageBox("menu", "pressed");
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
-        MessageBox("center", "pressed");
-    }
 }
 
 void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
@@ -125,7 +129,6 @@ void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos
     if (!getLayout && widgetGetFocus) {
         selectedLightSprite->setVisible(true);
         selectedLightSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y - 10));
-        CCLOG("%f,%f",widgetGetFocus->getPosition().x, widgetGetFocus->getPosition().y);
         playSprite->setVisible(true);
         playSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y + 80));
         widgetGetFocus->setScale(1.3f);
@@ -136,7 +139,6 @@ void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos
         widgetLostFocus->setScale(1.0);
     }
 }
-
 
 void MoreDetailLayer::onTouchesBegan(const std::vector<Touch *> &touches, cocos2d::Event *unused_event)
 {
@@ -178,4 +180,22 @@ void MoreDetailLayer::onTouchesEnded(const std::vector<Touch *> &touches, cocos2
     if (pt.y - _beginPoint.y > offest) {
         onKeyboardReleased(EventKeyboard::KeyCode::KEY_DPAD_CENTER, nullptr);
     }
+}
+
+void MoreDetailLayer::lostFocus()
+{
+    _eventDispatcher->removeEventListener(_eventListener);
+    _eventDispatcher->removeEventListener(_keyboardListener);
+}
+
+void MoreDetailLayer::getFocus()
+{
+    //register focus event
+    _eventListener = EventListenerFocus::create();
+    _eventListener->onFocusChanged = CC_CALLBACK_2(MoreDetailLayer::onFocusChanged, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
+    //register the keyboard event
+    _keyboardListener = EventListenerKeyboard::create();
+    _keyboardListener->onKeyReleased = CC_CALLBACK_2(MoreDetailLayer::onKeyboardReleased, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
 }
