@@ -165,6 +165,8 @@
 		ACDDE62D1952EDBA003C7847 /* tvMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACDDE62A1952EDBA003C7847 /* tvMap.plist */; };
 		ACDDE62E1952EDBA003C7847 /* tvMap.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDDE62B1952EDBA003C7847 /* tvMap.png */; };
 		ACDDE62F1952EDBA003C7847 /* tvMap.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDDE62B1952EDBA003C7847 /* tvMap.png */; };
+		BB2E8EC819582BF400BF1402 /* flash.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8EC719582BF400BF1402 /* flash.png */; };
+		BB2E8EC919582BF400BF1402 /* flash.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8EC719582BF400BF1402 /* flash.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -427,6 +429,7 @@
 		ACDDE6231952ED86003C7847 /* RectangleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RectangleInterface.h; path = ../Classes/RectangleInterface.h; sourceTree = "<group>"; };
 		ACDDE62A1952EDBA003C7847 /* tvMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tvMap.plist; sourceTree = "<group>"; };
 		ACDDE62B1952EDBA003C7847 /* tvMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvMap.png; sourceTree = "<group>"; };
+		BB2E8EC719582BF400BF1402 /* flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flash.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -648,6 +651,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB2E8EC719582BF400BF1402 /* flash.png */,
 				26C1459F195442BC00EB091C /* animation_frame1.png */,
 				26C145A0195442BC00EB091C /* animation_frame2.png */,
 				26C145A1195442BC00EB091C /* animation_frame3.png */,
@@ -863,6 +867,7 @@
 				6622568919501F8A00EBC69D /* board.png in Resources */,
 				6622568D19501F8A00EBC69D /* CloseNormal.png in Resources */,
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				BB2E8EC819582BF400BF1402 /* flash.png in Resources */,
 				ACDDE62E1952EDBA003C7847 /* tvMap.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				6622567F19501F8A00EBC69D /* background.png in Resources */,
@@ -958,6 +963,7 @@
 				6622568019501F8A00EBC69D /* background.png in Resources */,
 				26C145A9195442BC00EB091C /* animation_frame2.png in Resources */,
 				6622568619501F8A00EBC69D /* banner_03.jpg in Resources */,
+				BB2E8EC919582BF400BF1402 /* flash.png in Resources */,
 				6622568219501F8A00EBC69D /* banner_01.jpg in Resources */,
 				662256A219501F8A00EBC69D /* icon3.png in Resources */,
 				662256B619501F8A00EBC69D /* text_light.png in Resources */,

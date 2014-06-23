@@ -61,10 +61,12 @@ bool OpeningAnimation::init()
     
     //auto explosionCallback =
     boardNode->runAction(Sequence::create(DelayTime::create(0.5),ScaleTo::create(0.7,1,0.25),CallFunc::create([&](){
-        progressLight->runAction(Spawn::create(EaseExponentialOut::create(ProgressTo::create(3.0f, 100)),
+        progressLight->runAction(Spawn::create(
                                                Sequence::create(FadeIn::create(0.4f),
                                                                 CallFunc::create(std::bind(&OpeningAnimation::addExplosionCallback, this)),
-                                                                DelayTime::create(1.5),
+                                                                DelayTime::create(0.8),
+                                                                EaseExponentialOut::create(ProgressTo::create(0.8f, 100)),
+                                                                //DelayTime::create(1.5),
                                                                 CallFunc::create(std::bind(&OpeningAnimation::addRotateLayerCallback, this)), nullptr), nullptr));
     }), nullptr));
     
@@ -80,7 +82,7 @@ void OpeningAnimation::addExplosionCallback(){
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto explosion = ExplosionEffect::create();
-    explosion->setPosition(visibleSize.width/2 - 180 + origin.x,visibleSize.height/2 - 200 + origin.y);
+    explosion->setPosition(visibleSize.width/2 - 200 + origin.x, origin.y);
     this->addChild(explosion);
 }
 

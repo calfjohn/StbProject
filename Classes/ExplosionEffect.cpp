@@ -16,7 +16,7 @@ bool ExplosionEffect::init(){
     phoenix->setScale(2);
     addChild(phoenix);
     
-    this->scheduleOnce(schedule_selector(ExplosionEffect::addExplosionCallBack), 1);
+    this->scheduleOnce(schedule_selector(ExplosionEffect::addExplosionCallBack), 0.8);
     
     return true;
 }
