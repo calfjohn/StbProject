@@ -122,8 +122,8 @@ void MaskLayer::addLight(){
     rotateLight->setScale(2);
     rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
     rotateLight->setPosition(visibleSize.width/2,visibleSize.height + 100);
-    //rotateLight->setGlobalZOrder(10);
-    rotateLight->setLocalZOrder(1000);
+    rotateLight->setGlobalZOrder(10);
+    //rotateLight->setLocalZOrder(1000);
     this->addChild(rotateLight);
 }
 
@@ -486,14 +486,27 @@ void MaskLayer::initRemoteControl()
 
 void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
+    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
+    if (!getLayout1 && widgetLostFocus) {
+        int x = widgetLostFocus->getTag() / 100;
+        int y = widgetLostFocus->getTag() % 100;
+        
+        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
+        pNode->runAction(ScaleTo::create(0.02, 1.0));
+        pNode->resetGlobelZorder();
+    }
+    
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
         int x = widgetGetFocus->getTag() / 100;
         int y = widgetGetFocus->getTag() % 100;
-        if (_mapTv[y][x].pNode){
-            _mapTv[y][x].pNode->setScale(1.1f);
-            _mapTv[y][x].pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
-            m_pic = (Sprite*)_mapTv[y][x].pNode;
+        m_pic = (Sprite*)_mapTv[y][x].pNode;
+        cellTv *pNode = (cellTv *)m_pic;
+        if (pNode){
+            pNode->runAction(ScaleTo::create(0.05, 1.5));
+            pNode->bringNodeToTop();
+//            pNode->setScale(1.1f);
+//            pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
             selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
         }
     }

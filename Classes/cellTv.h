@@ -40,10 +40,16 @@ public:
     
     void setCoverVisible();
 
+    void setGlobelZorder(float zorder){_globelZorder = zorder;}
+
+    void bringNodeToTop();
+    void resetGlobelZorder();
+    
 protected:
     Vec2 _source;
     Vec2 _destination;
     float _time;
+    float _globelZorder;
 };
 
 #endif

@@ -1,6 +1,8 @@
 #include "cellTv.h"
 
 #define COVER_TAG 1111
+#define CELL_TAG 1112
+//#define FRAME_TAG 1113
 cellTv::cellTv(void)
 {
 }
@@ -26,17 +28,25 @@ cellTv * cellTv::create(void)
 cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool withCover)
 {
     auto node = cellTv::create();
+    node->setGlobalZOrder(globalZorder);
     
     Sprite* pcellTv = Sprite::createWithSpriteFrameName(filename);
-    pcellTv->setLocalZOrder(globalZorder);
+    pcellTv->setGlobalZOrder(globalZorder);
+    pcellTv->setTag(CELL_TAG);
     
     node->addChild(pcellTv);
     
+//    Sprite* pcellFrame = Sprite::create("cellframe.png");
+//    pcellFrame->setGlobalZOrder(globalZorder);
+//    pcellFrame->setPosition(Vec2(-5,-5));
+//    pcellFrame->setTag(FRAME_TAG);
+//    node->addChild(pcellFrame);
+
     if (withCover) {
         Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
         pCover->setTag(COVER_TAG);
         pCover->setOpacity(255*3/4);
-        pCover->setLocalZOrder(globalZorder+0.01);
+        pCover->setGlobalZOrder(globalZorder+0.01);
         node->addChild(pCover, 1);
     }
 
@@ -89,6 +99,19 @@ void cellTv::setCoverVisible()
     
     node->setVisible(false);
 }
+
+void cellTv::resetGlobelZorder()
+{
+    getChildByTag(CELL_TAG)->setGlobalZOrder(_globelZorder);
+//    getChildByTag(FRAME_TAG)->setGlobalZOrder(_globelZorder);
+}
+
+void cellTv::bringNodeToTop()
+{
+    getChildByTag(CELL_TAG)->setGlobalZOrder(10000);
+//    getChildByTag(FRAME_TAG)->setGlobalZOrder(10000);
+}
+
 
 void cellTv::onEnter()
 {

@@ -127,6 +127,8 @@
 		662256B019501F8A00EBC69D /* text_effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6622567B19501F8A00EBC69D /* text_effect.plist */; };
 		662256B319501F8A00EBC69D /* text_light_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567D19501F8A00EBC69D /* text_light_top.png */; };
 		662256B419501F8A00EBC69D /* text_light_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567D19501F8A00EBC69D /* text_light_top.png */; };
+		AC9C3ED219582A37006D3CD7 /* cellframe.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9C3ED119582A37006D3CD7 /* cellframe.png */; };
+		AC9C3ED319582A37006D3CD7 /* cellframe.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9C3ED119582A37006D3CD7 /* cellframe.png */; };
 		ACDDE6241952ED86003C7847 /* cellTv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDDE6201952ED86003C7847 /* cellTv.cpp */; };
 		ACDDE6251952ED86003C7847 /* cellTv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDDE6201952ED86003C7847 /* cellTv.cpp */; };
 		ACDDE6261952ED86003C7847 /* RectangleInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDDE6221952ED86003C7847 /* RectangleInterface.cpp */; };
@@ -376,6 +378,7 @@
 		6622567A19501F8A00EBC69D /* star_up.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = star_up.plist; sourceTree = "<group>"; };
 		6622567B19501F8A00EBC69D /* text_effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = text_effect.plist; sourceTree = "<group>"; };
 		6622567D19501F8A00EBC69D /* text_light_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_light_top.png; sourceTree = "<group>"; };
+		AC9C3ED119582A37006D3CD7 /* cellframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellframe.png; sourceTree = "<group>"; };
 		ACDDE6201952ED86003C7847 /* cellTv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cellTv.cpp; path = ../Classes/cellTv.cpp; sourceTree = "<group>"; };
 		ACDDE6211952ED86003C7847 /* cellTv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cellTv.h; path = ../Classes/cellTv.h; sourceTree = "<group>"; };
 		ACDDE6221952ED86003C7847 /* RectangleInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RectangleInterface.cpp; path = ../Classes/RectangleInterface.cpp; sourceTree = "<group>"; };
@@ -603,6 +606,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC9C3ED119582A37006D3CD7 /* cellframe.png */,
 				26C1459F195442BC00EB091C /* animation_frame1.png */,
 				26C145A0195442BC00EB091C /* animation_frame2.png */,
 				26C145A1195442BC00EB091C /* animation_frame3.png */,
@@ -838,6 +842,7 @@
 				26C1458D19542B2500EB091C /* testbg.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				6622569519501F8A00EBC69D /* countdown_12.png in Resources */,
+				AC9C3ED219582A37006D3CD7 /* cellframe.png in Resources */,
 				662256AD19501F8A00EBC69D /* star_up.plist in Resources */,
 				26C145A8195442BC00EB091C /* animation_frame2.png in Resources */,
 				26C145AA195442BC00EB091C /* animation_frame3.png in Resources */,
@@ -851,6 +856,7 @@
 			files = (
 				662256AA19501F8A00EBC69D /* radioNormal.png in Resources */,
 				26C145AB195442BC00EB091C /* animation_frame3.png in Resources */,
+				AC9C3ED319582A37006D3CD7 /* cellframe.png in Resources */,
 				26C145B1195442BC00EB091C /* Phoenix.plist in Resources */,
 				26C1458E19542B2500EB091C /* testbg.png in Resources */,
 				26C145AD195442BC00EB091C /* animation_frame4.png in Resources */,
