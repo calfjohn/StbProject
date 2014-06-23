@@ -458,7 +458,7 @@ void MaskLayer::callback24()
             if(pNode == NULL) continue;
             
             pNode->moveToDestination();
-//            pNode->runRotateAction();
+            pNode->runRotateAction();
         }
     }
     
