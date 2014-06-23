@@ -122,8 +122,7 @@ void MaskLayer::addLight(){
     _rotateLight->setScale(2);
     _rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
     _rotateLight->setPosition(winSize.width/2-300,winSize.height + 100);
-//    _rotateLight->setGlobalZOrder(10);
-    _rotateLight->setLocalZOrder(1000);
+    _rotateLight->setGlobalZOrder(10);
     this->addChild(_rotateLight);
 }
 
@@ -131,7 +130,7 @@ void MaskLayer::initTvMap()
 {
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("tvMap.plist");
-    
+    cache->addSpriteFramesWithFile("tvChannel.plist");
     structCell cell;
     
     cell.fileName = "cell01";
@@ -163,8 +162,8 @@ void MaskLayer::initTvMap()
     _mapTv[4][6] = cell;
     _mapTv[4][7] = cell;
     _mapTv[4][8] = cell;
-    
     _mapTv[4][10] = cell;
+    
     _mapTv[5][1] = cell;
     _mapTv[5][3] = cell;
     _mapTv[5][5] = cell;
@@ -182,6 +181,8 @@ void MaskLayer::initTvMap()
     
     _mapTv[7][2] = cell;
     _mapTv[7][3] = cell;
+    _mapTv[7][4] = cell;
+    _mapTv[7][5] = cell;
     _mapTv[7][6] = cell;
     _mapTv[7][10] = cell;
     _mapTv[7][11] = cell;
@@ -236,6 +237,7 @@ void MaskLayer::createCellTv2()
     selectedSprite = Sprite::create("selectedBlock.png");
     pTvNode->addChild(selectedSprite);
     selectedSprite->setVisible(false);
+    selectedSprite->setGlobalZOrder(999);
     
     float marginX = s.width;
     float marginY = s.height;
@@ -456,16 +458,11 @@ void MaskLayer::callback24()
             if(pNode == NULL) continue;
             
             pNode->moveToDestination();
-            pNode->runRotateAction();
+//            pNode->runRotateAction();
         }
     }
     
     initRemoteControl();
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto testBg = Sprite::create("testbg.png");
-    this->addChild(testBg);
-    testBg->setPosition(visibleSize * 0.5);
 }
 
 void MaskLayer::initRemoteControl()
@@ -544,7 +541,8 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
             pNode->bringNodeToTop();
 //            pNode->setScale(1.1f);
 //            pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
-            selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
+            selectedSprite->runAction(ScaleTo::create(0.05, 1.5));
+            selectedSprite->setPosition(pNode->getPosition());
         }
     }
     Layout *loseLayout = dynamic_cast<Layout*>(widgetLostFocus);
