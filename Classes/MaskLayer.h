@@ -56,6 +56,7 @@ private:
     cocos2d::Sprite *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::Sprite* selectedSprite;
+    cocos2d::Sprite* _rotateLight;
 };
 
 #endif /* defined(__MyCppGame__MaskLayer__) */

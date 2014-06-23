@@ -114,13 +114,13 @@ void MaskLayer::closeMoreDetailLayer()
 }
 
 void MaskLayer::addLight(){
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto rotateLight = Sprite::create("rotate_light.png");
-    rotateLight->setScale(2);
-    rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
-    rotateLight->setPosition(visibleSize.width/2,visibleSize.height + 100);
-    rotateLight->setGlobalZOrder(10);
-    this->addChild(rotateLight);
+    auto winSize = Director::getInstance()->getWinSize();
+    _rotateLight = Sprite::create("rotate_light.png");
+    _rotateLight->setScale(2);
+    _rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
+    _rotateLight->setPosition(winSize.width/2-300,winSize.height + 100);
+    _rotateLight->setGlobalZOrder(10);
+    this->addChild(_rotateLight);
 }
 
 void MaskLayer::initTvMap()
@@ -299,8 +299,9 @@ void MaskLayer::createCellTv2()
             }
             
             float time = sqrt( powf(destination.x, 2) + powf(destination.y, 2) ) / 1000;
-            time += CCRANDOM_0_1();
             
+            time += CCRANDOM_0_1();
+            log("time.....%f",time);
             sprite->setPosition(source);
             sprite->setSourcePosition(source);
             sprite->setDelayTime(time);
@@ -325,15 +326,28 @@ void MaskLayer::callback20()
 
 void MaskLayer::callback21()
 {
+    float delayTime = 0.2f;
+    
+    auto flash = LayerColor::create(Color4B::WHITE);
+    this->addChild(flash);
+    
+    flash->setGlobalZOrder(10000);
+    auto flashAction = Sequence::create(
+                                        FadeIn::create(delayTime/2),
+                                        FadeOut::create(delayTime/2),
+                                        RemoveSelf::create(),
+                                        nullptr);
+    flash->runAction(flashAction);
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
-    pNode->runAction(Sequence::create(
-                                      Spawn::create(
-                                                    ScaleTo::create(0.5, 1.0),
-                                                    RotateBy::create(0.5, Vec3(-30, 30, 5)),
-                                                    MoveBy::create(0.5, Vec2(300, 250)),
-                                                    NULL),
+    pNode->runAction(Sequence::create(DelayTime::create(delayTime),
+                                      EaseQuadraticActionIn::create(Spawn::create(
+                                                                                  ScaleTo::create(0.3, 1.0),
+                                                                                  RotateBy::create(0.3, Vec3(-30, 30, 15)),
+                                                                                  MoveBy::create(0.3, Vec2(300, 250)),
+                                                                                  NULL)),
                                       DelayTime::create(0.1),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
                                       NULL));
@@ -341,6 +355,7 @@ void MaskLayer::callback21()
 
 void MaskLayer::callback22()
 {
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
@@ -361,7 +376,7 @@ void MaskLayer::callback22()
         }
     }
     
-    pNode->runAction(Sequence::create(
+    pNode->runAction(Sequence::create(//DelayTime::create(delayTime*2),
                                       MoveBy::create(5.0, Point(-250, -100)),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
                                       MoveBy::create(3.0, Point(-250, -100)),
@@ -371,6 +386,28 @@ void MaskLayer::callback22()
 
 void MaskLayer::callback23()
 {
+    auto winSize = Director::getInstance()->getWinSize();
+    
+    auto flash = Sprite::create("flash.png");
+    this->addChild(flash);
+    
+    flash->setScale(5);
+    flash->setVisible(false);
+    flash->setPosition(_rotateLight->getPosition());
+    flash->setGlobalZOrder(10000);
+    
+    flash->runAction(Sequence::create(DelayTime::create(1.8f),
+                                      Show::create(),
+                                      EaseQuadraticActionIn::create(ScaleTo::create(0.2, 70)),
+                                      CallFunc::create([=](){
+                                            _rotateLight->setPosition(winSize.width/2+300,winSize.height + 100);
+                                            flash->setPosition(_rotateLight->getPosition());
+                                        }),
+                                      EaseQuadraticActionOut::create(ScaleTo::create(0.2, 5)),
+                                      RemoveSelf::create(),
+                                      NULL));
+
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
