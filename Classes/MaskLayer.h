@@ -27,6 +27,13 @@ public:
     // remote control event
     void onFocusChanged(cocos2d::ui::Widget* widgetLostFocus, cocos2d::ui::Widget* widgetGetFocus);
     void onKeyboardReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
+    void lostFocus();
+    void getFocus();
+    
+    virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
+    virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
 protected:
     void initTvMap();
     
@@ -56,6 +63,9 @@ private:
     cocos2d::Sprite *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::Sprite* selectedSprite;
+    cocos2d::Point recoverPoint;
+    int recoverzOrder;
+    cocos2d::Point _beginPoint;
 };
 
 #endif /* defined(__MyCppGame__MaskLayer__) */

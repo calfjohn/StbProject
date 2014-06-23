@@ -25,6 +25,9 @@ public:
     // remote control event
     void onFocusChanged(cocos2d::ui::Widget* widgetLostFocus, cocos2d::ui::Widget* widgetGetFocus);
     void onKeyboardReleased(cocos2d::EventKeyboard::KeyCode, cocos2d::Event*);
+    void lostFocus();
+    void getFocus();
+    
     void setPreMaskLayer(MaskLayer* maskLayer){_preMaskLater = maskLayer;}
 private:
     cocos2d::ui::Widget *_widget;
