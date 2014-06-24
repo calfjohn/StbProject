@@ -235,7 +235,7 @@ void DotGuy::walkUpdate(float delta)
     m_bodySprite->setPosition(nextMovePosition);
     if ( m_stepCount >= ( m_numOfStep + m_numOfFix ) ){
         m_stepCount = 0 - m_addStep;
-        CCLOG("%f, %f, %d", m_position.x, m_position.y, m_directionStatus);
+       // CCLOG("%f, %f, %d", m_position.x, m_position.y, m_directionStatus);
         m_oldDirectionStatus = m_directionStatus;
         m_directionStatus = nextDirection(m_position);
         m_numOfFix = fixCount();
