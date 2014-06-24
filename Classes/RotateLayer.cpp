@@ -74,7 +74,7 @@ bool RotateLayer::init()
             }
         }), nullptr)));
     }
-    _textEffector = TextEffector::create(TextType::TV);
+    _textEffector = TextEffector::create(TextType::TV,RotateDirection::LeftToRight);
     this->addChild(_textEffector);
     
     /* ==============test============== */
@@ -123,9 +123,9 @@ void RotateLayer::rotateLeft()
         auto iconSprite = iconGroup.at(i);
         auto nextSpriteTag = (iconSprite->getTag() + 1) % 4;
         //scale
-        auto scaleTo = ScaleTo::create(ANIMATE_SPEED, SCALE_PARAM[nextSpriteTag]);
+        auto scaleTo = EaseSineOut::create(ScaleTo::create(ANIMATE_SPEED, SCALE_PARAM[nextSpriteTag]));
         //opacity
-        auto opacityTo = FadeTo::create(ANIMATE_SPEED, 255 * OPACITY_PARAM[nextSpriteTag]);
+        auto opacityTo = EaseSineOut::create(FadeTo::create(ANIMATE_SPEED, 255 * OPACITY_PARAM[nextSpriteTag]));
         //bezier
         auto winSize = Director::getInstance()->getWinSize();
         ccBezierConfig bezierConfig;
@@ -147,9 +147,9 @@ void RotateLayer::rotateRight()
         auto iconSprite = iconGroup.at(i);
         auto nextSpriteTag = (iconSprite->getTag() + 3) % 4;
         //scale
-        auto scaleTo = ScaleTo::create(ANIMATE_SPEED, SCALE_PARAM[nextSpriteTag]);
+        auto scaleTo = EaseSineOut::create(ScaleTo::create(ANIMATE_SPEED, SCALE_PARAM[nextSpriteTag]));
         //opacity
-        auto opacityTo = FadeTo::create(ANIMATE_SPEED, 255 * OPACITY_PARAM[nextSpriteTag]);
+        auto opacityTo = EaseSineOut::create(FadeTo::create(ANIMATE_SPEED, 255 * OPACITY_PARAM[nextSpriteTag]));
         //bezier
         auto winSize = Director::getInstance()->getWinSize();
         ccBezierConfig bezierConfig;
@@ -187,16 +187,16 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 if (iconGroup.at(i)->getTag() == 0){
                     switch (i){
                         case 0:
-                            _textEffector = TextEffector::create(TextType::TV);
+                            _textEffector = TextEffector::create(TextType::TV, RotateDirection::LeftToRight);
                             break;
                         case 1:
-                            _textEffector = TextEffector::create(TextType::Game);
+                            _textEffector = TextEffector::create(TextType::Game, RotateDirection::LeftToRight);
                             break;
                         case 2:
-                            _textEffector = TextEffector::create(TextType::Movie);
+                            _textEffector = TextEffector::create(TextType::Movie, RotateDirection::LeftToRight);
                             break;
                         case 3:
-                            _textEffector = TextEffector::create(TextType::Setting);
+                            _textEffector = TextEffector::create(TextType::Setting, RotateDirection::LeftToRight);
                             break;
                     }
                 }
@@ -215,16 +215,16 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 if (iconGroup.at(i)->getTag() == 0){
                     switch (i){
                         case 0:
-                            _textEffector = TextEffector::create(TextType::TV);
+                            _textEffector = TextEffector::create(TextType::TV, RotateDirection::RightToLeft);
                             break;
                         case 1:
-                            _textEffector = TextEffector::create(TextType::Game);
+                            _textEffector = TextEffector::create(TextType::Game, RotateDirection::RightToLeft);
                             break;
                         case 2:
-                            _textEffector = TextEffector::create(TextType::Movie);
+                            _textEffector = TextEffector::create(TextType::Movie, RotateDirection::RightToLeft);
                             break;
                         case 3:
-                            _textEffector = TextEffector::create(TextType::Setting);
+                            _textEffector = TextEffector::create(TextType::Setting, RotateDirection::RightToLeft);
                             break;
                     }
                 }
@@ -255,7 +255,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             auto moveLeft = EaseQuadraticActionIn::create(MoveBy::create(0.1, Vec2(-150,-50)));
                             auto moveRight = moveLeft->reverse();
                             
-                            auto spawn = Spawn::create(ScaleTo::create(0.2, 3), Sequence::create(moveLeft, moveRight, NULL), NULL);
+                            auto spawn = Spawn::create(EaseSineOut::create(ScaleTo::create(0.2, 3)), Sequence::create(moveLeft, moveRight, NULL), NULL);
                             
                             iconGroup.at(1)->runAction(Sequence::create(spawn,
                                                                         CallFunc::create([&](){
