@@ -13,7 +13,8 @@
 #include "cocos2d.h"
 
 enum EffectTypes{
-    cellBlink
+    CellBlink,
+    ItemTouch
 };
 
 class EffectManager{
