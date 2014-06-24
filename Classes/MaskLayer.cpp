@@ -263,7 +263,7 @@ void MaskLayer::createCellTv(bool invokeCallback)
         }
     }
     
-//    if(invokeCallback) callback20();
+    if(invokeCallback) callback20();
 }
 
 void MaskLayer::callback20()
@@ -297,6 +297,7 @@ void MaskLayer::callback21()
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
+    pNode->stopAllActions();
     pNode->runAction(EaseSineOut::create(
                      Sequence::create(DelayTime::create(delayTime),
                                       EaseQuadraticActionIn::create(Spawn::create(
@@ -333,6 +334,7 @@ void MaskLayer::callback22()
         }
     }
     
+    pNode->stopAllActions();
     pNode->runAction(EaseSineOut::create(Sequence::create(//DelayTime::create(delayTime*2),
                                       MoveBy::create(5.0, Point(-250, -100)),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
@@ -382,6 +384,7 @@ void MaskLayer::callback23()
         }
     }
     
+    pNode->stopAllActions();
     pNode->runAction(EaseSineOut::create(Sequence::create(
                                       DelayTime::create(3.0),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback24,this)),
@@ -481,28 +484,28 @@ void MaskLayer::initRemoteControl()
 
 void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
-    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
-    if (!getLayout1 && widgetLostFocus) {
-        int x = widgetLostFocus->getTag() / 100;
-        int y = widgetLostFocus->getTag() % 100;
-        
-        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
-        pNode->runAction(ScaleTo::create(0.02, 1.0));
-        pNode->resetGlobelZorder();
-    }
-    
-    Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
-    if (!getLayout && widgetGetFocus) {
-        int x = widgetGetFocus->getTag() / 100;
-        int y = widgetGetFocus->getTag() % 100;
-        m_pic = (Sprite*)_mapTv[y][x].pNode;
-        cellTv *pNode = (cellTv *)m_pic;
-        if (pNode){
-            pNode->runAction(ScaleTo::create(0.05, 1.5));
-            pNode->bringNodeToTop();
-            selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
-        }
-    }
+//    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
+//    if (!getLayout1 && widgetLostFocus) {
+//        int x = widgetLostFocus->getTag() / 100;
+//        int y = widgetLostFocus->getTag() % 100;
+//        
+//        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
+//        pNode->runAction(ScaleTo::create(0.02, 1.0));
+//        pNode->resetGlobelZorder();
+//    }
+//    
+//    Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
+//    if (!getLayout && widgetGetFocus) {
+//        int x = widgetGetFocus->getTag() / 100;
+//        int y = widgetGetFocus->getTag() % 100;
+//        m_pic = (Sprite*)_mapTv[y][x].pNode;
+//        cellTv *pNode = (cellTv *)m_pic;
+//        if (pNode){
+//            pNode->runAction(ScaleTo::create(0.05, 1.5));
+//            pNode->bringNodeToTop();
+//            selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
+//        }
+//    }
 }
 
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
@@ -553,6 +556,13 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
         if (m_pic){
+            
+            if(currentFocusCellType > 1){
+                initTvMap(currentFocusCellType);
+                createCellTv();
+                return;
+            }
+            
             this->lostFocus();
             auto winSize = Director::getInstance()->getWinSize();
             
@@ -671,6 +681,7 @@ void MaskLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
         pNode->bringNodeToTop();
         selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
         m_pic = pNode;
+        currentFocusCellType = _mapTv[getFocus_y][getFocus_x].type;
     }
     
     int lostFocus_x = tagLostFocus / 100;
