@@ -77,6 +77,7 @@ private:
     cocos2d::Sprite *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::Sprite* selectedSprite;
+    cocos2d::Sprite* _rotateLight;
     cocos2d::Point recoverPoint;
     int recoverzOrder;
     cocos2d::Point _beginPoint;

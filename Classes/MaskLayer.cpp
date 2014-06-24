@@ -33,7 +33,7 @@ std::string mapStr[8]{
     "X011111111100",
     "X111111111110",
     "X011111100001",
-    "X011001000111"
+    "X011111000111"
 };
 
 MaskLayer* MaskLayer::create(cocos2d::Sprite* pic)
@@ -92,21 +92,20 @@ void MaskLayer::closeMoreDetailLayer()
 }
 
 void MaskLayer::addLight(){
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto rotateLight = Sprite::create("rotate_light.png");
-    rotateLight->setScale(2);
-    rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
-    rotateLight->setPosition(visibleSize.width/2,visibleSize.height + 100);
-    //rotateLight->setGlobalZOrder(10);
-    rotateLight->setLocalZOrder(1000);
-    this->addChild(rotateLight);
+    auto winSize = Director::getInstance()->getWinSize();
+    _rotateLight = Sprite::create("rotate_light.png");
+    _rotateLight->setScale(2);
+    _rotateLight->runAction(RepeatForever::create(RotateBy::create(0.1, 0.5)));
+    _rotateLight->setPosition(winSize.width/2-300,winSize.height + 100);
+    _rotateLight->setGlobalZOrder(10);
+    this->addChild(_rotateLight);
 }
 
 void MaskLayer::initTvMap()
 {
     auto cache = SpriteFrameCache::getInstance();
     cache->addSpriteFramesWithFile("tvMap.plist");
-    
+    cache->addSpriteFramesWithFile("tvChannel.plist");
     structCell cell;
     
     cell.fileName = "cell01";
@@ -138,8 +137,8 @@ void MaskLayer::initTvMap()
     _mapTv[4][6] = cell;
     _mapTv[4][7] = cell;
     _mapTv[4][8] = cell;
-    
     _mapTv[4][10] = cell;
+    
     _mapTv[5][1] = cell;
     _mapTv[5][3] = cell;
     _mapTv[5][5] = cell;
@@ -157,6 +156,8 @@ void MaskLayer::initTvMap()
     
     _mapTv[7][2] = cell;
     _mapTv[7][3] = cell;
+    _mapTv[7][4] = cell;
+    _mapTv[7][5] = cell;
     _mapTv[7][6] = cell;
     _mapTv[7][10] = cell;
     _mapTv[7][11] = cell;
@@ -211,6 +212,7 @@ void MaskLayer::createCellTv2()
     selectedSprite = Sprite::create("selectedBlock.png");
     pTvNode->addChild(selectedSprite);
     selectedSprite->setVisible(false);
+    selectedSprite->setGlobalZOrder(999);
     
     float marginX = s.width;
     float marginY = s.height;
@@ -278,8 +280,9 @@ void MaskLayer::createCellTv2()
             }
             
             float time = sqrt( powf(destination.x, 2) + powf(destination.y, 2) ) / 1000;
-            time += CCRANDOM_0_1();
             
+            time += CCRANDOM_0_1();
+            log("time.....%f",time);
             sprite->setPosition(source);
             sprite->setSourcePosition(source);
             sprite->setDelayTime(time);
@@ -304,15 +307,28 @@ void MaskLayer::callback20()
 
 void MaskLayer::callback21()
 {
+    float delayTime = 0.2f;
+    
+    auto flash = LayerColor::create(Color4B::WHITE);
+    this->addChild(flash);
+    
+    flash->setLocalZOrder(100);
+    auto flashAction = Sequence::create(
+                                        FadeIn::create(delayTime/2),
+                                        FadeOut::create(delayTime/2),
+                                        RemoveSelf::create(),
+                                        nullptr);
+    flash->runAction(flashAction);
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
-    pNode->runAction(Sequence::create(
-                                      Spawn::create(
-                                                    ScaleTo::create(0.5, 1.0),
-                                                    RotateBy::create(0.5, Vec3(-30, 30, 5)),
-                                                    MoveBy::create(0.5, Vec2(300, 250)),
-                                                    NULL),
+    pNode->runAction(Sequence::create(DelayTime::create(delayTime),
+                                      EaseQuadraticActionIn::create(Spawn::create(
+                                                                                  ScaleTo::create(0.3, 1.0),
+                                                                                  RotateBy::create(0.3, Vec3(-30, 30, 15)),
+                                                                                  MoveBy::create(0.3, Vec2(300, 250)),
+                                                                                  NULL)),
                                       DelayTime::create(0.1),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
                                       NULL));
@@ -320,6 +336,7 @@ void MaskLayer::callback21()
 
 void MaskLayer::callback22()
 {
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
@@ -340,7 +357,7 @@ void MaskLayer::callback22()
         }
     }
     
-    pNode->runAction(Sequence::create(
+    pNode->runAction(Sequence::create(//DelayTime::create(delayTime*2),
                                       MoveBy::create(5.0, Point(-250, -100)),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
                                       MoveBy::create(3.0, Point(-250, -100)),
@@ -350,6 +367,28 @@ void MaskLayer::callback22()
 
 void MaskLayer::callback23()
 {
+    auto winSize = Director::getInstance()->getWinSize();
+    
+    auto flash = Sprite::create("flash.png");
+    this->addChild(flash);
+    
+    flash->setScale(5);
+    flash->setVisible(false);
+    flash->setPosition(_rotateLight->getPosition());
+    flash->setGlobalZOrder(10000);
+    
+    flash->runAction(Sequence::create(DelayTime::create(1.8f),
+                                      Show::create(),
+                                      EaseQuadraticActionIn::create(ScaleTo::create(0.2, 70)),
+                                      CallFunc::create([=](){
+                                            _rotateLight->setPosition(winSize.width/2+300,winSize.height + 100);
+                                            flash->setPosition(_rotateLight->getPosition());
+                                        }),
+                                      EaseQuadraticActionOut::create(ScaleTo::create(0.2, 5)),
+                                      RemoveSelf::create(),
+                                      NULL));
+
+    
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
@@ -404,11 +443,6 @@ void MaskLayer::callback24()
     auto dotGuy = DotGuy::create(Vec2(11, 0), DotGuy::DIRECTION::LEFT, blockSize, this);
     this->addChild(dotGuy, 10);
     dotGuy->walk();
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    auto testBg = Sprite::create("testbg.png");
-    this->addChild(testBg);
-    testBg->setPosition(visibleSize * 0.5);
 }
 
 void MaskLayer::initRemoteControl()
@@ -471,15 +505,29 @@ void MaskLayer::initRemoteControl()
 
 void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
+    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
+    if (!getLayout1 && widgetLostFocus) {
+        int x = widgetLostFocus->getTag() / 100;
+        int y = widgetLostFocus->getTag() % 100;
+        
+        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
+        pNode->runAction(ScaleTo::create(0.02, 1.0));
+        pNode->resetGlobelZorder();
+    }
+    
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
         int x = widgetGetFocus->getTag() / 100;
         int y = widgetGetFocus->getTag() % 100;
-        if (_mapTv[y][x].pNode){
-            _mapTv[y][x].pNode->setScale(1.1f);
-            _mapTv[y][x].pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
-            m_pic = (Sprite*)_mapTv[y][x].pNode;
-            selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
+        m_pic = (Sprite*)_mapTv[y][x].pNode;
+        cellTv *pNode = (cellTv *)m_pic;
+        if (pNode){
+            pNode->runAction(ScaleTo::create(0.05, 1.5));
+            pNode->bringNodeToTop();
+//            pNode->setScale(1.1f);
+//            pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
+            selectedSprite->runAction(ScaleTo::create(0.05, 1.5));
+            selectedSprite->setPosition(pNode->getPosition());
         }
     }
     Layout *loseLayout = dynamic_cast<Layout*>(widgetLostFocus);
