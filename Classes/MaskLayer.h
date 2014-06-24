@@ -74,7 +74,7 @@ protected:
     
     std::map<int, std::map<int, structCell>> _mapTv;
 private:
-    cocos2d::Sprite *m_pic;
+    cocos2d::Node *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::Sprite* selectedSprite;
     cocos2d::Sprite* _rotateLight;

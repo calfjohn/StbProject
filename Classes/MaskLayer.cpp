@@ -699,10 +699,19 @@ void MaskLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
     int getFocus_x = tagGetFocus / 100;
     int getFocus_y = tagGetFocus % 100;
     if (_mapTv[getFocus_y][getFocus_x].pNode){
-        _mapTv[getFocus_y][getFocus_x].pNode->setScale(1.1f);
-        _mapTv[getFocus_y][getFocus_x].pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f),ScaleTo::create(0.02, 1.0f) , NULL));
-        m_pic = (Sprite*)_mapTv[getFocus_y][getFocus_x].pNode;
-        selectedSprite->setPosition(RectangleInterface::getPosition(getFocus_y, getFocus_x));
+        cellTv *pNode = (cellTv*)_mapTv[getFocus_y][getFocus_x].pNode;
+        pNode->runAction(ScaleTo::create(0.05, 1.5));
+        pNode->bringNodeToTop();
+        selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
+        m_pic = pNode;
+    }
+    
+    int lostFocus_x = tagLostFocus / 100;
+    int lostFocus_y = tagLostFocus % 100;
+    if (_mapTv[lostFocus_y][lostFocus_x].pNode){
+        cellTv *pNode = (cellTv*)_mapTv[lostFocus_y][lostFocus_x].pNode;
+        pNode->runAction(ScaleTo::create(0.02, 1.0));
+        pNode->resetGlobelZorder();
     }
 }
 
