@@ -43,7 +43,7 @@ bool OpeningAnimation::init()
     boardNode->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
     light->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
     //
-    light->runAction(Sequence::create(ScaleTo::create(0.5f,800/64.0f,0.01),RemoveSelf::create(), NULL));
+    light->runAction(EaseSineOut::create(Sequence::create(ScaleTo::create(0.5f,800/64.0f,0.01),RemoveSelf::create(), NULL)));
     board->runAction(RepeatForever::create(RotateBy::create(0.5, 30)));
     //boardNode->setScale(1, 0.25);
     boardNode->setScale(1, 0.000);
@@ -60,7 +60,7 @@ bool OpeningAnimation::init()
     this->addChild(progressLight);
     
     //auto explosionCallback =
-    boardNode->runAction(Sequence::create(DelayTime::create(0.5),ScaleTo::create(0.7,1,0.25),CallFunc::create([&](){
+    boardNode->runAction(EaseSineOut::create(Sequence::create(DelayTime::create(0.5),ScaleTo::create(0.7,1,0.25),CallFunc::create([&](){
         progressLight->runAction(Spawn::create(
                                                Sequence::create(FadeIn::create(0.4f),
                                                                 CallFunc::create(std::bind(&OpeningAnimation::addExplosionCallback, this)),
@@ -68,7 +68,7 @@ bool OpeningAnimation::init()
                                                                 EaseExponentialOut::create(ProgressTo::create(0.8f, 100)),
                                                                 //DelayTime::create(1.5),
                                                                 CallFunc::create(std::bind(&OpeningAnimation::addRotateLayerCallback, this)), nullptr), nullptr));
-    }), nullptr));
+    }), nullptr)));
     
     emitter = ParticleSystemQuad::create("mystic.plist");
     addChild(emitter);

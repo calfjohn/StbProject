@@ -65,12 +65,12 @@ bool RotateLayer::init()
     this->setIconScale();
     
     for(auto i = 0; i < 4; i++){
-        iconGroup.at(i)->runAction(Sequence::create(FadeTo::create(0.5f, 255 * OPACITY_PARAM[i]),CallFunc::create([&](){
+        iconGroup.at(i)->runAction(EaseSineOut::create(Sequence::create(FadeTo::create(0.5f, 255 * OPACITY_PARAM[i]),CallFunc::create([&](){
             loadedCount++;
             if (loadedCount >= 4){
                 isLocked = false;
             }
-        }), nullptr));
+        }), nullptr)));
     }
     _textEffector = TextEffector::create(TextType::TV);
     this->addChild(_textEffector);
@@ -99,6 +99,8 @@ bool RotateLayer::init()
     
     this->setTouchEnabled(true);
     this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
+    
+    rotateRight();
     
     return true;
 }
@@ -130,9 +132,9 @@ void RotateLayer::rotateLeft()
         auto bezierTo = BezierTo::create(ANIMATE_SPEED, bezierConfig);
         //runAction
         iconSprite->setTag(nextSpriteTag);
-        iconSprite->runAction( Sequence::create( Spawn::create(scaleTo, opacityTo, EaseSineIn::create(bezierTo), nullptr), CallFunc::create([&](){
+        iconSprite->runAction( EaseSineOut::create(Sequence::create( Spawn::create(scaleTo, opacityTo, EaseSineIn::create(bezierTo), nullptr), CallFunc::create([&](){
             isLocked = false;
-        }), nullptr) );
+        }), nullptr) ));
     }
 }
 
@@ -154,9 +156,9 @@ void RotateLayer::rotateRight()
         auto bezierTo = BezierTo::create(ANIMATE_SPEED, bezierConfig);
         //runAction
         iconSprite->setTag(nextSpriteTag);
-        iconSprite->runAction( Sequence::create( Spawn::create(scaleTo, opacityTo, EaseSineIn::create(bezierTo), nullptr), CallFunc::create([&](){
+        iconSprite->runAction( EaseSineOut::create(Sequence::create( Spawn::create(scaleTo, opacityTo, EaseSineIn::create(bezierTo), nullptr), CallFunc::create([&](){
             isLocked = false;
-        }), nullptr) );
+        }), nullptr) ));
     }
 }
 
