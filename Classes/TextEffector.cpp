@@ -10,10 +10,10 @@
 
 USING_NS_CC;
 
-TextEffector* TextEffector::create(TextType type)
+TextEffector* TextEffector::create(TextType type, RotateDirection direction)
 {
     auto pRet = new TextEffector();
-    if (pRet && pRet->init(type)){
+    if (pRet && pRet->init(type, direction)){
         pRet->autorelease();
         return pRet;
     }
@@ -24,11 +24,15 @@ TextEffector* TextEffector::create(TextType type)
     }
 }
 
-bool TextEffector::init(TextType type)
+bool TextEffector::init(TextType type, RotateDirection direction)
 {
     if (! Layer::init()){
         return false;
     }
+    
+    _type = type;
+    _direction = direction;
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
@@ -42,7 +46,7 @@ bool TextEffector::init(TextType type)
     this->addChild(_lightNode,0);
     
     std::string content;
-    switch (type) {
+    switch (_type) {
         case TextType::Game:
             content = "Game";
             break;
@@ -54,6 +58,17 @@ bool TextEffector::init(TextType type)
             break;
         case TextType::TV:
             content = "TV";
+            break;
+        default:
+            break;
+    }
+    
+    switch (_direction) {
+        case LeftToRight:
+            _rotateY = 90;
+            break;
+        case RightToLeft:
+            _rotateY = -90;
             break;
         default:
             break;
@@ -133,15 +148,27 @@ bool TextEffector::init(TextType type)
 
 void TextEffector::update(float delta){
     
-    //text
-    if(_rotateY >= -25 && !_endFlag ){
-        _rotateY = _rotateY - 8.0;
-        //log(">-20 _%f",_rotateY);
-    }
-    else{
-        _rotateY = (_rotateY + 8.0)>=0?0:(_rotateY + 8.0);
-        //log("else _%f",_rotateY);
-        _endFlag = true;
+    switch (_direction) {
+        case LeftToRight:
+            if(_rotateY <= 25 && !_endFlag ){
+                _rotateY = _rotateY + 8.0;
+            }
+            else{
+                _rotateY = (_rotateY - 8.0)<=0?0:(_rotateY - 8.0);
+                _endFlag = true;
+            }
+            break;
+        case RightToLeft:
+            if(_rotateY >= -25 && !_endFlag ){
+                _rotateY = _rotateY - 8.0;
+            }
+            else{
+                _rotateY = (_rotateY + 8.0)>=0?0:(_rotateY + 8.0);
+                _endFlag = true;
+            }
+            break;
+        default:
+            break;
     }
     
     _lightNode->setRotation3D(Vec3(-90, _rotateY, 0));

@@ -74,7 +74,7 @@ bool RotateLayer::init()
             }
         }), nullptr)));
     }
-    _textEffector = TextEffector::create(TextType::TV);
+    _textEffector = TextEffector::create(TextType::TV,RotateDirection::LeftToRight);
     this->addChild(_textEffector);
     
     /* ==============test============== */
@@ -187,16 +187,16 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 if (iconGroup.at(i)->getTag() == 0){
                     switch (i){
                         case 0:
-                            _textEffector = TextEffector::create(TextType::TV);
+                            _textEffector = TextEffector::create(TextType::TV, RotateDirection::LeftToRight);
                             break;
                         case 1:
-                            _textEffector = TextEffector::create(TextType::Game);
+                            _textEffector = TextEffector::create(TextType::Game, RotateDirection::LeftToRight);
                             break;
                         case 2:
-                            _textEffector = TextEffector::create(TextType::Movie);
+                            _textEffector = TextEffector::create(TextType::Movie, RotateDirection::LeftToRight);
                             break;
                         case 3:
-                            _textEffector = TextEffector::create(TextType::Setting);
+                            _textEffector = TextEffector::create(TextType::Setting, RotateDirection::LeftToRight);
                             break;
                     }
                 }
@@ -215,16 +215,16 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 if (iconGroup.at(i)->getTag() == 0){
                     switch (i){
                         case 0:
-                            _textEffector = TextEffector::create(TextType::TV);
+                            _textEffector = TextEffector::create(TextType::TV, RotateDirection::RightToLeft);
                             break;
                         case 1:
-                            _textEffector = TextEffector::create(TextType::Game);
+                            _textEffector = TextEffector::create(TextType::Game, RotateDirection::RightToLeft);
                             break;
                         case 2:
-                            _textEffector = TextEffector::create(TextType::Movie);
+                            _textEffector = TextEffector::create(TextType::Movie, RotateDirection::RightToLeft);
                             break;
                         case 3:
-                            _textEffector = TextEffector::create(TextType::Setting);
+                            _textEffector = TextEffector::create(TextType::Setting, RotateDirection::RightToLeft);
                             break;
                     }
                 }
