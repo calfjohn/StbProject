@@ -108,7 +108,7 @@ void MaskLayer::closeMoreDetailLayer()
         m_pic->setVisible(true);
         m_pic->setLocalZOrder(recoverzOrder);
         auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
-        auto moveTo = MoveTo::create(FIRST_TIME, recoverPoint);
+        auto moveTo = EaseSineOut::create(MoveTo::create(FIRST_TIME, recoverPoint));
         auto scaleTo = ScaleTo::create(FIRST_TIME, 1.0f);
         m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([&](){
             this->getFocus();
@@ -324,8 +324,8 @@ void MaskLayer::callback20()
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
-    auto move_scale = Spawn::create(RotateBy::create(3, -30),
-                                    ScaleTo::create(3, 1.5), NULL);
+    auto move_scale = Spawn::create(EaseSineOut::create(RotateBy::create(3, -30)),
+                                    EaseSineOut::create(ScaleTo::create(3, 1.5)), NULL);
     
     pNode->runAction(Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL));
 }
@@ -383,7 +383,7 @@ void MaskLayer::callback22()
     }
     
     pNode->runAction(Sequence::create(//DelayTime::create(delayTime*2),
-                                      MoveBy::create(5.0, Point(-250, -100)),
+                                      EaseSineOut::create(MoveBy::create(5.0, Point(-250, -100))),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
                                       MoveBy::create(3.0, Point(-250, -100)),
                                       NULL)
@@ -537,11 +537,11 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
         m_pic = (Sprite*)_mapTv[y][x].pNode;
         cellTv *pNode = (cellTv *)m_pic;
         if (pNode){
-            pNode->runAction(ScaleTo::create(0.05, 1.5));
+            pNode->runAction(EaseSineOut::create(ScaleTo::create(0.05, 1.5)));
             pNode->bringNodeToTop();
 //            pNode->setScale(1.1f);
 //            pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
-            selectedSprite->runAction(ScaleTo::create(0.05, 1.5));
+            selectedSprite->runAction(EaseSineOut::create(ScaleTo::create(0.05, 1.5)));
             selectedSprite->setPosition(pNode->getPosition());
         }
     }
@@ -589,7 +589,7 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             m_moreDetailLayer->setPreMaskLayer(this);
             
             auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-            auto moveTo = MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5));
+            auto moveTo = EaseSineOut::create(MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5)));
             auto scaleTo = ScaleTo::create(FIRST_TIME, 3.0f);
             recoverPoint = m_pic->getPosition();
             recoverzOrder = m_pic->getLocalZOrder();
