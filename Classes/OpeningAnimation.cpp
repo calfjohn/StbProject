@@ -62,7 +62,7 @@ bool OpeningAnimation::init()
     //auto explosionCallback =
     boardNode->runAction(EaseSineOut::create(Sequence::create(DelayTime::create(0.5),ScaleTo::create(0.7,1,0.25),CallFunc::create([&](){
         progressLight->runAction(Spawn::create(
-                                               Sequence::create(FadeIn::create(0.4f),
+                                               Sequence::create(EaseSineOut::create(FadeIn::create(0.4f)),
                                                                 CallFunc::create(std::bind(&OpeningAnimation::addExplosionCallback, this)),
                                                                 DelayTime::create(0.8),
                                                                 EaseExponentialOut::create(ProgressTo::create(0.8f, 100)),
