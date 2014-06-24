@@ -558,7 +558,8 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         if (m_pic){
             
             if(currentFocusCellType > 1){
-                initTvMap(currentFocusCellType);
+                int tempRandom = int(CCRANDOM_0_1()*10)%3 + 1;//1-3之间
+                initTvMap(tempRandom);
                 createCellTv();
                 return;
             }
