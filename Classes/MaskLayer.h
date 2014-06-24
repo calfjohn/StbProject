@@ -11,9 +11,6 @@
 
 #include "cocos2d.h"
 
-#define ROW 7
-#define COL 12
-
 struct structCell{
     std::string fileName;
     cocos2d::Node* pNode;
@@ -49,7 +46,7 @@ public:
 protected:
     void initTvMap(int type);
     
-    void createCellTv();
+    void createCellTv(bool invokeCallback = true);
     
     void addLight();
 
