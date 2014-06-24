@@ -35,9 +35,9 @@ public:
     virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
     virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
 protected:
-    void initTvMap();
+    void initTvMap(int type);
     
-    void createCellTv2();
+    void createCellTv();
     
     void addLight();
 

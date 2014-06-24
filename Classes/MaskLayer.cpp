@@ -19,13 +19,6 @@ using namespace cocos2d::ui;
 
 #define NODE_TAG 1234
 
-#define ROW 7
-#define COL 12
-
-#define TEXTURE_WIDTH 133
-#define TEXTURE_HEIGHT 133
-
-#define CELL_SPACE 5
 #define TOP_ZORDER 1000
 std::string mapStr[8]{
     "XXXXXXXXXXXXX",
@@ -35,7 +28,7 @@ std::string mapStr[8]{
     "X011111111100",
     "X111111111110",
     "X011111100001",
-    "X011001000111"
+    "X011111000111"
 };
 
 MaskLayer* MaskLayer::create(cocos2d::Sprite* pic)
@@ -60,14 +53,14 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     }
     
     Director::getInstance()->setDepthTest(false);
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    RectangleInterface::initialize(ROW, COL, Size(TEXTURE_WIDTH, TEXTURE_HEIGHT), CELL_SPACE, Vec2(visibleSize.width/2, visibleSize.height/2));
+    auto cache = SpriteFrameCache::getInstance();
+    cache->addSpriteFramesWithFile("tvMap.plist");
+    cache->addSpriteFramesWithFile("tvChannel.plist");
     
-    initTvMap();
+    initTvMap(1);
     
-    createCellTv2();
+    createCellTv();
     
     addLight();
     return true;
@@ -101,108 +94,71 @@ void MaskLayer::addLight(){
     this->addChild(_rotateLight);
 }
 
-void MaskLayer::initTvMap()
+void MaskLayer::initTvMap(int type)
 {
-    auto cache = SpriteFrameCache::getInstance();
-    cache->addSpriteFramesWithFile("tvMap.plist");
-    cache->addSpriteFramesWithFile("tvChannel.plist");
+    _mapTv.clear();
+    
+    Size s = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    
+    RectangleInterface::initialize(7, 12, Size(TEXTURE_WIDTH, TEXTURE_HEIGHT), 5, Vec2(s.width/2, s.height/2));
+    
+    std::map<int, std::string>  tempMap;
+    
+    switch (type) {
+        case 1:
+            tempMap[1] = "001000000000";
+            tempMap[2] = "011100111100";
+            tempMap[3] = "000110111110";
+            tempMap[4] = "011121211100";
+            tempMap[5] = "121212121210";
+            tempMap[6] = "011111100001";
+            tempMap[7] = "011111000111";
+            break;
+        case 2:
+            
+            break;
+        default:
+            break;
+    }
+    
     structCell cell;
-    
-    cell.fileName = "cell01";
     cell.pNode = NULL;
-    cell.type = 2;
+    int tempCell = 1;
+    int tempChannel = 1;
     
-    
-    _mapTv[1][3] = cell;
-    
-    _mapTv[2][2] = cell;
-    _mapTv[2][3] = cell;
-    _mapTv[2][4] = cell;
-    _mapTv[2][7] = cell;
-    _mapTv[2][8] = cell;
-    _mapTv[2][9] = cell;
-    _mapTv[2][10] = cell;
-    
-    _mapTv[3][4] = cell;
-    _mapTv[3][5] = cell;
-    _mapTv[3][7] = cell;
-    _mapTv[3][8] = cell;
-    _mapTv[3][9] = cell;
-    _mapTv[3][10] = cell;
-    _mapTv[3][11] = cell;
-    
-    _mapTv[4][2] = cell;
-    _mapTv[4][4] = cell;
-    _mapTv[4][5] = cell;
-    _mapTv[4][6] = cell;
-    _mapTv[4][7] = cell;
-    _mapTv[4][8] = cell;
-    _mapTv[4][10] = cell;
-    
-    _mapTv[5][1] = cell;
-    _mapTv[5][3] = cell;
-    _mapTv[5][5] = cell;
-    _mapTv[5][7] = cell;
-    _mapTv[5][9] = cell;
-    _mapTv[5][11] = cell;
-    
-    _mapTv[6][2] = cell;
-    _mapTv[6][3] = cell;
-    _mapTv[6][4] = cell;
-    _mapTv[6][5] = cell;
-    _mapTv[6][6] = cell;
-    _mapTv[6][7] = cell;
-    _mapTv[6][12] = cell;
-    
-    _mapTv[7][2] = cell;
-    _mapTv[7][3] = cell;
-    _mapTv[7][4] = cell;
-    _mapTv[7][5] = cell;
-    _mapTv[7][6] = cell;
-    _mapTv[7][10] = cell;
-    _mapTv[7][11] = cell;
-    _mapTv[7][12] = cell;
-    
-    cell.type = 1;
-    cell.fileName = "channel7.png";
-    _mapTv[4][3] = cell;
-    cell.fileName = "channel6.png";
-    _mapTv[4][9] = cell;
-    cell.fileName = "channel5.png";
-    _mapTv[5][2] = cell;
-    cell.fileName = "channel4.png";
-    _mapTv[5][4] = cell;
-    cell.fileName = "channel3.png";
-    _mapTv[5][6] = cell;
-    cell.fileName = "channel2.png";
-    _mapTv[5][8] = cell;
-    cell.fileName = "channel1.png";
-    _mapTv[5][10] = cell;
-    
-    int temp = 1;
-    std::map<int, std::map<int, structCell>>::iterator iter1;
-    std::map<int, structCell>::iterator iter2;
-    for(iter1 = _mapTv.begin(); iter1 != _mapTv.end(); ++iter1)
-    {
-        std::map<int, structCell> &tempMap = (*iter1).second;
-        for(iter2 = tempMap.begin(); iter2 != tempMap.end(); ++iter2)
-        {
-            if( (*iter2).second.type == 2)
-            {
-                (*iter2).second.fileName = StringUtils::format("cell%02d.png", temp++);
+    std::map<int, std::string>::iterator iter;
+    for(iter = tempMap.begin(); iter != tempMap.end(); iter++){
+        for (int j = 0; j < RectangleInterface::getColumns(); j++) {
+            
+            int tempRow = (*iter).first;
+            int tempCol = j+1;
+            char tempChar = (*iter).second[j];
+            
+            if(tempChar == '0') continue;
+            
+            if (tempChar == '1'){
+                cell.fileName = StringUtils::format("cell%02d.png", tempCell++);;
+                cell.type = 2;
             }
+            
+            if (tempChar == '2'){
+                cell.fileName = StringUtils::format("channel%d.png", tempChannel++);;
+                cell.type = 1;
+            }
+            
+            _mapTv[tempRow][tempCol] = cell;
         }
     }
 }
 
-void MaskLayer::createCellTv2()
+void MaskLayer::createCellTv()
 {
     removeChildByTag(NODE_TAG);
-    
+
     Size s = Director::getInstance()->getVisibleSize();
-    
+
     Node *pTvNode = Node::create();
-    
     this->addChild(pTvNode);
     pTvNode->setPosition(RectangleInterface::getCenterPosition());
     pTvNode->setTag(NODE_TAG);
@@ -345,9 +301,9 @@ void MaskLayer::callback22()
     if (pNode == NULL) return;
     
     std::map<int, structCell>::iterator iter;
-    for(int i = 1; i <=COL; i++)
+    for(int i = 1; i <=RectangleInterface::getColumns(); i++)
     {
-        for(int j = 1; j <=ROW; j++)
+        for(int j = 1; j <=RectangleInterface::getRows(); j++)
         {
             iter = _mapTv[j].find(i);
             if( iter == _mapTv[j].end()) continue;
@@ -456,10 +412,10 @@ void MaskLayer::initRemoteControl()
     
     bool isFirst = true;
     Size blockSize;
-    for(int y = 1; y <= ROW; y++){
+    for(int y = 1; y <= RectangleInterface::getRows(); y++){
         HBox *bottomLayout = HBox::create();
         bottomLayout->setLayoutParameter(layoutParams);
-        for(int x = 1; x <= COL; x++){
+        for(int x = 1; x <= RectangleInterface::getColumns(); x++){
             if (mapStr[y][x] == '1'){
                 ImageView *imageView = ImageView::create();
                 imageView->setLayoutParameter(layoutParams);

@@ -38,8 +38,6 @@
 		26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26B7AF9E1946AF67009893DA /* RotateLayer.cpp */; };
 		26C1458019540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
 		26C1458119540F1000EB091C /* selectedBlock.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C1457F19540F1000EB091C /* selectedBlock.png */; };
-		26C145991954429E00EB091C /* EffectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C145951954429E00EB091C /* EffectManager.cpp */; };
-		26C1459A1954429E00EB091C /* EffectManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C145951954429E00EB091C /* EffectManager.cpp */; };
 		26C1459B1954429E00EB091C /* ExplosionEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C145971954429E00EB091C /* ExplosionEffect.cpp */; };
 		26C1459C1954429E00EB091C /* ExplosionEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C145971954429E00EB091C /* ExplosionEffect.cpp */; };
 		26C145AE195442BC00EB091C /* ExplodingRing.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26C145A3195442BC00EB091C /* ExplodingRing.plist */; };
@@ -335,8 +333,6 @@
 		26B7AF9E1946AF67009893DA /* RotateLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotateLayer.cpp; path = ../Classes/RotateLayer.cpp; sourceTree = "<group>"; };
 		26B7AF9F1946AF67009893DA /* RotateLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateLayer.h; path = ../Classes/RotateLayer.h; sourceTree = "<group>"; };
 		26C1457F19540F1000EB091C /* selectedBlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedBlock.png; sourceTree = "<group>"; };
-		26C145951954429E00EB091C /* EffectManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EffectManager.cpp; path = ../Classes/EffectManager.cpp; sourceTree = "<group>"; };
-		26C145961954429E00EB091C /* EffectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectManager.h; path = ../Classes/EffectManager.h; sourceTree = "<group>"; };
 		26C145971954429E00EB091C /* ExplosionEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExplosionEffect.cpp; path = ../Classes/ExplosionEffect.cpp; sourceTree = "<group>"; };
 		26C145981954429E00EB091C /* ExplosionEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExplosionEffect.h; path = ../Classes/ExplosionEffect.h; sourceTree = "<group>"; };
 		26C145A3195442BC00EB091C /* ExplodingRing.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExplodingRing.plist; sourceTree = "<group>"; };
@@ -511,8 +507,6 @@
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
 				26F769731945530E00723075 /* MaskLayer.cpp */,
 				26F769741945530E00723075 /* MaskLayer.h */,
-				26C145951954429E00EB091C /* EffectManager.cpp */,
-				26C145961954429E00EB091C /* EffectManager.h */,
 				26C145971954429E00EB091C /* ExplosionEffect.cpp */,
 				26C145981954429E00EB091C /* ExplosionEffect.h */,
 				26F769751945530E00723075 /* MoreDetailLayer.cpp */,
@@ -969,7 +963,6 @@
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 				26B7AFA01946AF67009893DA /* RotateLayer.cpp in Sources */,
 				26F769771945530E00723075 /* MaskLayer.cpp in Sources */,
-				26C145991954429E00EB091C /* EffectManager.cpp in Sources */,
 				BB2E8EDE1959135B00BF1402 /* SpriteBlur.cpp in Sources */,
 				26F7698419455D8F00723075 /* AdLayer.cpp in Sources */,
 				26C1459B1954429E00EB091C /* ExplosionEffect.cpp in Sources */,
@@ -992,7 +985,6 @@
 				BB2E8EDF1959135B00BF1402 /* SpriteBlur.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */,
-				26C1459A1954429E00EB091C /* EffectManager.cpp in Sources */,
 				26F7698519455D8F00723075 /* AdLayer.cpp in Sources */,
 				26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */,
 				BB2E8ECF19584C4500BF1402 /* SelectedEffect.cpp in Sources */,
