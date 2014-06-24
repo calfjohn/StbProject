@@ -11,6 +11,8 @@
 #include "PlayVideoLayer.h"
 #include "MaskLayer.h"
 #include "HelloWorldScene.h"
+#include "SelectedEffect.h"
+
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -243,10 +245,42 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                     case 1:
                     {
                         //MessageBox("game", "pressed");
-                        auto newScene = HelloWorld::createScene();
-                        auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
-                        Director::getInstance()->replaceScene(FadeScene);
-                        newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
+                        auto selectedEffect = SelectedEffect::create();
+                        selectedEffect->setPosition(iconGroup.at(i)->getPosition());
+                        this->addChild(selectedEffect);
+                        auto selectedCallback = [&](){
+                            
+                            auto moveLeft = EaseQuadraticActionIn::create(MoveBy::create(0.1, Vec2(-150,-50)));
+                            auto moveRight = moveLeft->reverse();
+                            
+                            auto spawn = Spawn::create(ScaleTo::create(0.2, 3), Sequence::create(moveLeft, moveRight, NULL), NULL);
+                            
+                            iconGroup.at(1)->runAction(Sequence::create(spawn,
+                                                                        CallFunc::create([&](){
+                                float delayTime = 0.1f;
+                                
+                                auto flash = LayerColor::create(Color4B::WHITE);
+                                this->addChild(flash);
+                                
+                                flash->setLocalZOrder(100);
+                                auto flashAction = Sequence::create(
+                                                                    //FadeIn::create(delayTime/2),
+                                                                    FadeIn::create(delayTime),
+                                                                    //RemoveSelf::create(),
+                                                                    nullptr);
+                                flash->runAction(flashAction);
+                                
+
+                            }),
+                                                                        CallFunc::create([&](){
+                                auto newScene = HelloWorld::createScene();
+                                auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
+                                Director::getInstance()->replaceScene(FadeScene);
+                                newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
+                            }),
+                                                                        NULL));
+                        };
+                        selectedEffect->runEffect(selectedCallback);
                     }
                         break;
                     case 2:
