@@ -21,7 +21,9 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/EffectManager.cpp \
                    ../../Classes/ExplosionEffect.cpp \
                    ../../Classes/PlayVideoLayer.cpp  \
-                   ../../Classes/SpriteBlur.cpp
+                   ../../Classes/SpriteBlur.cpp \
+                   ../../Classes/SelectedEffect.cpp \
+                   ../../Classes/DotGuy.cpp
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

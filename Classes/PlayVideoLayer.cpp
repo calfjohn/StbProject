@@ -55,6 +55,7 @@ void PlayVideoLayer::playResourceVideo()
     if (_videoPlayer)
     {
         _videoPlayer->setFileName("cocosvideo.mp4");
+        MessageBox("come in","play video");
         _videoPlayer->play();
     }
 }
