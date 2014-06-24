@@ -55,6 +55,7 @@ void PlayVideoLayer::playResourceVideo()
     if (_videoPlayer)
     {
         _videoPlayer->setFileName("cocosvideo.mp4");
+        MessageBox("come in","play video");
         _videoPlayer->play();
     }
 }
@@ -87,7 +88,6 @@ void PlayVideoLayer::createVideo()
 
 void PlayVideoLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
-    
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         MoreDetailLayer* moreDetailLayer = dynamic_cast<MoreDetailLayer*>(this->getParent());
         if (moreDetailLayer){

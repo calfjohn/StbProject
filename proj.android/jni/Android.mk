@@ -18,11 +18,11 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/TextEffector.cpp \
                    ../../Classes/RectangleInterface.cpp \
                    ../../Classes/cellTv.cpp \
-                   ../../Classes/EffectManager.cpp \
                    ../../Classes/ExplosionEffect.cpp \
                    ../../Classes/PlayVideoLayer.cpp  \
-                   ../../Classes/SelectedEffect.cpp  \
-                   ../../Classes/SpriteBlur.cpp
+                   ../../Classes/SpriteBlur.cpp \
+                   ../../Classes/SelectedEffect.cpp \
+                   ../../Classes/DotGuy.cpp
                    
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
