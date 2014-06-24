@@ -104,12 +104,10 @@ void MaskLayer::initTvMap(int type)
     Size s = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
-    RectangleInterface::initialize(7, 12, Size(TEXTURE_WIDTH, TEXTURE_HEIGHT), 5, Vec2(s.width/2, s.height/2));
-    
     std::map<int, std::string>  tempMap;
-    
     switch (type) {
         case 1:
+            RectangleInterface::initialize(7, 12, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
             tempMap[1] = "001000000000";
             tempMap[2] = "011100111100";
             tempMap[3] = "000110111110";
@@ -119,7 +117,23 @@ void MaskLayer::initTvMap(int type)
             tempMap[7] = "011111000111";
             break;
         case 2:
-            
+            RectangleInterface::initialize(7, 9, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
+            tempMap[1] = "010000010";
+            tempMap[2] = "001000100";
+            tempMap[3] = "111111111";
+            tempMap[4] = "112121211";
+            tempMap[5] = "110000011";
+            tempMap[6] = "112121211";
+            tempMap[7] = "111121111";
+        break;
+        case 3:
+            RectangleInterface::initialize(6, 12, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
+            tempMap[1] = "000110000000";
+            tempMap[2] = "001111000000";
+            tempMap[3] = "011111100101";
+            tempMap[4] = "111221110010";
+            tempMap[5] = "011221100010";
+            tempMap[6] = "011221100010";
             break;
         default:
             break;
@@ -142,12 +156,12 @@ void MaskLayer::initTvMap(int type)
             
             if (tempChar == '1'){
                 cell.fileName = StringUtils::format("cell%02d.png", tempCell++);;
-                cell.type = 2;
+                cell.type = 1;
             }
             
             if (tempChar == '2'){
                 cell.fileName = StringUtils::format("channel%d.png", tempChannel++);;
-                cell.type = 1;
+                cell.type = 2;
             }
             
             _mapTv[tempRow][tempCol] = cell;
@@ -155,7 +169,7 @@ void MaskLayer::initTvMap(int type)
     }
 }
 
-void MaskLayer::createCellTv()
+void MaskLayer::createCellTv(bool invokeCallback)
 {
     removeChildByTag(NODE_TAG);
 
@@ -186,7 +200,7 @@ void MaskLayer::createCellTv()
         {
             tempGlobalZ += 0.1;
             
-            auto sprite = cellTv::createNode((*iter2).second.fileName, tempGlobalZ, (*iter2).second.type == 2);
+            auto sprite = cellTv::createNode((*iter2).second.fileName, tempGlobalZ, (*iter2).second.type == 1);
             pTvNode->addChild(sprite, 1);
             (*iter2).second.pNode = sprite;
             
@@ -250,7 +264,7 @@ void MaskLayer::createCellTv()
         }
     }
     
-    callback20();
+    if(invokeCallback) callback20();
 }
 
 void MaskLayer::callback20()
@@ -314,7 +328,7 @@ void MaskLayer::callback22()
             cellTv *pcellTv = (cellTv* )(*iter).second.pNode;
             if(pNode == NULL) continue;
             
-            if((*iter).second.type == 1) continue;
+            if((*iter).second.type == 2) continue;
             
             pcellTv->rotateDelay(i);
         }
@@ -402,7 +416,7 @@ void MaskLayer::callback24()
     
     initRemoteControl();
 
-    Size blockSize = Size(TEXTURE_WIDTH + RectangleInterface::getSpace(), TEXTURE_HEIGHT + RectangleInterface::getSpace());
+    Size blockSize = Size(RectangleInterface::getCellSize().width + RectangleInterface::getSpace(), RectangleInterface::getCellSize().height + RectangleInterface::getSpace());
     auto dotGuy = DotGuy::create(Vec2(11, 0), DotGuy::DIRECTION::LEFT, blockSize, this);
     this->addChild(dotGuy, 10);
     dotGuy->walk();
@@ -495,10 +509,6 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        /*auto newScene = SetTopBoxMainScene::createScene();
-        auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
-        Director::getInstance()->replaceScene(FadeScene);
-        */
         if (m_pic){
             this->lostFocus();
             auto winSize = Director::getInstance()->getWinSize();

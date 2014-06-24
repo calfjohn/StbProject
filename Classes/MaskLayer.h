@@ -49,7 +49,7 @@ public:
 protected:
     void initTvMap(int type);
     
-    void createCellTv();
+    void createCellTv(bool invokeCallback = true);
     
     void addLight();
 

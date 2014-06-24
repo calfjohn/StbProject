@@ -12,9 +12,6 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-#define TEXTURE_WIDTH 133
-#define TEXTURE_HEIGHT 133
-
 class RectangleInterface{
 public:
     static void initialize(int row, int column, Size cellSize, int space, Vec2 center);
