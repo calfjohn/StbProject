@@ -10,10 +10,10 @@
 
 USING_NS_CC;
 
-TextEffector* TextEffector::create(TextType type)
+TextEffector* TextEffector::create(TextType type, RotateDirection direction)
 {
     auto pRet = new TextEffector();
-    if (pRet && pRet->init(type)){
+    if (pRet && pRet->init(type, direction)){
         pRet->autorelease();
         return pRet;
     }
@@ -24,25 +24,29 @@ TextEffector* TextEffector::create(TextType type)
     }
 }
 
-bool TextEffector::init(TextType type)
+bool TextEffector::init(TextType type, RotateDirection direction)
 {
     if (! Layer::init()){
         return false;
     }
+    
+    _type = type;
+    _direction = direction;
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     _lightNode = Node::create();
     _lightNode->setPosition(origin.x + visibleSize.width * 0.5f, origin.y + 100);
     _lightNode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    _lightNode->runAction(Repeat::create(Sequence::create(MoveBy::create(0.05, Vec2(10,0)),
-                                                          MoveBy::create(0.05, Vec2(-10,0)),
+    _lightNode->runAction(Repeat::create(Sequence::create(EaseSineOut::create(MoveBy::create(0.05, Vec2(10,0))),
+                                                          EaseSineOut::create(MoveBy::create(0.05, Vec2(-10,0))),
                                                           NULL),5
                                          ));
     this->addChild(_lightNode,0);
     
     std::string content;
-    switch (type) {
+    switch (_type) {
         case TextType::Game:
             content = "Game";
             break;
@@ -54,6 +58,17 @@ bool TextEffector::init(TextType type)
             break;
         case TextType::TV:
             content = "TV";
+            break;
+        default:
+            break;
+    }
+    
+    switch (_direction) {
+        case LeftToRight:
+            _rotateY = 90;
+            break;
+        case RightToLeft:
+            _rotateY = -90;
             break;
         default:
             break;
@@ -84,7 +99,7 @@ bool TextEffector::init(TextType type)
     //light
     _light = Sprite::create("text_light.png");
     _light->setPosition(origin.x + visibleSize.width / 2 + 150, origin.y + 65);
-    _light->runAction(Sequence::create(MoveTo::create(0.15, Vec2(origin.x + visibleSize.width * 0.5f, origin.y + 65)),
+    _light->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(0.15, Vec2(origin.x + visibleSize.width * 0.5f, origin.y + 65))),
                                        RemoveSelf::create(),
                                        NULL));
     this->addChild(_light,3);
@@ -93,7 +108,7 @@ bool TextEffector::init(TextType type)
     _lightTop = Sprite::create("text_light_top.png");
     _lightTop->setPosition(origin.x + visibleSize.width/2 - 100,origin.y +60);
     _lightTop->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
-    _lightTop->runAction(Sequence::create(MoveTo::create(0.3, Vec2(origin.x+visibleSize.width/2+350,origin.y+60)),
+    _lightTop->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(0.3, Vec2(origin.x+visibleSize.width/2+350,origin.y+60))),
                                           NULL));
     _lightTop->runAction(Sequence::create(DelayTime::create(0.2),
                                           Repeat::create(Sequence::create(FadeTo::create(0.07,30),
@@ -108,7 +123,7 @@ bool TextEffector::init(TextType type)
     _lightBottom->setScaleX(1);
     _lightBottom->setPosition(origin.x + visibleSize.width/2,origin.y + 50);
     _lightBottom->setAnchorPoint(Vec2::ANCHOR_MIDDLE_LEFT);
-    _lightBottom->runAction(Sequence::create(MoveTo::create(0.3, Vec2(origin.x + visibleSize .width/2 - 500,origin.y+50)),
+    _lightBottom->runAction(Sequence::create(EaseSineOut::create(MoveTo::create(0.3, Vec2(origin.x + visibleSize .width/2 - 500,origin.y+50))),
                                             NULL));
     _lightBottom->runAction(ScaleTo::create(0.3, 2, 1));
     _lightBottom->runAction(Sequence::create(DelayTime::create(0.2),
@@ -133,15 +148,27 @@ bool TextEffector::init(TextType type)
 
 void TextEffector::update(float delta){
     
-    //text
-    if(_rotateY >= -25 && !_endFlag ){
-        _rotateY = _rotateY - 8.0;
-        //log(">-20 _%f",_rotateY);
-    }
-    else{
-        _rotateY = (_rotateY + 8.0)>=0?0:(_rotateY + 8.0);
-        //log("else _%f",_rotateY);
-        _endFlag = true;
+    switch (_direction) {
+        case LeftToRight:
+            if(_rotateY <= 25 && !_endFlag ){
+                _rotateY = _rotateY + 8.0;
+            }
+            else{
+                _rotateY = (_rotateY - 8.0)<=0?0:(_rotateY - 8.0);
+                _endFlag = true;
+            }
+            break;
+        case RightToLeft:
+            if(_rotateY >= -25 && !_endFlag ){
+                _rotateY = _rotateY - 8.0;
+            }
+            else{
+                _rotateY = (_rotateY + 8.0)>=0?0:(_rotateY + 8.0);
+                _endFlag = true;
+            }
+            break;
+        default:
+            break;
     }
     
     _lightNode->setRotation3D(Vec3(-90, _rotateY, 0));

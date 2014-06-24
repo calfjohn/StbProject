@@ -58,7 +58,7 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
 
 void cellTv::runRotateAction()
 {
-    ActionInterval* action1 = OrbitCamera::create(2, 1, 0, 0, 360, 0, 0);
+    ActionInterval* action1 = EaseSineOut::create(OrbitCamera::create(2, 1, 0, 0, 360, 0, 0));
     
     float time = CCRANDOM_0_1() * 10 + _time;
     
@@ -68,8 +68,7 @@ void cellTv::runRotateAction()
 void cellTv::rotateDelay(int delayTime)
 {
     auto delayAction = DelayTime::create(0.25*delayTime);
-    ActionInterval* action1 = OrbitCamera::create(0.5, 1, 0, 0, 360, 0, 0);
-   
+    ActionInterval* action1 = EaseSineOut::create(OrbitCamera::create(0.5, 1, 0, 0, 360, 0, 0));
     runAction(EaseSineOut::create(Sequence::create(delayAction,
                                action1,
                                CallFunc::create( CC_CALLBACK_0(cellTv::setCoverVisible,this)),
