@@ -87,7 +87,6 @@ void PlayVideoLayer::createVideo()
 
 void PlayVideoLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
-    
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         MoreDetailLayer* moreDetailLayer = dynamic_cast<MoreDetailLayer*>(this->getParent());
         if (moreDetailLayer){

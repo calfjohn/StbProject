@@ -48,8 +48,8 @@ bool MoreDetailLayer::init()
     
     HBox *bottomLayout = HBox::create();
     bottomLayout->setLayoutParameter(layoutParams);
-    bottomLayout->setFocused(true);
-    _widget = bottomLayout;
+    //bottomLayout->setFocused(true);
+    //_widget = bottomLayout;
     
     LinearLayoutParameter *bottomLayoutParameters = LinearLayoutParameter::create();
     float leftOffset = 860;
@@ -63,11 +63,19 @@ bool MoreDetailLayer::init()
             bottomLayoutParameters->setMargin(Margin(leftOffset,offsetHeight, 0, 0));
         }
         else{
-            bottomLayoutParameters->setMargin(Margin(leftOffset, offsetHeight, - 760, 0));
+            bottomLayoutParameters->setMargin(Margin(leftOffset, offsetHeight, -760, 0));
         }
         imageView->setLayoutParameter(bottomLayoutParameters);
         //you don't set the postion of each imageview, the layout will handle it
         bottomLayout->addChild(imageView);
+        if (i == 1){
+            imageView->setFocused(true);
+            _widget = imageView;
+            selectedLightSprite->setVisible(true);
+            selectedLightSprite->setPosition(imageView->convertToWorldSpace(Vec2(imageView->getPosition().x, 1080 + imageView->getPosition().y - 10)));
+            playSprite->setVisible(true);
+            playSprite->setPosition(imageView->convertToWorldSpace(Vec2(imageView->getPosition().x, 1080 + imageView->getPosition().y + 80)));
+        }
     }
     outerLayout->addChild(bottomLayout);
     this->addChild(outerLayout);
@@ -103,6 +111,7 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         this->addChild(PlayVideoLayer::create());
+        MessageBox("play", "video");
         lostFocus();
 #endif
     }
@@ -127,9 +136,9 @@ void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos
 {
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
-        selectedLightSprite->setVisible(true);
+        //selectedLightSprite->setVisible(true);
         selectedLightSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y - 10));
-        playSprite->setVisible(true);
+        //playSprite->setVisible(true);
         playSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y + 80));
         widgetGetFocus->setScale(1.3f);
     }
