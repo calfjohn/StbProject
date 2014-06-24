@@ -8,6 +8,8 @@
 
 #include "DotGuy.h"
 #include "MaskLayer.h"
+#include "RectangleInterface.h"
+
 USING_NS_CC;
 #define MOVE_SPEED 0.0001f
 #define DELAY_TIME 11.0f
@@ -75,7 +77,7 @@ bool DotGuy::isWall(DotGuy::DIRECTION direction, cocos2d::Vec2 position)
             tempVec2.y += 1;
             break;
     }
-    if (tempVec2.x <= 0 || tempVec2.y <= 0 || tempVec2.x > COL || tempVec2.y > ROW){
+    if (tempVec2.x <= 0 || tempVec2.y <= 0 || tempVec2.x > RectangleInterface::getColumns() || tempVec2.y > RectangleInterface::getRows()){
         return false;
     }
     else{

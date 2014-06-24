@@ -102,7 +102,6 @@ void MaskLayer::initTvMap(int type)
     _mapTv.clear();
     
     Size s = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
     std::map<int, std::string>  tempMap;
     switch (type) {
@@ -264,7 +263,7 @@ void MaskLayer::createCellTv(bool invokeCallback)
         }
     }
     
-    if(invokeCallback) callback20();
+//    if(invokeCallback) callback20();
 }
 
 void MaskLayer::callback20()
@@ -512,7 +511,6 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         if (m_pic){
             this->lostFocus();
             auto winSize = Director::getInstance()->getWinSize();
-            
             m_moreDetailLayer = MoreDetailLayer::create();
             Director::getInstance()->getRunningScene()->addChild(m_moreDetailLayer);
             m_moreDetailLayer->setVisible(false);
@@ -702,7 +700,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
             break;
         case MaskLayer::DIRECTION::DOWN:
             while(++y){
-                if (y > ROW) break;
+                if (y > RectangleInterface::getRows()) break;
                 if (mapStr[y][x] == '1'){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
@@ -714,7 +712,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
             break;
         case MaskLayer::DIRECTION::RIGHT:
             while(++x){
-                if (x > COL) break;
+                if (x > RectangleInterface::getColumns()) break;
                 if (mapStr[y][x] == '1'){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
@@ -747,13 +745,13 @@ void MaskLayer::initWithDotGuyMap()
             mapStr[ROW + 1 - y][x] = temp;
         }
     }*/
-    for(int y = 1; y <= ROW; y++){
-        for(int x = 1; x <= COL; x++){
+    for(int y = 1; y <= RectangleInterface::getRows(); y++){
+        for(int x = 1; x <= RectangleInterface::getColumns(); x++){
             if (mapStr[y][x] == '1'){
-                dotGuyMap[x][ROW + 1 - y] = true;
+                dotGuyMap[x][RectangleInterface::getRows() + 1 - y] = true;
             }
             else{
-                dotGuyMap[x][ROW + 1 - y] = false;
+                dotGuyMap[x][RectangleInterface::getRows() + 1 - y] = false;
             }
         }
     }

@@ -11,9 +11,6 @@
 
 #include "cocos2d.h"
 
-#define ROW 7
-#define COL 12
-
 struct structCell{
     std::string fileName;
     cocos2d::Node* pNode;
