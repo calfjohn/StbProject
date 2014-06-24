@@ -14,7 +14,7 @@
 struct structCell{
     std::string fileName;
     cocos2d::Node* pNode;
-    int type;/* 1 channel 2 video */
+    int type;/* 1 video  2 channel1 3 channel2 4channel3 */
 };
 
 class MoreDetailLayer;
@@ -71,6 +71,7 @@ protected:
     
     std::map<int, std::map<int, structCell>> _mapTv;
 private:
+    int currentFocusCellType;
     cocos2d::Node *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::Sprite* selectedSprite;
