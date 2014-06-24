@@ -11,6 +11,7 @@
 Vec2 RectangleInterface::_center = Vec2(0, 0);
 int RectangleInterface::_row = 0;
 int RectangleInterface::_column = 0;
+int RectangleInterface::_space = 0;
 Size RectangleInterface::_cellSize = Size(0, 0);
 Size RectangleInterface::_rectangleSize = Size(0, 0);
 
@@ -22,6 +23,7 @@ void RectangleInterface::initialize(int row, int column, Size cellSize, int spac
     _cellSize = cellSize;
     _cellSize.width += space;
     _cellSize.height += space;
+    _space = space;
     
     _rectangleSize = Size(_cellSize.width * _column, _cellSize.height * _row);
 }
