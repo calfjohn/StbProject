@@ -5,13 +5,17 @@
 //  Created by EnCaL on 14-6-6.
 //
 //
+#define GLOBAL_TOP 1000
 
 #include "MoreDetailLayer.h"
 #include "MaskLayer.h"
 #include "PlayVideoLayer.h"
 USING_NS_CC;
 using namespace cocos2d::ui;
-
+std::string _mapStr[2]{
+    "XXXX",
+    "X111"
+};
 bool MoreDetailLayer::init()
 {
     if (! Layer::init()){
@@ -23,54 +27,51 @@ bool MoreDetailLayer::init()
     auto bg = Sprite::create("moreDetail/background.png");
     this->addChild(bg);
     bg->setPosition(Vec2(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
-    //bg->setGlobalZOrder(-20);
+    bg->setGlobalZOrder(GLOBAL_TOP);
     
     auto fg = Sprite::create("moreDetail/foreground.png");
     bg->addChild(fg);
     fg->setPosition(Vec2(bg->getContentSize().width * 0.5, bg->getContentSize().height * 0.5));
-    //fg->setGlobalZOrder(20);
+    fg->setGlobalZOrder(GLOBAL_TOP);
     
     selectedLightSprite = Sprite::create("moreDetail/selectedLight.png");
     this->addChild(selectedLightSprite);
+    selectedLightSprite->setGlobalZOrder(GLOBAL_TOP);
     selectedLightSprite->setVisible(false);
     playSprite = Sprite::create("moreDetail/play.png");
     this->addChild(playSprite);
+    playSprite->setGlobalZOrder(GLOBAL_TOP);
     playSprite->setVisible(false);
     
-    VBox *outerLayout = VBox::create();
-    //only the first outer layout should care about the position, all the other layout and element
-    //they should care only about their layout and layoutParameter type
-    outerLayout->setPosition(Point(0, visibleSize.height));
-    outerLayout->setContentSize(Size(visibleSize.width, visibleSize.height));
-    
+    /* ==============test============== */
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
-    layoutParams->setMargin(Margin(0, 0, 0, 0));
+    layoutParams->setMargin(Margin(59,40,0,0));
     
-    HBox *bottomLayout = HBox::create();
-    bottomLayout->setLayoutParameter(layoutParams);
-    bottomLayout->setFocused(true);
-    _widget = bottomLayout;
-    
-    LinearLayoutParameter *bottomLayoutParameters = LinearLayoutParameter::create();
-    float leftOffset = 860;
-    float offsetHeight = 905;
-    
+    //first layout 显示上面一排按钮 HBox
+    HBox *layoutHeader = HBox::create();
+    //    layoutHeader->setLoopFocus(true);
+    layoutHeader->setLayoutParameter(layoutParams);
+    layoutHeader->setFocused(true);
+    _widget = layoutHeader;
+    /* ==============test============== */
+   
     int imageCount = 3;
     for (int i = 1; i <= imageCount; ++i) {
         std::string imageName = StringUtils::format("moreDetail/0%d.png", i);
-        ImageView *imageView = ImageView::create(imageName);
+        Sprite *countSprite = Sprite::create(imageName);
+        countSprite->setGlobalZOrder(GLOBAL_TOP);
+        countSprite->setTag(i * 100 + 1);
+        this->addChild(countSprite);
+        countSprite->setPosition(Vec2(visibleSize.width * 0.4 + 100 * i + origin.x, visibleSize.height * 0.15 + origin.y));
         if (i == 1){
-            bottomLayoutParameters->setMargin(Margin(leftOffset,offsetHeight, 0, 0));
+            nowTag = i * 100 + 1;
+            selectedLightSprite->setVisible(true);
+            selectedLightSprite->setPosition(countSprite->getPosition());
+            playSprite->setVisible(true);
+            playSprite->setPosition(countSprite->getPosition() + Vec2(0, 80));
+            countSprite->setScale(1.3f);
         }
-        else{
-            bottomLayoutParameters->setMargin(Margin(leftOffset, offsetHeight, - 760, 0));
-        }
-        imageView->setLayoutParameter(bottomLayoutParameters);
-        //you don't set the postion of each imageview, the layout will handle it
-        bottomLayout->addChild(imageView);
     }
-    outerLayout->addChild(bottomLayout);
-    this->addChild(outerLayout);
     //register focus event
     _eventListener = EventListenerFocus::create();
     _eventListener->onFocusChanged = CC_CALLBACK_2(MoreDetailLayer::onFocusChanged, this);
@@ -103,20 +104,25 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         this->addChild(PlayVideoLayer::create());
+        MessageBox("play", "video");
         lostFocus();
 #endif
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
-        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
+        //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
+        simulateFocusMove(MoreDetailLayer::DIRECTION::DOWN);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
-        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
+        //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
+        simulateFocusMove(MoreDetailLayer::DIRECTION::UP);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
-        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
+        //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
+        simulateFocusMove(MoreDetailLayer::DIRECTION::LEFT);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
-        _widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
+        //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
+        simulateFocusMove(MoreDetailLayer::DIRECTION::RIGHT);
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
         MessageBox("menu", "pressed");
@@ -127,9 +133,9 @@ void MoreDetailLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos
 {
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
-        selectedLightSprite->setVisible(true);
+        //selectedLightSprite->setVisible(true);
         selectedLightSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y - 10));
-        playSprite->setVisible(true);
+        //playSprite->setVisible(true);
         playSprite->setPosition(Vec2(widgetGetFocus->getPosition().x, 1080 + widgetGetFocus->getPosition().y + 80));
         widgetGetFocus->setScale(1.3f);
     }
@@ -198,4 +204,53 @@ void MoreDetailLayer::getFocus()
     _keyboardListener = EventListenerKeyboard::create();
     _keyboardListener->onKeyReleased = CC_CALLBACK_2(MoreDetailLayer::onKeyboardReleased, this);
     _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
+}
+
+void MoreDetailLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
+{
+    int getFocus_x = tagGetFocus / 100;
+    int getFocus_y = tagGetFocus % 100;
+    Sprite* getFocusSprite = (Sprite*)this->getChildByTag(getFocus_x * 100 + getFocus_y);
+    selectedLightSprite->setPosition(getFocusSprite->getPosition());
+    playSprite->setPosition(getFocusSprite->getPosition() + Vec2(0, 80));
+    getFocusSprite->setScale(1.3f);
+    
+    int lostFocus_x = tagLostFocus / 100;
+    int lostFocus_y = tagLostFocus % 100;
+    Sprite* lostFocusSprite = (Sprite*)this->getChildByTag(lostFocus_x * 100 + lostFocus_y);
+    lostFocusSprite->setScale(1.0f);
+}
+
+bool MoreDetailLayer::simulateFocusMove(MoreDetailLayer::DIRECTION direction)
+{
+    int x = nowTag / 100;
+    int y = nowTag % 100;
+    switch (direction) {
+        case MoreDetailLayer::DIRECTION::LEFT:
+            while(--x){
+                if (_mapStr[y][x] == '1'){
+                    int oldTag = nowTag;
+                    nowTag = x * 100 + y;
+                    simulateFocusChanged(oldTag, nowTag);
+                    return true;
+                }
+            }
+            return false;
+            break;
+        case MoreDetailLayer::DIRECTION::RIGHT:
+            while(++x){
+                if (x > 3) break;
+                if (_mapStr[y][x] == '1'){
+                    int oldTag = nowTag;
+                    nowTag = x * 100 + y;
+                    simulateFocusChanged(oldTag, nowTag);
+                    return true;
+                }
+            }
+            break;
+            return false;
+        default:
+            return false;
+    }
+    return false;
 }

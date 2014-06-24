@@ -26,8 +26,6 @@
 		2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
 		2606FA90195023C200FF577D /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2606FA8E195023C200FF577D /* cocosvideo.mp4 */; };
 		2606FA92195023E900FF577D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2606FA91195023E900FF577D /* MediaPlayer.framework */; };
-		2606FAA619504F6200FF577D /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 2606FAA519504F6200FF577D /* moreDetail */; };
-		2606FAA719504F6200FF577D /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 2606FAA519504F6200FF577D /* moreDetail */; };
 		265BB9A619484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */; };
 		265BB9AB19484FE200D9A051 /* OpeningAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */; };
@@ -46,6 +44,26 @@
 		26C145B1195442BC00EB091C /* Phoenix.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26C145A4195442BC00EB091C /* Phoenix.plist */; };
 		26C145B2195442BC00EB091C /* rotate_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C145A5195442BC00EB091C /* rotate_light.png */; };
 		26C145B3195442BC00EB091C /* rotate_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C145A5195442BC00EB091C /* rotate_light.png */; };
+		26C6D8951958515C00A65546 /* encaltest.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C6D8941958515C00A65546 /* encaltest.png */; };
+		26C6D8961958515C00A65546 /* encaltest.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C6D8941958515C00A65546 /* encaltest.png */; };
+		26C6D89A1958789100A65546 /* DotGuy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C6D8981958789100A65546 /* DotGuy.cpp */; };
+		26C6D89B1958789100A65546 /* DotGuy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26C6D8981958789100A65546 /* DotGuy.cpp */; };
+		26C6D89D19587A7300A65546 /* body.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C6D89C19587A7300A65546 /* body.png */; };
+		26C6D89E19587A7300A65546 /* body.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C6D89C19587A7300A65546 /* body.png */; };
+		26DB59A5195913EE0076646C /* cellframe.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A0195913EE0076646C /* cellframe.png */; };
+		26DB59A6195913EE0076646C /* cellframe.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A0195913EE0076646C /* cellframe.png */; };
+		26DB59A7195913EE0076646C /* flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A1195913EE0076646C /* flash.png */; };
+		26DB59A8195913EE0076646C /* flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A1195913EE0076646C /* flash.png */; };
+		26DB59A9195913EE0076646C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A2195913EE0076646C /* Shaders */; };
+		26DB59AA195913EE0076646C /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A2195913EE0076646C /* Shaders */; };
+		26DB59AB195913EE0076646C /* tvChannel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A3195913EE0076646C /* tvChannel.plist */; };
+		26DB59AC195913EE0076646C /* tvChannel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A3195913EE0076646C /* tvChannel.plist */; };
+		26DB59AD195913EE0076646C /* tvChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A4195913EE0076646C /* tvChannel.png */; };
+		26DB59AE195913EE0076646C /* tvChannel.png in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59A4195913EE0076646C /* tvChannel.png */; };
+		26DB59B3195914CE0076646C /* SpriteBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26DB59B1195914CE0076646C /* SpriteBlur.cpp */; };
+		26DB59B4195914CE0076646C /* SpriteBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26DB59B1195914CE0076646C /* SpriteBlur.cpp */; };
+		26DB59BC1959175C0076646C /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59BB1959175C0076646C /* moreDetail */; };
+		26DB59BD1959175C0076646C /* moreDetail in Resources */ = {isa = PBXBuildFile; fileRef = 26DB59BB1959175C0076646C /* moreDetail */; };
 		26F769771945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
 		26F769781945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
 		26F769791945530E00723075 /* MoreDetailLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769751945530E00723075 /* MoreDetailLayer.cpp */; };
@@ -325,7 +343,6 @@
 		2606FA89195023B700FF577D /* PlayVideoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoLayer.h; sourceTree = "<group>"; };
 		2606FA8E195023C200FF577D /* cocosvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cocosvideo.mp4; sourceTree = "<group>"; };
 		2606FA91195023E900FF577D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		2606FAA519504F6200FF577D /* moreDetail */ = {isa = PBXFileReference; lastKnownFileType = folder; path = moreDetail; sourceTree = "<group>"; };
 		265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SetTopBoxMainScene.cpp; path = ../Classes/SetTopBoxMainScene.cpp; sourceTree = "<group>"; };
 		265BB9A519484CEE00D9A051 /* SetTopBoxMainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetTopBoxMainScene.h; path = ../Classes/SetTopBoxMainScene.h; sourceTree = "<group>"; };
 		265BB9A919484FE200D9A051 /* OpeningAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OpeningAnimation.cpp; path = ../Classes/OpeningAnimation.cpp; sourceTree = "<group>"; };
@@ -340,6 +357,18 @@
 		26C145A3195442BC00EB091C /* ExplodingRing.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExplodingRing.plist; sourceTree = "<group>"; };
 		26C145A4195442BC00EB091C /* Phoenix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Phoenix.plist; sourceTree = "<group>"; };
 		26C145A5195442BC00EB091C /* rotate_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotate_light.png; sourceTree = "<group>"; };
+		26C6D8941958515C00A65546 /* encaltest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = encaltest.png; sourceTree = "<group>"; };
+		26C6D8981958789100A65546 /* DotGuy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DotGuy.cpp; sourceTree = "<group>"; };
+		26C6D8991958789100A65546 /* DotGuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotGuy.h; sourceTree = "<group>"; };
+		26C6D89C19587A7300A65546 /* body.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = body.png; sourceTree = "<group>"; };
+		26DB59A0195913EE0076646C /* cellframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellframe.png; sourceTree = "<group>"; };
+		26DB59A1195913EE0076646C /* flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flash.png; sourceTree = "<group>"; };
+		26DB59A2195913EE0076646C /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shaders; sourceTree = "<group>"; };
+		26DB59A3195913EE0076646C /* tvChannel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tvChannel.plist; sourceTree = "<group>"; };
+		26DB59A4195913EE0076646C /* tvChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvChannel.png; sourceTree = "<group>"; };
+		26DB59B1195914CE0076646C /* SpriteBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpriteBlur.cpp; path = ../Classes/SpriteBlur.cpp; sourceTree = "<group>"; };
+		26DB59B2195914CE0076646C /* SpriteBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteBlur.h; path = ../Classes/SpriteBlur.h; sourceTree = "<group>"; };
+		26DB59BB1959175C0076646C /* moreDetail */ = {isa = PBXFileReference; lastKnownFileType = folder; path = moreDetail; sourceTree = "<group>"; };
 		26F769731945530E00723075 /* MaskLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLayer.cpp; sourceTree = "<group>"; };
 		26F769741945530E00723075 /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
 		26F769751945530E00723075 /* MoreDetailLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreDetailLayer.cpp; sourceTree = "<group>"; };
@@ -410,6 +439,7 @@
 		ACDDE6231952ED86003C7847 /* RectangleInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RectangleInterface.h; path = ../Classes/RectangleInterface.h; sourceTree = "<group>"; };
 		ACDDE62A1952EDBA003C7847 /* tvMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tvMap.plist; sourceTree = "<group>"; };
 		ACDDE62B1952EDBA003C7847 /* tvMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvMap.png; sourceTree = "<group>"; };
+
 		BB2E8ECC19584C4500BF1402 /* SelectedEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectedEffect.cpp; sourceTree = "<group>"; };
 		BB2E8ECD19584C4500BF1402 /* SelectedEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedEffect.h; sourceTree = "<group>"; };
 		BB2E8ED019585F4200BF1402 /* ring.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ring.png; sourceTree = "<group>"; };
@@ -419,6 +449,7 @@
 		BB2E8EE01959138800BF1402 /* cellframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cellframe.png; sourceTree = "<group>"; };
 		BB2E8EE11959138800BF1402 /* tvChannel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = tvChannel.plist; sourceTree = "<group>"; };
 		BB2E8EE21959138800BF1402 /* tvChannel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvChannel.png; sourceTree = "<group>"; };
+
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -508,6 +539,8 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
+				26C6D8981958789100A65546 /* DotGuy.cpp */,
+				26C6D8991958789100A65546 /* DotGuy.h */,
 				26F769731945530E00723075 /* MaskLayer.cpp */,
 				26F769741945530E00723075 /* MaskLayer.h */,
 				26C145971954429E00EB091C /* ExplosionEffect.cpp */,
@@ -642,6 +675,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				26C6D8941958515C00A65546 /* encaltest.png */,
+				26C6D89C19587A7300A65546 /* body.png */,
 				661F912E19592F6B0075C81A /* MainMenu */,
 				BB2E8EE01959138800BF1402 /* cellframe.png */,
 				BB2E8EE11959138800BF1402 /* tvChannel.plist */,
@@ -649,12 +684,16 @@
 				BB2E8ED519586AC300BF1402 /* flash.png */,
 				BB2E8ED019585F4200BF1402 /* ring.png */,
 				26C145A3195442BC00EB091C /* ExplodingRing.plist */,
+				26DB59A0195913EE0076646C /* cellframe.png */,
+				26DB59A1195913EE0076646C /* flash.png */,
+				26DB59A2195913EE0076646C /* Shaders */,
+				26DB59A3195913EE0076646C /* tvChannel.plist */,
+				26DB59A4195913EE0076646C /* tvChannel.png */,
 				26C145A4195442BC00EB091C /* Phoenix.plist */,
 				26C145A5195442BC00EB091C /* rotate_light.png */,
 				26C1457F19540F1000EB091C /* selectedBlock.png */,
 				ACDDE62A1952EDBA003C7847 /* tvMap.plist */,
 				ACDDE62B1952EDBA003C7847 /* tvMap.png */,
-				2606FAA519504F6200FF577D /* moreDetail */,
 				2606FA8E195023C200FF577D /* cocosvideo.mp4 */,
 				6622566319501F8A00EBC69D /* background.png */,
 				6622566819501F8A00EBC69D /* board.png */,
@@ -859,13 +898,17 @@
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				BB2E8ED119585F4200BF1402 /* ring.png in Resources */,
 				6622569119501F8A00EBC69D /* Comet.png in Resources */,
+				26DB59A9195913EE0076646C /* Shaders in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				26DB59AB195913EE0076646C /* tvChannel.plist in Resources */,
 				26C145B0195442BC00EB091C /* Phoenix.plist in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				26C145B2195442BC00EB091C /* rotate_light.png in Resources */,
 				662256AF19501F8A00EBC69D /* text_effect.plist in Resources */,
 				6622569719501F8A00EBC69D /* fonts in Resources */,
+
 				661F912F19592F6B0075C81A /* MainMenu in Resources */,
+
 				ACDDE62C1952EDBA003C7847 /* tvMap.plist in Resources */,
 				26C145AE195442BC00EB091C /* ExplodingRing.plist in Resources */,
 				662256AB19501F8A00EBC69D /* radioSelected.png in Resources */,
@@ -882,14 +925,19 @@
 				2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */,
 				662256A719501F8A00EBC69D /* picture01.jpg in Resources */,
 				662256A519501F8A00EBC69D /* mystic.plist in Resources */,
+
 				BB2E8EE51959138800BF1402 /* tvChannel.plist in Resources */,
 				BB2E8EE71959138800BF1402 /* tvChannel.png in Resources */,
+
 				6622569D19501F8A00EBC69D /* icon1.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				BB2E8EE31959138800BF1402 /* cellframe.png in Resources */,
 				26C1458019540F1000EB091C /* selectedBlock.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
+
+				26C6D89D19587A7300A65546 /* body.png in Resources */,
+
 				BB2E8ED619586AC300BF1402 /* flash.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				662256B319501F8A00EBC69D /* text_light_top.png in Resources */,
@@ -911,16 +959,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				662256AA19501F8A00EBC69D /* radioNormal.png in Resources */,
+
 				26C145B1195442BC00EB091C /* Phoenix.plist in Resources */,
 				662256A419501F8A00EBC69D /* light.png in Resources */,
 				662256A819501F8A00EBC69D /* picture01.jpg in Resources */,
 				26C1458119540F1000EB091C /* selectedBlock.png in Resources */,
 				BB2E8ED219585F4200BF1402 /* ring.png in Resources */,
 				ACDDE62F1952EDBA003C7847 /* tvMap.png in Resources */,
+
+				26C6D89E19587A7300A65546 /* body.png in Resources */,
+				26C6D8961958515C00A65546 /* encaltest.png in Resources */,
+
 				6622569A19501F8A00EBC69D /* HelloWorld.png in Resources */,
 				BB2E8EE61959138800BF1402 /* tvChannel.plist in Resources */,
 				BB2E8ED719586AC300BF1402 /* flash.png in Resources */,
+
 				661F913019592F6B0075C81A /* MainMenu in Resources */,
+
 				662256A619501F8A00EBC69D /* mystic.plist in Resources */,
 				6622568A19501F8A00EBC69D /* board.png in Resources */,
 				ACDDE62D1952EDBA003C7847 /* tvMap.plist in Resources */,
@@ -945,7 +1000,9 @@
 				BB2E8EE81959138800BF1402 /* tvChannel.png in Resources */,
 				662256B619501F8A00EBC69D /* text_light.png in Resources */,
 				BB2E8EE41959138800BF1402 /* cellframe.png in Resources */,
+
 				2606FA90195023C200FF577D /* cocosvideo.mp4 in Resources */,
+				26DB59AC195913EE0076646C /* tvChannel.plist in Resources */,
 				6622569019501F8A00EBC69D /* CloseSelected.png in Resources */,
 				6622568E19501F8A00EBC69D /* CloseNormal.png in Resources */,
 				662256A019501F8A00EBC69D /* icon2.png in Resources */,
@@ -969,12 +1026,18 @@
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 				26B7AFA01946AF67009893DA /* RotateLayer.cpp in Sources */,
 				26F769771945530E00723075 /* MaskLayer.cpp in Sources */,
+
 				BB2E8EDE1959135B00BF1402 /* SpriteBlur.cpp in Sources */,
+
 				26F7698419455D8F00723075 /* AdLayer.cpp in Sources */,
 				26C1459B1954429E00EB091C /* ExplosionEffect.cpp in Sources */,
 				265BB9A619484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */,
 				265BB9AB19484FE200D9A051 /* OpeningAnimation.cpp in Sources */,
+
+				26C6D89A1958789100A65546 /* DotGuy.cpp in Sources */,
+
 				BB2E8ECE19584C4500BF1402 /* SelectedEffect.cpp in Sources */,
+
 				26F769791945530E00723075 /* MoreDetailLayer.cpp in Sources */,
 				ACDDE6241952ED86003C7847 /* cellTv.cpp in Sources */,
 			);
@@ -988,9 +1051,13 @@
 				ACDDE6251952ED86003C7847 /* cellTv.cpp in Sources */,
 				ACDDE6271952ED86003C7847 /* RectangleInterface.cpp in Sources */,
 				26F7697A1945530E00723075 /* MoreDetailLayer.cpp in Sources */,
+
 				BB2E8EDF1959135B00BF1402 /* SpriteBlur.cpp in Sources */,
+
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */,
+
+				26C6D89B1958789100A65546 /* DotGuy.cpp in Sources */,
 				26F7698519455D8F00723075 /* AdLayer.cpp in Sources */,
 				26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */,
 				BB2E8ECF19584C4500BF1402 /* SelectedEffect.cpp in Sources */,
