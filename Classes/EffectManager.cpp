@@ -30,7 +30,7 @@ void EffectManager::initAnimation(){
 
 Animation* EffectManager::getAnimationByType(EffectTypes type){
     switch (type) {
-        case EffectTypes::cellBlink:
+        case EffectTypes::CellBlink:
             return AnimationCache::getInstance()->getAnimation("CellAnimation");
         default:
             break;

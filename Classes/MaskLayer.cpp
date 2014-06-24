@@ -309,15 +309,15 @@ void MaskLayer::callback20()
 
 void MaskLayer::callback21()
 {
-    float delayTime = 0.2f;
+    float delayTime = 0.1f;
     
     auto flash = LayerColor::create(Color4B::WHITE);
     this->addChild(flash);
     
-    flash->setLocalZOrder(100);
+    flash->setGlobalZOrder(1000);
     auto flashAction = Sequence::create(
-                                        FadeIn::create(delayTime/2),
-                                        FadeOut::create(delayTime/2),
+                                        //FadeIn::create(delayTime/2),
+                                        FadeOut::create(delayTime),
                                         RemoveSelf::create(),
                                         nullptr);
     flash->runAction(EaseSineOut::create(flashAction));
