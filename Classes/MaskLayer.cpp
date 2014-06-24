@@ -62,31 +62,6 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     Director::getInstance()->setDepthTest(false);
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-    /*  it should be somewhere else now--lijun modify it
-    auto winSize = Director::getInstance()->getWinSize();
-    auto maskLayer = LayerColor::create(Color4B(0, 0, 0, 160), winSize.width,winSize.height);
-    this->addChild(maskLayer);
-        
-    m_moreDetailLayer = MoreDetailLayer::create();
-    this->addChild(m_moreDetailLayer);
-    m_moreDetailLayer->setVisible(false);
-    m_moreDetailLayer->setPreMaskLayer(this);
-        
-    m_pic = pic;
-    this->addChild(pic);
-    pic->setPosition(Vec2(winSize.width * 0.5, winSize.height * 0.5));
-    
-    auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-    pic->runAction(Sequence::create(actionOrb, CallFunc::create([this](){
-        m_pic->setVisible(false);
-        m_moreDetailLayer->setVisible(true);
-        auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
-        m_moreDetailLayer->setScale(0.4f);
-        auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
-        m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
-        }), NULL));
-*/
     
     RectangleInterface::initialize(ROW, COL, Size(TEXTURE_WIDTH, TEXTURE_HEIGHT), CELL_SPACE, Vec2(visibleSize.width/2, visibleSize.height/2));
     
@@ -327,7 +302,9 @@ void MaskLayer::callback20()
     auto move_scale = Spawn::create(EaseSineOut::create(RotateBy::create(3, -30)),
                                     EaseSineOut::create(ScaleTo::create(3, 1.5)), NULL);
     
-    pNode->runAction(Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL));
+    pNode->runAction(EaseSineOut::create(
+                     Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL))
+                     );
 }
 
 void MaskLayer::callback21()
@@ -343,12 +320,13 @@ void MaskLayer::callback21()
                                         FadeOut::create(delayTime),
                                         RemoveSelf::create(),
                                         nullptr);
-    flash->runAction(flashAction);
+    flash->runAction(EaseSineOut::create(flashAction));
     
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
     
-    pNode->runAction(Sequence::create(DelayTime::create(delayTime),
+    pNode->runAction(EaseSineOut::create(
+                     Sequence::create(DelayTime::create(delayTime),
                                       EaseQuadraticActionIn::create(Spawn::create(
                                                                                   ScaleTo::create(0.3, 1.0),
                                                                                   RotateBy::create(0.3, Vec3(-30, 30, 15)),
@@ -356,7 +334,8 @@ void MaskLayer::callback21()
                                                                                   NULL)),
                                       DelayTime::create(0.1),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
-                                      NULL));
+                                      NULL))
+                    );
 }
 
 void MaskLayer::callback22()
@@ -382,12 +361,12 @@ void MaskLayer::callback22()
         }
     }
     
-    pNode->runAction(Sequence::create(//DelayTime::create(delayTime*2),
-                                      EaseSineOut::create(MoveBy::create(5.0, Point(-250, -100))),
-                                      CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
-                                      MoveBy::create(3.0, Point(-250, -100)),
-                                      NULL)
-                     );
+    pNode->runAction(EaseSineOut::create(Sequence::create(//DelayTime::create(delayTime*2),
+                                                          MoveBy::create(5.0, Point(-250, -100)),
+                                                          CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
+                                                          EaseSineOut::create(MoveBy::create(3.0, Point(-250, -100))),
+                                                          NULL)
+                     ));
 }
 
 void MaskLayer::callback23()
@@ -402,16 +381,16 @@ void MaskLayer::callback23()
     flash->setPosition(_rotateLight->getPosition());
     flash->setGlobalZOrder(10000);
     
-    flash->runAction(Sequence::create(DelayTime::create(1.8f),
+    flash->runAction(EaseSineOut::create(Sequence::create(DelayTime::create(1.8f),
                                       Show::create(),
-                                      EaseQuadraticActionIn::create(ScaleTo::create(0.2, 70)),
+                                      EaseQuadraticActionIn::create(ScaleTo::create(0.1, 70)),
                                       CallFunc::create([=](){
                                             _rotateLight->setPosition(winSize.width/2+300,winSize.height + 100);
                                             flash->setPosition(_rotateLight->getPosition());
                                         }),
-                                      EaseQuadraticActionOut::create(ScaleTo::create(0.2, 5)),
+                                      EaseQuadraticActionOut::create(ScaleTo::create(0.1, 5)),
                                       RemoveSelf::create(),
-                                      NULL));
+                                      NULL)));
 
     
     Node *pNode = getChildByTag(NODE_TAG);
@@ -431,11 +410,11 @@ void MaskLayer::callback23()
         }
     }
     
-    pNode->runAction(Sequence::create(
+    pNode->runAction(EaseSineOut::create(Sequence::create(
                                       DelayTime::create(3.0),
                                       CallFunc::create( CC_CALLBACK_0(MaskLayer::callback24,this)),
                                       NULL)
-                     );
+                     ));
 }
 
 void MaskLayer::callback24()
@@ -458,7 +437,7 @@ void MaskLayer::callback24()
             if(pNode == NULL) continue;
             
             pNode->moveToDestination();
-            pNode->runRotateAction();
+//            pNode->runRotateAction();
         }
     }
     
@@ -539,20 +518,8 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
         if (pNode){
             pNode->runAction(EaseSineOut::create(ScaleTo::create(0.05, 1.5)));
             pNode->bringNodeToTop();
-//            pNode->setScale(1.1f);
-//            pNode->runAction(Sequence::create(ScaleTo::create(0.02, 1.1f), ScaleTo::create(0.02, 1.0f) , NULL));
-            selectedSprite->runAction(EaseSineOut::create(ScaleTo::create(0.05, 1.5)));
-            selectedSprite->setPosition(pNode->getPosition());
+            selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), EaseSineOut::create(ScaleTo::create(0.05, 1.5)), NULL)));
         }
-    }
-    Layout *loseLayout = dynamic_cast<Layout*>(widgetLostFocus);
-    if (!loseLayout && widgetLostFocus) {
-        /*
-        int x = widgetLostFocus->getTag() / 100;
-        int y = widgetLostFocus->getTag() % 100;
-        if (_mapTv[y][x].pNode){
-            _mapTv[y][x].pNode->setScale(1.0f);
-        }*/
     }
 }
 

@@ -1,5 +1,5 @@
 #include "cellTv.h"
-#include "SpriteBlur.h"
+//#include "SpriteBlur.h"
 
 #define COVER_TAG 1111
 #define CELL_TAG 1112
@@ -32,8 +32,8 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
     auto node = cellTv::create();
     node->setGlobalZOrder(globalZorder);
     
-    SpriteBlur* pcellTv = SpriteBlur::createWithSpriteFrameName(filename.c_str());
-//    Sprite* pcellTv = Sprite::createWithSpriteFrameName(filename);
+//    SpriteBlur* pcellTv = SpriteBlur::createWithSpriteFrameName(filename.c_str());
+    Sprite* pcellTv = Sprite::createWithSpriteFrameName(filename);
     pcellTv->setGlobalZOrder(globalZorder);
     pcellTv->setTag(CELL_TAG);
     
@@ -45,12 +45,12 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
     node->addChild(pcellFrame);
 
     if (withCover) {
-        pcellTv->setBlurSize(2.0);
-//        Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
-//        pCover->setTag(COVER_TAG);
-//        pCover->setOpacity(255*3/4);
-//        pCover->setGlobalZOrder(globalZorder+0.01);
-//        node->addChild(pCover, 1);
+//        pcellTv->setBlurSize(1.5);
+        Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
+        pCover->setTag(COVER_TAG);
+        pCover->setOpacity(255*3/4);
+        pCover->setGlobalZOrder(globalZorder+0.01);
+        node->addChild(pCover, 1);
     }
 
     return node;
@@ -62,50 +62,48 @@ void cellTv::runRotateAction()
     
     float time = CCRANDOM_0_1() * 10 + _time;
     
-    runAction( Sequence::create(DelayTime::create(time), ReverseTime::create(action1), NULL) );
-    //    runAction( RepeatForever::create(Sequence::create(actionDelay, ReverseTime::create(action1), NULL)) );
+    runAction(EaseElasticOut::create(Sequence::create(DelayTime::create(time), ReverseTime::create(action1), NULL)));
 }
 
 void cellTv::rotateDelay(int delayTime)
 {
     auto delayAction = DelayTime::create(0.25*delayTime);
-    ActionInterval* action1 = EaseSineOut::create(OrbitCamera::create(0.5, 1, 0, 0, 180, 0, 0));
-   
-    runAction(Sequence::create(delayAction,
+    ActionInterval* action1 = EaseSineOut::create(OrbitCamera::create(0.5, 1, 0, 0, 360, 0, 0));
+    runAction(EaseSineOut::create(Sequence::create(delayAction,
                                action1,
                                CallFunc::create( CC_CALLBACK_0(cellTv::setCoverVisible,this)),
-                               NULL));
+                               NULL)));
 }
 
 void cellTv::moveToDestination()
 {
-    runAction(Sequence::create(
+    runAction(EaseSineOut::create(Sequence::create(
                                DelayTime::create(_time),
                                Show::create(),
                                EaseSineOut::create(MoveTo::create(0.5, _destination)),
-                               NULL));
+                               NULL)));
 }
 
 void cellTv::moveToSource()
 {
-    runAction(Sequence::create(
+    runAction(EaseSineOut::create(Sequence::create(
                                DelayTime::create(_time),
                                EaseSineOut::create(MoveTo::create(0.5, _source)),
                                Hide::create(),
-                               NULL));
+                               NULL)));
 }
 
 void cellTv::setCoverVisible()
 {
-//    auto node = this->getChildByTag(COVER_TAG);
-//    if(node == NULL) return;
-//    
-//    node->setVisible(false);
-    
-    SpriteBlur *node = (SpriteBlur *)this->getChildByTag(CELL_TAG);
+    auto node = this->getChildByTag(COVER_TAG);
     if(node == NULL) return;
     
-    node->setBlurSize(1.0);
+    node->setVisible(false);
+    
+//    SpriteBlur *node = (SpriteBlur *)this->getChildByTag(CELL_TAG);
+//    if(node == NULL) return;
+//    
+//    node->setBlurSize(1.0);
 }
 
 void cellTv::resetGlobelZorder()

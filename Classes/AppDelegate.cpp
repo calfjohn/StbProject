@@ -36,7 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
     auto scene = SetTopBoxMainScene::createScene();
 
-    g_effectManager.lazyInit();
+    //g_effectManager.lazyInit();
     
     // run
     director->runWithScene(scene);
