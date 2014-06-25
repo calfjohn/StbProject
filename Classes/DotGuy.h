@@ -9,8 +9,8 @@
 #ifndef __stbProject__dotGuy__
 #define __stbProject__dotGuy__
 #define ESCAPE_ARGUMENT 20
-#define OFFSET_X -88
-#define OFFSET_Y -13
+#define OFFSET_X 0 //-105
+#define OFFSET_Y 0 //-8
 #include "cocos2d.h"
 class DotGuy : public cocos2d::Node{
 public:
@@ -21,8 +21,8 @@ public:
         UP
     };
     
-    static DotGuy* create(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, cocos2d::Layer* dataLayer);
-    bool init(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, cocos2d::Layer* dataLayer);
+    static DotGuy* create(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint);
+    bool init(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint);
     bool isWall(DIRECTION direction, cocos2d::Vec2 position);
     void walk();
     DIRECTION nextDirection(cocos2d::Vec2 position);
@@ -47,7 +47,7 @@ private:
     int m_stepCount;
     int m_addStep;
     cocos2d::Vec2 m_position;
-    cocos2d::Layer* m_dataSource;
+    std::vector<std::string> m_dataStr;
 };
 
 #endif /* defined(__stbProject__dotGuy__) */

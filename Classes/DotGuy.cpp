@@ -12,11 +12,11 @@
 
 USING_NS_CC;
 #define MOVE_SPEED 0.0001f
-#define DELAY_TIME 11.0f
-DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, cocos2d::Layer* dataLayer)
+#define DELAY_TIME 31.0f
+DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint)
 {
     auto pRet = new DotGuy();
-    if (pRet && pRet->init(position, direction, blockSize, dataLayer)){
+    if (pRet && pRet->init(position, direction, blockSize, mapData, startPoint)){
         pRet->autorelease();
         return pRet;
     }
@@ -27,17 +27,18 @@ DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION directio
     }
 }
 
-bool DotGuy::init(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, cocos2d::Layer* dataLayer)
+bool DotGuy::init(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint)
 {
     m_position = position;
     m_directionStatus = direction;
     m_blockSize = blockSize;
-    m_dataSource = dataLayer;
+    m_dataStr = mapData;
     m_bodySprite = Sprite::create("body.png");
     this->addChild(m_bodySprite);
     m_numOfStep = blockSize.width / m_bodySprite->getContentSize().width;
     
-    m_bodySprite->setPosition(fixOffset(direction, m_position));
+    //m_bodySprite->setPosition(fixOffset(direction, m_position));
+    m_bodySprite->setPosition(Vec2(startPoint.x, startPoint.y - ESCAPE_ARGUMENT));
     m_numOfFix = fixCount();
     return true;
 }
@@ -81,7 +82,7 @@ bool DotGuy::isWall(DotGuy::DIRECTION direction, cocos2d::Vec2 position)
         return false;
     }
     else{
-        return dynamic_cast<MaskLayer*>(m_dataSource)->dotGuyMap[static_cast<int>(tempVec2.x)][static_cast<int>(tempVec2.y)];
+        return m_dataStr[tempVec2.y][tempVec2.x] == '1';
     }
 }
 
@@ -233,6 +234,7 @@ void DotGuy::walkUpdate(float delta)
 {
     m_stepCount++;
     Vec2 nextMovePosition = getNextMovePosition();
+    CCLOG("MY_X = %f, MY_Y = %f", nextMovePosition.x, nextMovePosition.y);
     this->createCycleBody(nextMovePosition);
     m_bodySprite->setPosition(nextMovePosition);
     if ( m_stepCount >= ( m_numOfStep + m_numOfFix ) ){
@@ -241,6 +243,7 @@ void DotGuy::walkUpdate(float delta)
         m_oldDirectionStatus = m_directionStatus;
         m_directionStatus = nextDirection(m_position);
         m_numOfFix = fixCount();
+        CCLOG("y = %f, x = %f, step = %d, nextOffset = %d", m_position.y, m_position.x, m_numOfStep + m_numOfFix, m_addStep);
     }
 }
 
@@ -250,48 +253,48 @@ int DotGuy::fixCount()
     int surplusStep = ESCAPE_ARGUMENT / (m_bodySprite->getContentSize().width);
     if (myNextDirection == m_directionStatus){
         m_addStep = 0;
-        return 0;
+        return 1;
     }
     Vec2 position = m_position;
     switch (m_directionStatus) {
         case DotGuy::DIRECTION::LEFT:
             if (myNextDirection == DotGuy::DIRECTION::UP){
                 m_addStep = surplusStep;
-                return surplusStep;
+                return surplusStep + 1;
             }
             else if (myNextDirection == DotGuy::DIRECTION::DOWN){
                 m_addStep = - surplusStep;
-                return - surplusStep;
+                return - surplusStep + 1;
             }
             break;
         case DotGuy::DIRECTION::DOWN:
             if (myNextDirection == DotGuy::DIRECTION::LEFT){
                 m_addStep = surplusStep;
-                return surplusStep;
+                return surplusStep + 1;
             }
             else if (myNextDirection == DotGuy::DIRECTION::RIGHT){
                 m_addStep = - surplusStep;
-                return - surplusStep;
+                return - surplusStep + 1;
             }
             break;
         case DotGuy::DIRECTION::RIGHT:
             if (myNextDirection == DotGuy::DIRECTION::DOWN){
                 m_addStep = surplusStep;
-                return surplusStep;
+                return surplusStep + 1;
             }
             else if (myNextDirection == DotGuy::DIRECTION::UP){
                 m_addStep = - surplusStep;
-                return - surplusStep;
+                return - surplusStep + 1;
             }
             break;
         case DotGuy::DIRECTION::UP:
             if (myNextDirection == DotGuy::DIRECTION::RIGHT){
                 m_addStep = surplusStep;
-                return surplusStep;
+                return surplusStep + 1;
             }
             else if (myNextDirection == DotGuy::DIRECTION::LEFT){
                 m_addStep = - surplusStep;
-                return - surplusStep;
+                return - surplusStep + 1;
             }
             break;
     }
@@ -302,16 +305,16 @@ Vec2 DotGuy::getNextMovePosition()
     Vec2 position = m_bodySprite->getPosition();
     switch (m_directionStatus) {
         case DotGuy::DIRECTION::LEFT:
-            position.x -= m_blockSize.width / m_numOfStep;
+            position.x -= m_bodySprite->getContentSize().width;
             break;
         case DotGuy::DIRECTION::DOWN:
-            position.y -= m_blockSize.height / m_numOfStep;
+            position.y -= m_bodySprite->getContentSize().height;
             break;
         case DotGuy::DIRECTION::RIGHT:
-            position.x += m_blockSize.width / m_numOfStep;
+            position.x += m_bodySprite->getContentSize().width;
             break;
         case DotGuy::DIRECTION::UP:
-            position.y +=m_blockSize.height / m_numOfStep;
+            position.y += m_bodySprite->getContentSize().height;
             break;
     }
     return position;

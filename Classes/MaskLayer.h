@@ -18,6 +18,7 @@ struct structCell{
 };
 
 class MoreDetailLayer;
+class DotGuy;
 class MaskLayer : public cocos2d::Layer{
 public:
     enum DIRECTION{
@@ -42,7 +43,6 @@ public:
     virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
     virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *unused_event);
     virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>&touches, cocos2d::Event *unused_event);
-    bool dotGuyMap[20][20];
 protected:
     void initTvMap(int type);
     
@@ -80,6 +80,9 @@ private:
     int recoverzOrder;
     cocos2d::Point _beginPoint;
     int nowTag;
+    std::vector<std::string> dotGuyMap;
+    int tempIndex=1;
+    DotGuy* m_dotGuy[2];
 };
 
 #endif /* defined(__MyCppGame__MaskLayer__) */
