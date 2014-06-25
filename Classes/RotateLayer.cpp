@@ -292,7 +292,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                                                                             NULL));
                             };
                             selectedEffect->runEffect(selectedCallback);
-                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
+                            //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
                         }
                             //this->addChild(PlayVideoLayer::create());
                             break;
