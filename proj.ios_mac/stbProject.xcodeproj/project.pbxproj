@@ -94,8 +94,6 @@
 		AC6CCF13195A75C600907ECF /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED5195A75C600907ECF /* CloseNormal.png */; };
 		AC6CCF14195A75C600907ECF /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED6195A75C600907ECF /* CloseSelected.png */; };
 		AC6CCF15195A75C600907ECF /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED6195A75C600907ECF /* CloseSelected.png */; };
-		AC6CCF16195A75C600907ECF /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED7195A75C600907ECF /* cocosvideo.mp4 */; };
-		AC6CCF17195A75C600907ECF /* cocosvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED7195A75C600907ECF /* cocosvideo.mp4 */; };
 		AC6CCF18195A75C600907ECF /* Comet.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED8195A75C600907ECF /* Comet.png */; };
 		AC6CCF19195A75C600907ECF /* Comet.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED8195A75C600907ECF /* Comet.png */; };
 		AC6CCF1A195A75C600907ECF /* countdown_11.png in Resources */ = {isa = PBXBuildFile; fileRef = AC6CCED9195A75C600907ECF /* countdown_11.png */; };
@@ -406,7 +404,6 @@
 		AC6CCED4195A75C600907ECF /* channel_switch1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = channel_switch1.wav; sourceTree = "<group>"; };
 		AC6CCED5195A75C600907ECF /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		AC6CCED6195A75C600907ECF /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
-		AC6CCED7195A75C600907ECF /* cocosvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cocosvideo.mp4; sourceTree = "<group>"; };
 		AC6CCED8195A75C600907ECF /* Comet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Comet.png; sourceTree = "<group>"; };
 		AC6CCED9195A75C600907ECF /* countdown_11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_11.png; sourceTree = "<group>"; };
 		AC6CCEDA195A75C600907ECF /* countdown_12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = countdown_12.png; sourceTree = "<group>"; };
@@ -687,7 +684,6 @@
 				AC6CCED4195A75C600907ECF /* channel_switch1.wav */,
 				AC6CCED5195A75C600907ECF /* CloseNormal.png */,
 				AC6CCED6195A75C600907ECF /* CloseSelected.png */,
-				AC6CCED7195A75C600907ECF /* cocosvideo.mp4 */,
 				AC6CCED8195A75C600907ECF /* Comet.png */,
 				AC6CCED9195A75C600907ECF /* countdown_11.png */,
 				AC6CCEDA195A75C600907ECF /* countdown_12.png */,
@@ -923,7 +919,6 @@
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				AC6CCF26195A75C600907ECF /* fonts in Resources */,
-				AC6CCF16195A75C600907ECF /* cocosvideo.mp4 in Resources */,
 				AC6CCF38195A75C600907ECF /* light.png in Resources */,
 				AC6CCF02195A75C600907ECF /* background.png in Resources */,
 				AC6CCF08195A75C600907ECF /* boot.wav in Resources */,
@@ -1003,7 +998,6 @@
 				AC6CCF07195A75C600907ECF /* body.png in Resources */,
 				AC6CCF39195A75C600907ECF /* light.png in Resources */,
 				AC6CCF65195A75C600907ECF /* tvMap.plist in Resources */,
-				AC6CCF17195A75C600907ECF /* cocosvideo.mp4 in Resources */,
 				AC6CCF0D195A75C600907ECF /* cell_switch1.wav in Resources */,
 				AC6CCF33195A75C600907ECF /* introduce_cocos.png in Resources */,
 				AC6CCF13195A75C600907ECF /* CloseNormal.png in Resources */,
