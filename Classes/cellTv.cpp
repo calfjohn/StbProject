@@ -45,7 +45,6 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
     node->addChild(pcellFrame);
 
     if (withCover) {
-//        pcellTv->setBlurSize(1.5);
         Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
         pCover->setTag(COVER_TAG);
         pCover->setOpacity(255*3/4);
