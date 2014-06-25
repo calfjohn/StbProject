@@ -79,17 +79,13 @@ bool OpeningAnimation::init()
         light->setSpeed(0.03*(rand()%10));
         light->setDirection(i-2);
         light->setRotation(10*(i-4));
+        light->runAction(Sequence::create(DelayTime::create(3), ScaleTo::create(0.7, light->getScaleRan()), NULL));
         lightNode->addChild(light,3);
         
         lightVec.pushBack(light);
     }
     
     boardNode->runAction(EaseSineOut::create(Sequence::create(DelayTime::create(0.5),ScaleTo::create(2,1,0.25),nullptr)));
-  
-    for(auto light : lightVec){
-        
-        light->runAction(Sequence::create(DelayTime::create(3), ScaleTo::create(0.7, light->getScaleRan()), NULL));
-    }
 
     emitter = ParticleSystemQuad::create("mystic.plist");
     addChild(emitter);
