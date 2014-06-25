@@ -358,7 +358,7 @@ void MaskLayer::callback22()
                                                           NULL)
                                          ));
     
-    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("overturn.ogg");
 }
 
 void MaskLayer::callback23()
@@ -409,7 +409,7 @@ void MaskLayer::callback23()
                                                           NULL)
                                          ));
     
-    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("fly_away.ogg");
 }
 
 void MaskLayer::callback24()
@@ -589,6 +589,7 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             this->addChild(_introduceBoard);
             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
         }
         else {
             if(_introduceBoard){
@@ -598,6 +599,7 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                     _introduceBoard->removeFromParentAndCleanup(true);
                     isLocked = false;}),
                                                             NULL));
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("dismiss.ogg");
             }
         }
     }

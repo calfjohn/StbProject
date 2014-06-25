@@ -93,6 +93,8 @@ bool OpeningAnimation::init()
     emitter->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
     scheduleUpdate();
 
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("boot.ogg");
+    
     return true;
 }
 
