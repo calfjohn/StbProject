@@ -61,7 +61,8 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     cache->addSpriteFramesWithFile("tvMap.plist");
     cache->addSpriteFramesWithFile("tvChannel.plist");
     
-    initTvMap(1);
+    currentRectangleIndex = 1;
+    initTvMap(currentRectangleIndex);
     
     createCellTv();
     
@@ -426,29 +427,50 @@ void MaskLayer::callback24()
             //            pNode->runRotateAction();
         }
     }
-    
-    initRemoteControl();
+    auto tempNode = Node::create();
+    this->addChild(tempNode);
+    tempNode->runAction(Sequence::create(DelayTime::create(2.0f), CallFunc::create(CC_CALLBACK_0(MaskLayer::callback24finished, this)), RemoveSelf::create(), NULL));
+}
 
+void MaskLayer::callback24finished()
+{
+    initRemoteControl();
+    
     initWithDotGuyMap();
     Size blockSize = Size(RectangleInterface::getCellSize().width - RectangleInterface::getSpace(), RectangleInterface::getCellSize().height - RectangleInterface::getSpace());
-    int dotpoint_x, dotpoint_y;
+    int dotpoint_x[2], dotpoint_y[2];
+    float lifeCycle[2];
     if (currentRectangleIndex == 1){
-        dotpoint_y = 7;
-        dotpoint_x = 11;
+        dotpoint_y[0] = 7;
+        dotpoint_x[0] = 11;
+        lifeCycle[0] = 10;
+        dotpoint_y[1] = 2;
+        dotpoint_x[1] = 3;
+        lifeCycle[1] = 10;
     }
     else if (currentRectangleIndex == 2){
-        dotpoint_y = 7;
-        dotpoint_x = 5;
+        dotpoint_y[0] = 7;
+        dotpoint_x[0] = 5;
+        lifeCycle[0] = 10;
+        dotpoint_y[1] = 4;
+        dotpoint_x[1] = 7;
+        lifeCycle[1] = 3;
     }
-    else{
-        dotpoint_y = 6;
-        dotpoint_x = 6;
+    else if (currentRectangleIndex == 3){
+        dotpoint_y[0] = 6;
+        dotpoint_x[0] = 6;
+        lifeCycle[0] = 10;
+        dotpoint_y[1] = 6;
+        dotpoint_x[1] = 11;
+        lifeCycle[1] = 3;
     }
-    Vec2 dotGuyPoint = _mapTv[dotpoint_y][dotpoint_x].pNode->getParent()->convertToWorldSpace(RectangleInterface::getPosition(dotpoint_y, dotpoint_x));
-    dotGuyPoint += Vec2(blockSize.width * 0.5, - blockSize.height * 0.5);
-    m_dotGuy[0] = DotGuy::create(Vec2(dotpoint_x, 7 - dotpoint_y), DotGuy::DIRECTION::LEFT, blockSize, dotGuyMap, dotGuyPoint);
-    this->addChild(m_dotGuy[0], 10);
-    m_dotGuy[0]->walk();
+    for (int i = 0; i < 2; i++){
+        Vec2 dotGuyPoint = _mapTv[dotpoint_y[i]][dotpoint_x[i]].pNode->getParent()->convertToWorldSpace(RectangleInterface::getPosition(dotpoint_y[i], dotpoint_x[i]));
+        dotGuyPoint += Vec2(blockSize.width * 0.5, - blockSize.height * 0.5);
+        m_dotGuy[i] = DotGuy::create(Vec2(dotpoint_x[i], RectangleInterface::getRows() - dotpoint_y[i]), DotGuy::DIRECTION::LEFT, blockSize, dotGuyMap, dotGuyPoint, lifeCycle[i]);
+        this->addChild(m_dotGuy[i], 10);
+        m_dotGuy[i]->walk();
+    }
 }
 
 void MaskLayer::initRemoteControl()
@@ -479,6 +501,7 @@ void MaskLayer::initRemoteControl()
                     _selectedParticle->setLocalZOrder(100);
                     
                     isFirst = false;
+                    currentFocusCellType = _mapTv[y][x].type;
                 }
             }
         }
@@ -547,6 +570,7 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 createCellTv();
                 this->lostFocus();
                 m_dotGuy[0]->removeFromParentAndCleanup(true);
+                m_dotGuy[1]->removeFromParentAndCleanup(true);
                 return;
             }
             
@@ -739,6 +763,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
 
 void MaskLayer::initWithDotGuyMap()
 {
+    dotGuyMap.clear();
     for(int y = 0; y <= RectangleInterface::getRows(); y++){
         std::string tempStr = "";
         for(int x = 0; x <= RectangleInterface::getColumns(); x++){

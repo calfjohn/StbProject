@@ -11,7 +11,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/MaskLayer.cpp \
                    ../../Classes/MoreDetailLayer.cpp \
-                   ../../Classes/AdLayer.cpp \
                    ../../Classes/RotateLayer.cpp \
                    ../../Classes/SetTopBoxMainScene.cpp \
                    ../../Classes/OpeningAnimation.cpp \
