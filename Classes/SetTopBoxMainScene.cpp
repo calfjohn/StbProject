@@ -44,12 +44,6 @@ bool SetTopBoxMainScene::init()
     this->addChild(background);
     background->setPosition(Point(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y));
     
-//    auto particle = ParticleSystemQuad::create("background_main.plist");
-//    particle->setPositionType(ParticleSystem::PositionType::GROUPED);
-//    particle->setPosition(visibleSize.width * 0.5 + origin.x, visibleSize.height * 0.5 + origin.y);
-//    particle->setScale(1);
-//    this->addChild(particle,2);
-    
     auto closeItem = MenuItemImage::create("CloseNormal.png",
                                            "CloseSelected.png",
                                            CC_CALLBACK_1(SetTopBoxMainScene::replayCallback, this));
@@ -64,10 +58,13 @@ bool SetTopBoxMainScene::init()
     
     this->addChild(OpeningAnimation::create());
     
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("BMG.ogg");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("BMG.ogg");
+    
     return true;
 }
 
 void SetTopBoxMainScene::replayCallback(Ref* sender){
-    log("replay");
+
     Director::getInstance()->replaceScene(SetTopBoxMainScene::createScene());
 }

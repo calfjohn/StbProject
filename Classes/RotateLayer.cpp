@@ -82,7 +82,6 @@ bool RotateLayer::init()
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
     layoutParams->setMargin(Margin(59,40,0,0));
     
-    //first layout 显示上面一排按钮 HBox
     HBox *layoutHeader = HBox::create();
     //    layoutHeader->setLoopFocus(true);
     layoutHeader->setLayoutParameter(layoutParams);
@@ -177,6 +176,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 _introduceBoard->removeFromParentAndCleanup(true);
                 isLocked = false;}),
                                                         NULL));
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
         }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
@@ -211,7 +211,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 }
             }
             this->addChild(_textEffector);
-            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("channel_switch1.wav");
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
         }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
@@ -220,7 +220,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             rotateRight();
             if (_textEffector){
                 _textEffector->removeFromParentAndCleanup(true);
-                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("dissmiss.ogg");
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
             }
             for(auto i = 0; i < 4; i++){
                 if (iconGroup.at(i)->getTag() == 0){
@@ -241,7 +241,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 }
             }
             this->addChild(_textEffector);
-            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("channel_switch1.wav");
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
         }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
@@ -306,7 +306,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
-                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
                         }
                             break;
                         case 2:
@@ -318,7 +318,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
-                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
                         }
                             break;
                         case 3:
@@ -330,7 +330,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
-                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
                         }
                             break;
                     }
@@ -342,7 +342,6 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 
 void RotateLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
-    //一般只管定义状态
     Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
     if (!getLayout && widgetGetFocus) {
         widgetGetFocus->setScale(1.2);
