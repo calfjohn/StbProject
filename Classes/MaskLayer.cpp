@@ -64,8 +64,7 @@ bool MaskLayer::init(cocos2d::Sprite* pic)
     createCellTv();
     
     addLight();
-    
-    initWithDotGuyMap();
+
     return true;
 }
 
@@ -80,7 +79,7 @@ void MaskLayer::closeMoreDetailLayer()
         m_pic->setLocalZOrder(recoverzOrder);
         auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 90.0f, -90.0f, 0.0f, 0.0f);
         auto moveTo = EaseSineOut::create(MoveTo::create(FIRST_TIME, recoverPoint));
-        auto scaleTo = ScaleTo::create(FIRST_TIME, 1.0f);
+        auto scaleTo = ScaleTo::create(FIRST_TIME, 1.5f);
         m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([&](){
             this->getFocus();
         }), NULL));
@@ -106,7 +105,7 @@ void MaskLayer::initTvMap(int type)
     std::map<int, std::string>  tempMap;
     switch (type) {
         case 1:
-            RectangleInterface::initialize(7, 12, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
+            RectangleInterface::initialize(7, 12, Size(135, 135), 5, Vec2(s.width/2, s.height/2));
             tempMap[1] = "001000000000";
             tempMap[2] = "011100111100";
             tempMap[3] = "000110111110";
@@ -116,7 +115,7 @@ void MaskLayer::initTvMap(int type)
             tempMap[7] = "011111000111";
             break;
         case 2:
-            RectangleInterface::initialize(7, 9, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
+            RectangleInterface::initialize(7, 9, Size(135, 135), 5, Vec2(s.width/2, s.height/2));
             tempMap[1] = "010000010";
             tempMap[2] = "001000100";
             tempMap[3] = "111111111";
@@ -126,7 +125,7 @@ void MaskLayer::initTvMap(int type)
             tempMap[7] = "111121111";
         break;
         case 3:
-            RectangleInterface::initialize(6, 12, Size(133, 133), 5, Vec2(s.width/2, s.height/2));
+            RectangleInterface::initialize(6, 12, Size(135, 135), 5, Vec2(s.width/2, s.height/2));
             tempMap[1] = "000110000000";
             tempMap[2] = "001111000000";
             tempMap[3] = "011111100101";
@@ -263,7 +262,7 @@ void MaskLayer::createCellTv(bool invokeCallback)
         }
     }
     
-    if(invokeCallback) callback20();
+    if (invokeCallback) callback20();
 }
 
 void MaskLayer::callback20()
@@ -418,66 +417,60 @@ void MaskLayer::callback24()
     
     initRemoteControl();
 
-    Size blockSize = Size(RectangleInterface::getCellSize().width + RectangleInterface::getSpace(), RectangleInterface::getCellSize().height + RectangleInterface::getSpace());
-    auto dotGuy = DotGuy::create(Vec2(11, 0), DotGuy::DIRECTION::LEFT, blockSize, this);
-    this->addChild(dotGuy, 10);
-    dotGuy->walk();
+    initWithDotGuyMap();
+    Size blockSize = Size(RectangleInterface::getCellSize().width - RectangleInterface::getSpace(), RectangleInterface::getCellSize().height - RectangleInterface::getSpace());
+    int dotpoint_x, dotpoint_y;
+    if (tempIndex == 1){
+        dotpoint_y = 7;
+        dotpoint_x = 11;
+    }
+    else if (tempIndex == 2){
+        dotpoint_y = 7;
+        dotpoint_x = 5;
+    }
+    else{
+        dotpoint_y = 6;
+        dotpoint_x = 6;
+    }
+    Vec2 dotGuyPoint = _mapTv[dotpoint_y][dotpoint_x].pNode->getParent()->convertToWorldSpace(RectangleInterface::getPosition(dotpoint_y, dotpoint_x));
+    dotGuyPoint += Vec2(blockSize.width * 0.5, - blockSize.height * 0.5);
+    m_dotGuy[0] = DotGuy::create(Vec2(dotpoint_x, 7 - dotpoint_y), DotGuy::DIRECTION::LEFT, blockSize, dotGuyMap, dotGuyPoint);
+    this->addChild(m_dotGuy[0], 10);
+    m_dotGuy[0]->walk();
 }
 
 void MaskLayer::initRemoteControl()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    VBox *outerLayout = VBox::create();
-    outerLayout->setPosition(Point(0, visibleSize.height));
-    outerLayout->setContentSize(Size(visibleSize.width, visibleSize.height));
+    /* ==============test============== */
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
-    layoutParams->setMargin(Margin(0, 140, 0, 0));
+    layoutParams->setMargin(Margin(59,40,0,0));
+    
+    //first layout 显示上面一排按钮 HBox
+    HBox *layoutHeader = HBox::create();
+    //    layoutHeader->setLoopFocus(true);
+    layoutHeader->setLayoutParameter(layoutParams);
+    layoutHeader->setFocused(true);
+    _widget = layoutHeader;
+    /* ==============test============== */
     
     bool isFirst = true;
-    Size blockSize;
-
     for(int y = 1; y <= RectangleInterface::getRows(); y++){
-        HBox *bottomLayout = HBox::create();
-        bottomLayout->setLayoutParameter(layoutParams);
-        LinearLayoutParameter *imageParams = LinearLayoutParameter::create();
         for(int x = 1; x <= RectangleInterface::getColumns(); x++){
-            if (mapStr[y][x] == '1'){
-                //ImageView *imageView = ImageView::create("encaltest.png");
-                ImageView *imageView = ImageView::create();
-                imageView->setTag(x * 100 + y);
+            if ( _mapTv[y][x].pNode && _mapTv[y][x].type == 2 ){
                 if (isFirst){
                     m_pic = (Sprite*)_mapTv[y][x].pNode;
-                    imageView->setFocused(true);
-                    _widget = imageView;
-                    blockSize = Size(133, 133);
-                    
                     nowTag = x * 100 + y;
                     selectedSprite->setVisible(true);
                     selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
                     selectedSprite->setLocalZOrder(100);
-                    
                     isFirst = false;
                 }
-                //imageView->setContentSize(blockSize);
-                CCLOG("x = %d, y = %d, left = %f", x, y, countLeftMargin(x, y, blockSize));
-                imageParams->setMargin(Margin(this->countLeftMargin(x, y, blockSize), 0, 0, 0));
-                imageView->setLayoutParameter(imageParams);
-                bottomLayout->addChild(imageView);
             }
         }
-        outerLayout->addChild(bottomLayout);
     }
-    this->addChild(outerLayout);
-    //register focus event
-    _eventListener = EventListenerFocus::create();
-    _eventListener->onFocusChanged = CC_CALLBACK_2(MaskLayer::onFocusChanged, this);
-    _eventDispatcher->addEventListenerWithFixedPriority(_eventListener, 1);
-    //register the keyboard event
-    _keyboardListener = EventListenerKeyboard::create();
-    _keyboardListener->onKeyReleased = CC_CALLBACK_2(MaskLayer::onKeyboardReleased, this);
-    _eventDispatcher->addEventListenerWithFixedPriority(_keyboardListener, 2);
-    
+    getFocus();
     //for test
     this->setTouchEnabled(true);
 }
@@ -510,32 +503,10 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
 
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
-    if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        if (m_pic){
-            this->lostFocus();
-            auto winSize = Director::getInstance()->getWinSize();
-            m_moreDetailLayer = MoreDetailLayer::create();
-            Director::getInstance()->getRunningScene()->addChild(m_moreDetailLayer);
-            m_moreDetailLayer->setVisible(false);
-            m_moreDetailLayer->setPreMaskLayer(this);
-            
-            auto actionOrb = OrbitCamera::create(FIRST_TIME, 1.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f);
-            auto moveTo = MoveTo::create(FIRST_TIME, m_pic->getParent()->convertToNodeSpace(winSize * 0.5));
-            auto scaleTo = ScaleTo::create(FIRST_TIME, 3.0f);
-            recoverPoint = m_pic->getPosition();
-            recoverzOrder = m_pic->getLocalZOrder();
-            m_pic->setLocalZOrder(TOP_ZORDER);
-            m_pic->runAction(Sequence::create(Spawn::create(actionOrb, moveTo, scaleTo, NULL), CallFunc::create([this](){
-                m_pic->setVisible(false);
-                m_moreDetailLayer->setVisible(true);
-                auto actionOrb = OrbitCamera::create(SECOND_TIME, 1.0f, 0.0f, 270.0f, 90.0f, 0.0f, 0.0f);
-                m_moreDetailLayer->setScale(0.4f);
-                auto actionScaleTo = ScaleTo::create(SECOND_TIME, 0.9f);
-                m_moreDetailLayer->runAction(Spawn::create(actionOrb, actionScaleTo, NULL));
-            }), NULL));
-        }
+    /*if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
+        
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
+    else */if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
         simulateFocusMove(MaskLayer::DIRECTION::DOWN);
     }
@@ -554,13 +525,15 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
         MessageBox("menu", "pressed");
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER||keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
         if (m_pic){
             
             if(currentFocusCellType > 1){
-                int tempRandom = int(CCRANDOM_0_1()*10)%3 + 1;//1-3之间
+                int tempRandom = int(++tempIndex%3) + 1;//1-3之间
                 initTvMap(tempRandom);
                 createCellTv();
+                this->lostFocus();
+                m_dotGuy[0]->removeFromParentAndCleanup(true);
                 return;
             }
             
@@ -701,7 +674,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
     switch (direction) {
         case MaskLayer::DIRECTION::LEFT:
             while(--x){
-                if (mapStr[y][x] == '1'){
+                if (_mapTv[y][x].pNode){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
                     simulateFocusChanged(oldTag, nowTag);
@@ -713,7 +686,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
         case MaskLayer::DIRECTION::DOWN:
             while(++y){
                 if (y > RectangleInterface::getRows()) break;
-                if (mapStr[y][x] == '1'){
+                if (_mapTv[y][x].pNode){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
                     simulateFocusChanged(oldTag, nowTag);
@@ -725,7 +698,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
         case MaskLayer::DIRECTION::RIGHT:
             while(++x){
                 if (x > RectangleInterface::getColumns()) break;
-                if (mapStr[y][x] == '1'){
+                if (_mapTv[y][x].pNode){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
                     simulateFocusChanged(oldTag, nowTag);
@@ -735,7 +708,7 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
             break;
         case MaskLayer::DIRECTION::UP:
             while(--y){
-                if (mapStr[y][x] == '1'){
+                if (_mapTv[y][x].pNode){
                     int oldTag = nowTag;
                     nowTag = x * 100 + y;
                     simulateFocusChanged(oldTag, nowTag);
@@ -757,14 +730,22 @@ void MaskLayer::initWithDotGuyMap()
             mapStr[ROW + 1 - y][x] = temp;
         }
     }*/
-    for(int y = 1; y <= RectangleInterface::getRows(); y++){
-        for(int x = 1; x <= RectangleInterface::getColumns(); x++){
-            if (mapStr[y][x] == '1'){
-                dotGuyMap[x][RectangleInterface::getRows() + 1 - y] = true;
+    for(int y = 0; y <= RectangleInterface::getRows(); y++){
+        std::string tempStr = "";
+        for(int x = 0; x <= RectangleInterface::getColumns(); x++){
+            if (y == 0 || x == 0){
+                tempStr += "*";
             }
             else{
-                dotGuyMap[x][RectangleInterface::getRows() + 1 - y] = false;
+                if (_mapTv[RectangleInterface::getRows() + 1 - y][x].pNode){
+                    tempStr += "1";
+                    //dotGuyMap[RectangleInterface::getRows() + 1 - y][x] = 1;
+                }
+                else{
+                    tempStr += "0";
+                }
             }
         }
+        dotGuyMap.push_back(tempStr);
     }
 }
