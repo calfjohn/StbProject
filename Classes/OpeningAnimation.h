@@ -1,4 +1,4 @@
-//
+;//
 //  OpeningAnimation.h
 //  stbProject
 //
@@ -10,16 +10,37 @@
 #define __stbProject__OpeningAnimation__
 
 #include "cocos2d.h"
-class OpeningAnimation : public cocos2d::Layer{
+
+USING_NS_CC;
+
+class Light;
+class OpeningAnimation : public Layer{
 public:
     static OpeningAnimation* create();
     bool init();
+    void update(float dt);
 protected:
     cocos2d::ProgressTimer *progressLight;
     cocos2d::ParticleSystemQuad*    emitter;
     
     void addExplosionCallback();
     void addRotateLayerCallback();
+    Vector<Light*> lightVec;
+    Node *lightNode;
+    Sprite *boardSprite;
+    Sprite *lightBackground;
+    bool rotateLayerFlag;
+};
+
+class Light : public Sprite{
+    
+public:
+    
+    bool init(const std::string& filename);
+    static Light* create(const std::string& filename);
+    CC_SYNTHESIZE(float, scaleRan, ScaleRan);
+    CC_SYNTHESIZE(float, speed, Speed);
+    CC_SYNTHESIZE(int, direction, Direction);
 };
 
 #endif /* defined(__stbProject__OpeningAnimation__) */
