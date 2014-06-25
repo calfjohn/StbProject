@@ -60,6 +60,8 @@ protected:
     
     void callback24();
     
+    void callback24finished();
+    
     int index = 1;
     
     void initWithDotGuyMap();
@@ -85,8 +87,8 @@ private:
     cocos2d::Point _beginPoint;
     int nowTag;
     std::vector<std::string> dotGuyMap;
-    int tempIndex=1;
-    int currentRectangleIndex;
+    int tempIndex = 0;
+    int currentRectangleIndex = 1;
     DotGuy* m_dotGuy[2];
 };
 
