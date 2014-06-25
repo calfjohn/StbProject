@@ -466,6 +466,7 @@ void MaskLayer::initRemoteControl()
                     selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
                     selectedSprite->setLocalZOrder(100);
                     isFirst = false;
+                    currentFocusCellType = _mapTv[y][x].type;
                 }
             }
         }
