@@ -13,3 +13,15 @@ void cocos_android_app_init (JNIEnv* env, jobject thiz) {
     LOGD("cocos_android_app_init");
     AppDelegate *pAppDelegate = new AppDelegate();
 }
+
+void callPlayVideo(const char* path){
+	JniMethodInfo t;
+
+	if (JniHelper::getStaticMethodInfo(t, "org/cocos2dx/cpp/AppActivity", "playVideo", "(Ljava/lang/String;)V")) {
+		jstring stringArg1 = t.env->NewStringUTF(path);
+
+	    t.env->CallStaticVoidMethod(t.classID, t.methodID,stringArg1);
+	    t.env->DeleteLocalRef(stringArg1);
+	    t.env->DeleteLocalRef(t.classID);
+	}
+}

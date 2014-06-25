@@ -5,7 +5,7 @@
 //  Created by EnCaL on 14-6-6.
 //
 //
-#define GLOBAL_TOP 1000
+#define GLOBAL_TOP 80000
 
 #include "MoreDetailLayer.h"
 #include "MaskLayer.h"
@@ -32,15 +32,15 @@ bool MoreDetailLayer::init()
     auto fg = Sprite::create("moreDetail/foreground.png");
     bg->addChild(fg);
     fg->setPosition(Vec2(bg->getContentSize().width * 0.5, bg->getContentSize().height * 0.5));
-    fg->setGlobalZOrder(GLOBAL_TOP);
+    fg->setGlobalZOrder(GLOBAL_TOP + 500);
     
     selectedLightSprite = Sprite::create("moreDetail/selectedLight.png");
     this->addChild(selectedLightSprite);
-    selectedLightSprite->setGlobalZOrder(GLOBAL_TOP);
+    selectedLightSprite->setGlobalZOrder(GLOBAL_TOP + 700);
     selectedLightSprite->setVisible(false);
     playSprite = Sprite::create("moreDetail/play.png");
     this->addChild(playSprite);
-    playSprite->setGlobalZOrder(GLOBAL_TOP);
+    playSprite->setGlobalZOrder(GLOBAL_TOP + 1000);
     playSprite->setVisible(false);
     
     /* ==============test============== */
@@ -59,7 +59,7 @@ bool MoreDetailLayer::init()
     for (int i = 1; i <= imageCount; ++i) {
         std::string imageName = StringUtils::format("moreDetail/0%d.png", i);
         Sprite *countSprite = Sprite::create(imageName);
-        countSprite->setGlobalZOrder(GLOBAL_TOP);
+        countSprite->setGlobalZOrder(GLOBAL_TOP + 800);
         countSprite->setTag(i * 100 + 1);
         this->addChild(countSprite);
         countSprite->setPosition(Vec2(visibleSize.width * 0.4 + 100 * i + origin.x, visibleSize.height * 0.15 + origin.y));
@@ -101,11 +101,19 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         _preMaskLater->closeMoreDetailLayer();
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_MENU) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        this->addChild(PlayVideoLayer::create());
-        MessageBox("play", "video");
-        lostFocus();
+        //this->addChild(PlayVideoLayer::create());
+        int x = nowTag / 100;
+        if (x == 1){
+            PlayVideoLayer::playVideoWithPath("stb1.mov");
+        }
+        else if (x == 2){
+            PlayVideoLayer::playVideoWithPath("stb2.mp4");
+        }
+        else{
+            PlayVideoLayer::playVideoWithPath("stb3.mov");
+        }
 #endif
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
@@ -123,9 +131,6 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
         simulateFocusMove(MoreDetailLayer::DIRECTION::RIGHT);
-    }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
-        MessageBox("menu", "pressed");
     }
 }
 

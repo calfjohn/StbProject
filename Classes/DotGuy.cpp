@@ -13,10 +13,10 @@
 USING_NS_CC;
 #define MOVE_SPEED 0.0001f
 #define DELAY_TIME 31.0f
-DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint)
+DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint, float lifeCycle)
 {
     auto pRet = new DotGuy();
-    if (pRet && pRet->init(position, direction, blockSize, mapData, startPoint)){
+    if (pRet && pRet->init(position, direction, blockSize, mapData, startPoint, lifeCycle)){
         pRet->autorelease();
         return pRet;
     }
@@ -27,18 +27,19 @@ DotGuy* DotGuy::create(const cocos2d::Vec2& position, DotGuy::DIRECTION directio
     }
 }
 
-bool DotGuy::init(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint)
+bool DotGuy::init(const cocos2d::Vec2& position, DotGuy::DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint, float lifeCycle)
 {
     m_position = position;
     m_directionStatus = direction;
     m_blockSize = blockSize;
     m_dataStr = mapData;
     m_bodySprite = Sprite::create("body.png");
+    m_lifeCycle = lifeCycle;
     this->addChild(m_bodySprite);
     m_numOfStep = blockSize.width / m_bodySprite->getContentSize().width;
     
-    //m_bodySprite->setPosition(fixOffset(direction, m_position));
-    m_bodySprite->setPosition(Vec2(startPoint.x, startPoint.y - ESCAPE_ARGUMENT));
+    m_bodySprite->setPosition(fixOffset(direction, startPoint));
+    //m_bodySprite->setPosition(Vec2(startPoint.x, startPoint.y - ESCAPE_ARGUMENT));
     m_numOfFix = fixCount();
     return true;
 }
@@ -47,16 +48,16 @@ Vec2 DotGuy::fixOffset(DotGuy::DIRECTION direction, cocos2d::Vec2 position)
 {
     switch (direction) {
         case DotGuy::DIRECTION::LEFT:
-            return Vec2((position.x + 0.5) * m_blockSize.width + OFFSET_X, (position.y + 0.5) * m_blockSize.height + OFFSET_Y - ESCAPE_ARGUMENT);
+            return Vec2(position.x, position.y - ESCAPE_ARGUMENT);
             break;
         case DotGuy::DIRECTION::DOWN:
-            return Vec2((position.x - 0.5) * m_blockSize.width + OFFSET_X + ESCAPE_ARGUMENT, (position.y + 0.5) * m_blockSize.height + OFFSET_Y);
+            return Vec2(position.x - ESCAPE_ARGUMENT, position.y);
             break;
         case DotGuy::DIRECTION::RIGHT:
-            return Vec2((position.x - 0.5) * m_blockSize.width + OFFSET_X, (position.y - 0.5) * m_blockSize.height + OFFSET_Y + ESCAPE_ARGUMENT);
+            return Vec2(position.x, position.y + ESCAPE_ARGUMENT);
             break;
         case DotGuy::DIRECTION::UP:
-            return Vec2((position.x + 0.5) * m_blockSize.width + OFFSET_X - ESCAPE_ARGUMENT, (position.y - 0.5) * m_blockSize.height + OFFSET_Y);
+            return Vec2(position.x + ESCAPE_ARGUMENT, position.y);
             break;
     }
 }
@@ -326,5 +327,5 @@ void DotGuy::createCycleBody(cocos2d::Vec2 position)
     this->addChild(cycleSprite);
     cycleSprite->setPosition(position);
     auto fadeOut = FadeOut::create(1.0f);
-    cycleSprite->runAction(Sequence::create(DelayTime::create(DELAY_TIME), fadeOut, RemoveSelf::create(), NULL));
+    cycleSprite->runAction(Sequence::create(DelayTime::create(m_lifeCycle), fadeOut, RemoveSelf::create(), NULL));
 }

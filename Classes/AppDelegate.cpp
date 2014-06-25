@@ -25,6 +25,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #else
     glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::NO_BORDER);
 #endif
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    glview->setDesignResolutionSize(1920, 1080, ResolutionPolicy::EXACT_FIT);
+#endif
 
     // turn on display FPS
     director->setDisplayStats(true);

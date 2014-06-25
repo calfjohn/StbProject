@@ -28,5 +28,27 @@ package org.cocos2dx.cpp;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+
 public class AppActivity extends Cocos2dxActivity {
+	
+	private static AppActivity sActivity;
+	
+	@Override
+	protected void onCreate(final Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		sActivity = this;
+	}
+	
+	public static void playVideo(String filePath){
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+        String type = "video/mp4";
+        //Uri uri = Uri.parse("android.resource://org.cocos2dx.cpp/raw/" + path); 
+        Uri uri = Uri.parse("file:///storage/external_storage/sda1/" + filePath);
+        intent.setDataAndType(uri, type);
+        sActivity.startActivity(intent);
+	}
 }

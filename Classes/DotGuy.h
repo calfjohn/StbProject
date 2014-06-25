@@ -21,8 +21,8 @@ public:
         UP
     };
     
-    static DotGuy* create(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint);
-    bool init(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint);
+    static DotGuy* create(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint, float lifeCycle);
+    bool init(const cocos2d::Vec2& position, DIRECTION direction, cocos2d::Size blockSize, std::vector<std::string> mapData, const cocos2d::Vec2& startPoint, float lifeCycle);
     bool isWall(DIRECTION direction, cocos2d::Vec2 position);
     void walk();
     DIRECTION nextDirection(cocos2d::Vec2 position);
@@ -46,6 +46,7 @@ private:
     int m_numOfFix;
     int m_stepCount;
     int m_addStep;
+    float m_lifeCycle;
     cocos2d::Vec2 m_position;
     std::vector<std::string> m_dataStr;
 };
