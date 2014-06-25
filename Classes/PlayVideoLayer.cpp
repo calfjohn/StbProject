@@ -21,7 +21,7 @@ bool PlayVideoLayer::init()
     MenuItemFont::setFontSize(16);
     _visibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
     
-    createVideo();
+    //createVideo();
     
     playResourceVideo();
     
@@ -29,7 +29,7 @@ bool PlayVideoLayer::init()
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
     layoutParams->setMargin(Margin(59,40,0,0));
     
-    //first layout 显示上面一排按钮 HBox
+    //first layout ��剧ず涓����涓���������� HBox
     HBox *layoutHeader = HBox::create();
     //    layoutHeader->setLoopFocus(true);
     layoutHeader->setLayoutParameter(layoutParams);
@@ -50,14 +50,23 @@ bool PlayVideoLayer::init()
     return true;
 }
 
+//extern "C" {
+    extern void callPlayVideo(const char* path);
+//}
 void PlayVideoLayer::playResourceVideo()
 {
-    if (_videoPlayer)
+    /*if (_videoPlayer)
     {
         _videoPlayer->setFileName("cocosvideo.mp4");
         MessageBox("come in","play video");
         _videoPlayer->play();
-    }
+    }*/
+	callPlayVideo("stb1.mov");
+}
+
+void PlayVideoLayer::playVideoWithPath(const char* path)
+{
+    callPlayVideo(path);
 }
 
 void PlayVideoLayer::pauseVideo()

@@ -23,6 +23,7 @@ public:
     CREATE_FUNC(PlayVideoLayer);
     virtual bool init();
     virtual void onExit();
+    static void playVideoWithPath(const char* path);
     void playResourceVideo();
     void pauseVideo();
     void resumeVideo();
