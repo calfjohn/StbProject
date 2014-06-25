@@ -34,10 +34,10 @@ std::string mapStr[8]{
     "X011111000111"
 };
 
-MaskLayer* MaskLayer::create(cocos2d::Sprite* pic)
+MaskLayer* MaskLayer::create()
 {
     MaskLayer *pRet = new MaskLayer();
-    if (pRet && pRet->init(pic)){
+    if (pRet && pRet->init()){
         pRet->autorelease();
         return pRet;
     }
@@ -48,7 +48,7 @@ MaskLayer* MaskLayer::create(cocos2d::Sprite* pic)
     }
 }
 
-bool MaskLayer::init(cocos2d::Sprite* pic)
+bool MaskLayer::init()
 {
     if ( !Layer::init() )
     {
@@ -722,6 +722,20 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
                     return true;
                 }
             }
+            x = nowTag / 100 - 1;
+            y = nowTag % 100;
+            if (_mapTv[y - 1][x].pNode){
+                int oldTag = nowTag;
+                nowTag = x * 100 + (y - 1);
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
+            else if (_mapTv[y + 1][x].pNode){
+                int oldTag = nowTag;
+                nowTag = x * 100 + (y + 1);
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
             return false;
             break;
         case MaskLayer::DIRECTION::DOWN:
@@ -733,6 +747,20 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
                     simulateFocusChanged(oldTag, nowTag);
                     return true;
                 }
+            }
+            x = nowTag / 100;
+            y = nowTag % 100 + 1;
+            if (_mapTv[y][x - 1].pNode){
+                int oldTag = nowTag;
+                nowTag = (x - 1) * 100 + y;
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
+            else if (_mapTv[y][x + 1].pNode){
+                int oldTag = nowTag;
+                nowTag = (x + 1) * 100 + y;
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
             }
             return false;
             break;
@@ -746,6 +774,21 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
                     return true;
                 }
             }
+            x = nowTag / 100 + 1;
+            y = nowTag % 100;
+            if (_mapTv[y - 1][x].pNode){
+                int oldTag = nowTag;
+                nowTag = x * 100 + (y - 1);
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
+            else if (_mapTv[y + 1][x].pNode){
+                int oldTag = nowTag;
+                nowTag = x * 100 + (y + 1);
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
+            return false;
             break;
         case MaskLayer::DIRECTION::UP:
             while(--y){
@@ -755,6 +798,20 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
                     simulateFocusChanged(oldTag, nowTag);
                     return true;
                 }
+            }
+            x = nowTag / 100;
+            y = nowTag % 100 - 1;
+            if (_mapTv[y][x + 1].pNode){
+                int oldTag = nowTag;
+                nowTag = (x + 1) * 100 + y;
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
+            }
+            else if (_mapTv[y][x - 1].pNode){
+                int oldTag = nowTag;
+                nowTag = (x - 1) * 100 + y;
+                simulateFocusChanged(oldTag, nowTag);
+                return true;
             }
             return false;
             break;

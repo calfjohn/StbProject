@@ -27,9 +27,9 @@ public:
         RIGHT,
         UP
     };
-    static MaskLayer* create(cocos2d::Sprite* pic);
+    static MaskLayer* create();
     virtual void onExit();
-    bool init(cocos2d::Sprite* pic);
+    bool init();
     void closeMoreDetailLayer();
     void simulateFocusChanged(int tagLostFocus, int tagGetFocus);
     bool simulateFocusMove(MaskLayer::DIRECTION direction);
