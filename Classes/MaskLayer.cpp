@@ -358,7 +358,7 @@ void MaskLayer::callback22()
                                                           NULL)
                                          ));
     
-    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("overturn.ogg");
 }
 
 void MaskLayer::callback23()
@@ -409,7 +409,7 @@ void MaskLayer::callback23()
                                                           NULL)
                                          ));
     
-    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("fly_away.ogg");
 }
 
 void MaskLayer::callback24()

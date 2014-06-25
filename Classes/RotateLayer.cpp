@@ -220,6 +220,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             rotateRight();
             if (_textEffector){
                 _textEffector->removeFromParentAndCleanup(true);
+                CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("dissmiss.ogg");
             }
             for(auto i = 0; i < 4; i++){
                 if (iconGroup.at(i)->getTag() == 0){
@@ -305,6 +306,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
                         }
                             break;
                         case 2:
@@ -316,6 +318,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
                         }
                             break;
                         case 3:
@@ -327,6 +330,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                             this->addChild(_introduceBoard,10);
                             _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
                             _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.mp3");
                         }
                             break;
                     }
