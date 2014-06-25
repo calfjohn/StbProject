@@ -117,8 +117,6 @@
 		6622569A19501F8A00EBC69D /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567019501F8A00EBC69D /* HelloWorld.png */; };
 		6622569B19501F8A00EBC69D /* icon0.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567119501F8A00EBC69D /* icon0.png */; };
 		6622569C19501F8A00EBC69D /* icon0.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567119501F8A00EBC69D /* icon0.png */; };
-		6622569D19501F8A00EBC69D /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567219501F8A00EBC69D /* icon1.png */; };
-		6622569E19501F8A00EBC69D /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567219501F8A00EBC69D /* icon1.png */; };
 		6622569F19501F8A00EBC69D /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567319501F8A00EBC69D /* icon2.png */; };
 		662256A019501F8A00EBC69D /* icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567319501F8A00EBC69D /* icon2.png */; };
 		662256A119501F8A00EBC69D /* icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622567419501F8A00EBC69D /* icon3.png */; };
@@ -181,6 +179,8 @@
 		BB2E8F2E195A675200BF1402 /* introduce_graphic.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F2C195A675200BF1402 /* introduce_graphic.png */; };
 		BB2E8F30195A67A500BF1402 /* introduce_cocostudio.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */; };
 		BB2E8F31195A67A500BF1402 /* introduce_cocostudio.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */; };
+		BB2E8F34195A6A3300BF1402 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F33195A6A3300BF1402 /* icon1.png */; };
+		BB2E8F35195A6A3300BF1402 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F33195A6A3300BF1402 /* icon1.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -420,7 +420,6 @@
 		6622566F19501F8A00EBC69D /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6622567019501F8A00EBC69D /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		6622567119501F8A00EBC69D /* icon0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon0.png; sourceTree = "<group>"; };
-		6622567219501F8A00EBC69D /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
 		6622567319501F8A00EBC69D /* icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon2.png; sourceTree = "<group>"; };
 		6622567419501F8A00EBC69D /* icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon3.png; sourceTree = "<group>"; };
 		6622567519501F8A00EBC69D /* light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light.png; sourceTree = "<group>"; };
@@ -456,6 +455,7 @@
 		BB2E8F291959E41000BF1402 /* shadow.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shadow.plist; sourceTree = "<group>"; };
 		BB2E8F2C195A675200BF1402 /* introduce_graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduce_graphic.png; sourceTree = "<group>"; };
 		BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduce_cocostudio.png; sourceTree = "<group>"; };
+		BB2E8F33195A6A3300BF1402 /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -681,6 +681,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB2E8F33195A6A3300BF1402 /* icon1.png */,
 				BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */,
 				BB2E8F2C195A675200BF1402 /* introduce_graphic.png */,
 				BB2E8F291959E41000BF1402 /* shadow.plist */,
@@ -719,7 +720,6 @@
 				6622566F19501F8A00EBC69D /* fonts */,
 				6622567019501F8A00EBC69D /* HelloWorld.png */,
 				6622567119501F8A00EBC69D /* icon0.png */,
-				6622567219501F8A00EBC69D /* icon1.png */,
 				6622567319501F8A00EBC69D /* icon2.png */,
 				6622567419501F8A00EBC69D /* icon3.png */,
 				6622567519501F8A00EBC69D /* light.png */,
@@ -920,6 +920,7 @@
 				BB2E8F1E1959898F00BF1402 /* boot.wav in Resources */,
 				26C145B2195442BC00EB091C /* rotate_light.png in Resources */,
 				662256AF19501F8A00EBC69D /* text_effect.plist in Resources */,
+				BB2E8F34195A6A3300BF1402 /* icon1.png in Resources */,
 				6622569719501F8A00EBC69D /* fonts in Resources */,
 				661F912F19592F6B0075C81A /* MainMenu in Resources */,
 				ACDDE62C1952EDBA003C7847 /* tvMap.plist in Resources */,
@@ -945,7 +946,6 @@
 				BB2E8EE51959138800BF1402 /* tvChannel.plist in Resources */,
 				BB2E8F0F195980AB00BF1402 /* explosion.wav in Resources */,
 				BB2E8EE71959138800BF1402 /* tvChannel.png in Resources */,
-				6622569D19501F8A00EBC69D /* icon1.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				BB2E8EE31959138800BF1402 /* cellframe.png in Resources */,
 				26C1458019540F1000EB091C /* selectedBlock.png in Resources */,
@@ -992,7 +992,6 @@
 				6622569419501F8A00EBC69D /* countdown_11.png in Resources */,
 				26C145B3195442BC00EB091C /* rotate_light.png in Resources */,
 				6622569619501F8A00EBC69D /* countdown_12.png in Resources */,
-				6622569E19501F8A00EBC69D /* icon1.png in Resources */,
 				26C145AF195442BC00EB091C /* ExplodingRing.plist in Resources */,
 				6622569819501F8A00EBC69D /* fonts in Resources */,
 				6622569C19501F8A00EBC69D /* icon0.png in Resources */,
@@ -1006,6 +1005,7 @@
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				662256B219501F8A00EBC69D /* text_light_bottom.png in Resources */,
 				6622568C19501F8A00EBC69D /* britanic bold.ttf in Resources */,
+				BB2E8F35195A6A3300BF1402 /* icon1.png in Resources */,
 				6622568019501F8A00EBC69D /* background.png in Resources */,
 				BB2E8F1A1959853C00BF1402 /* cell_switch1.wav in Resources */,
 				662256A219501F8A00EBC69D /* icon3.png in Resources */,
