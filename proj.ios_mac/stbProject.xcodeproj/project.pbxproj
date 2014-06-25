@@ -95,6 +95,8 @@
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
 		661F912F19592F6B0075C81A /* MainMenu in Resources */ = {isa = PBXBuildFile; fileRef = 661F912E19592F6B0075C81A /* MainMenu */; };
 		661F913019592F6B0075C81A /* MainMenu in Resources */ = {isa = PBXBuildFile; fileRef = 661F912E19592F6B0075C81A /* MainMenu */; };
+		661F91371959E5580075C81A /* MainMenu in Resources */ = {isa = PBXBuildFile; fileRef = 661F91361959E5580075C81A /* MainMenu */; };
+		661F91381959E5580075C81A /* MainMenu in Resources */ = {isa = PBXBuildFile; fileRef = 661F91361959E5580075C81A /* MainMenu */; };
 		6622567F19501F8A00EBC69D /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622566319501F8A00EBC69D /* background.png */; };
 		6622568019501F8A00EBC69D /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622566319501F8A00EBC69D /* background.png */; };
 		6622568919501F8A00EBC69D /* board.png in Resources */ = {isa = PBXBuildFile; fileRef = 6622566819501F8A00EBC69D /* board.png */; };
@@ -393,6 +395,7 @@
 		50EF62A017ECD613001EB2F8 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-29.png"; sourceTree = "<group>"; };
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
 		661F912E19592F6B0075C81A /* MainMenu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MainMenu; sourceTree = "<group>"; };
+		661F91361959E5580075C81A /* MainMenu */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MainMenu; sourceTree = "<group>"; };
 		6622566319501F8A00EBC69D /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		6622566819501F8A00EBC69D /* board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board.png; sourceTree = "<group>"; };
 		6622566919501F8A00EBC69D /* britanic bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "britanic bold.ttf"; sourceTree = "<group>"; };
@@ -657,6 +660,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				661F91361959E5580075C81A /* MainMenu */,
 				BB2E8EF31959604100BF1402 /* flash.png */,
 				26C6D8941958515C00A65546 /* encaltest.png */,
 				26C6D89C19587A7300A65546 /* body.png */,
@@ -921,6 +925,7 @@
 				662256B519501F8A00EBC69D /* text_light.png in Resources */,
 				6622569F19501F8A00EBC69D /* icon2.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				661F91371959E5580075C81A /* MainMenu in Resources */,
 				6622569519501F8A00EBC69D /* countdown_12.png in Resources */,
 				662256AD19501F8A00EBC69D /* star_up.plist in Resources */,
 				662256A119501F8A00EBC69D /* icon3.png in Resources */,
@@ -954,6 +959,7 @@
 				26C145AF195442BC00EB091C /* ExplodingRing.plist in Resources */,
 				6622569819501F8A00EBC69D /* fonts in Resources */,
 				6622569C19501F8A00EBC69D /* icon0.png in Resources */,
+				661F91381959E5580075C81A /* MainMenu in Resources */,
 				6622569219501F8A00EBC69D /* Comet.png in Resources */,
 				662256B019501F8A00EBC69D /* text_effect.plist in Resources */,
 				662256AE19501F8A00EBC69D /* star_up.plist in Resources */,
