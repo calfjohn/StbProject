@@ -234,7 +234,7 @@ void DotGuy::walkUpdate(float delta)
 {
     m_stepCount++;
     Vec2 nextMovePosition = getNextMovePosition();
-    CCLOG("MY_X = %f, MY_Y = %f", nextMovePosition.x, nextMovePosition.y);
+    //CCLOG("MY_X = %f, MY_Y = %f", nextMovePosition.x, nextMovePosition.y);
     this->createCycleBody(nextMovePosition);
     m_bodySprite->setPosition(nextMovePosition);
     if ( m_stepCount >= ( m_numOfStep + m_numOfFix ) ){
@@ -243,7 +243,7 @@ void DotGuy::walkUpdate(float delta)
         m_oldDirectionStatus = m_directionStatus;
         m_directionStatus = nextDirection(m_position);
         m_numOfFix = fixCount();
-        CCLOG("y = %f, x = %f, step = %d, nextOffset = %d", m_position.y, m_position.x, m_numOfStep + m_numOfFix, m_addStep);
+       // CCLOG("y = %f, x = %f, step = %d, nextOffset = %d", m_position.y, m_position.x, m_numOfStep + m_numOfFix, m_addStep);
     }
 }
 

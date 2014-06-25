@@ -41,6 +41,7 @@ protected:
     cocos2d::EventListenerKeyboard* _keyboardListener;
     TextEffector *_textEffector;
     cocos2d::Point _beginPoint;
+    cocos2d::Sprite* _introduceBoard = NULL;
 };
 
 #endif /* defined(__stbProject__RotateLayer__) */

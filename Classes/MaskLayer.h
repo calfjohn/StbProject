@@ -65,6 +65,7 @@ protected:
     void initWithDotGuyMap();
     
     void initRemoteControl();
+        
     cocos2d::ui::Widget *_widget;
     cocos2d::EventListenerFocus *_eventListener;
     cocos2d::EventListenerKeyboard* _keyboardListener;
@@ -74,7 +75,7 @@ private:
     int currentFocusCellType;
     cocos2d::Node *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
-    cocos2d::Sprite* selectedSprite;
+    cocos2d::ParticleSystemQuad * _selectedParticle;
     cocos2d::Sprite* _rotateLight;
     cocos2d::Point recoverPoint;
     int recoverzOrder;
@@ -82,6 +83,7 @@ private:
     int nowTag;
     std::vector<std::string> dotGuyMap;
     int tempIndex=1;
+    int currentRectangleIndex;
     DotGuy* m_dotGuy[2];
 };
 

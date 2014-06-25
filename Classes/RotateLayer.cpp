@@ -12,6 +12,7 @@
 #include "MaskLayer.h"
 #include "HelloWorldScene.h"
 #include "SelectedEffect.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 using namespace cocos2d::ui;
@@ -168,7 +169,15 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
     
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
-        Director::getInstance()->end();
+        //Director::getInstance()->end();
+        if(_introduceBoard){
+            auto winSize = Director::getInstance()->getWinSize();
+            _introduceBoard->runAction(Sequence::create(EaseElasticIn::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height+500)), 0.7),
+                                                        CallFunc::create([&](){
+                _introduceBoard->removeFromParentAndCleanup(true);
+                isLocked = false;}),
+                                                        NULL));
+        }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         MessageBox("down", "pressed");
@@ -202,6 +211,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 }
             }
             this->addChild(_textEffector);
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("channel_switch1.wav");
         }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
@@ -230,6 +240,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
                 }
             }
             this->addChild(_textEffector);
+            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("channel_switch1.wav");
         }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
@@ -237,60 +248,88 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         Director::getInstance()->getRunningScene()->addChild(SetTopBoxMainScene::create());
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
-        for(auto i = 0; i < 4; i++){
-            if (iconGroup.at(i)->getTag() == 0){
-                switch (i){
-                    case 0:
-                        MessageBox("tv", "pressed");
-                        //this->addChild(PlayVideoLayer::create());
-                        break;
-                    case 1:
-                    {
-                        //MessageBox("game", "pressed");
-                        auto selectedEffect = SelectedEffect::create();
-                        selectedEffect->setPosition(iconGroup.at(i)->getPosition());
-                        this->addChild(selectedEffect);
-                        auto selectedCallback = [&](){
-                            
-                            auto moveLeft = EaseQuadraticActionIn::create(MoveBy::create(0.1, Vec2(-150,-50)));
-                            auto moveRight = moveLeft->reverse();
-                            
-                            auto spawn = Spawn::create(EaseSineOut::create(ScaleTo::create(0.2, 3)), Sequence::create(moveLeft, moveRight, NULL), NULL);
-                            
-                            iconGroup.at(1)->runAction(Sequence::create(spawn,
-                                                                        CallFunc::create([&](){
-                                float delayTime = 0.1f;
+        if(!isLocked){
+            for(auto i = 0; i < 4; i++){
+                if (iconGroup.at(i)->getTag() == 0){
+                    switch (i){
+                        case 0:
+                        {
+                            //MessageBox("tv", "pressed");
+                            isLocked = true;
+                            auto selectedEffect = SelectedEffect::create();
+                            selectedEffect->setPosition(iconGroup.at(i)->getPosition());
+                            this->addChild(selectedEffect);
+                            auto selectedCallback = [&](){
                                 
-                                auto flash = LayerColor::create(Color4B::WHITE);
-                                this->addChild(flash);
+                                auto moveLeft = EaseQuadraticActionIn::create(MoveBy::create(0.1, Vec2(-150,-50)));
+                                auto moveRight = moveLeft->reverse();
                                 
-                                flash->setLocalZOrder(100);
-                                auto flashAction = Sequence::create(
-                                                                    //FadeIn::create(delayTime/2),
-                                                                    FadeIn::create(delayTime),
-                                                                    //RemoveSelf::create(),
-                                                                    nullptr);
-                                flash->runAction(flashAction);
+                                auto spawn = Spawn::create(EaseSineOut::create(ScaleTo::create(0.2, 3)), Sequence::create(moveLeft, moveRight, NULL), NULL);
                                 
-
-                            }),
-                                                                        CallFunc::create([&](){
-                                auto newScene = HelloWorld::createScene();
-                                auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
-                                Director::getInstance()->replaceScene(FadeScene);
-                                newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
-                            }),
-                                                                        NULL));
-                        };
-                        selectedEffect->runEffect(selectedCallback);
+                                iconGroup.at(0)->runAction(Sequence::create(spawn,
+                                                                            CallFunc::create([&](){
+                                    float delayTime = 0.1f;
+                                    
+                                    auto flash = LayerColor::create(Color4B::WHITE);
+                                    this->addChild(flash);
+                                    
+                                    flash->setLocalZOrder(100);
+                                    auto flashAction = Sequence::create(
+                                                                        //FadeIn::create(delayTime/2),
+                                                                        FadeIn::create(delayTime),
+                                                                        //RemoveSelf::create(),
+                                                                        nullptr);
+                                    flash->runAction(flashAction);
+                                    
+                                    
+                                }),
+                                                                            CallFunc::create([&](){
+                                    auto newScene = HelloWorld::createScene();
+                                    auto FadeScene = TransitionFade::create(0.3f, newScene, Color3B::WHITE);
+                                    Director::getInstance()->replaceScene(FadeScene);
+                                    newScene->addChild(MaskLayer::create(Sprite::create("picture01.jpg")));
+                                }),
+                                                                            NULL));
+                            };
+                            selectedEffect->runEffect(selectedCallback);
+                            CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("explosion.wav");
+                        }
+                            //this->addChild(PlayVideoLayer::create());
+                            break;
+                        case 1:
+                        {
+                            //MessageBox("game", "pressed");
+                            isLocked = true;
+                            auto winSize = Director::getInstance()->getWinSize();
+                            _introduceBoard = Sprite::create("introduce_cocos.png");
+                            this->addChild(_introduceBoard,10);
+                            _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
+                            _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                        }
+                            break;
+                        case 2:
+                        {
+                            //MessageBox("internet", "pressed");
+                            isLocked = true;
+                            auto winSize = Director::getInstance()->getWinSize();
+                            _introduceBoard = Sprite::create("introduce_cocostudio.png");
+                            this->addChild(_introduceBoard,10);
+                            _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
+                            _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                        }
+                            break;
+                        case 3:
+                        {
+                            //MessageBox("system", "pressed");
+                            isLocked = true;
+                            auto winSize = Director::getInstance()->getWinSize();
+                            _introduceBoard = Sprite::create("introduce_graphic.png");
+                            this->addChild(_introduceBoard,10);
+                            _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
+                            _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+                        }
+                            break;
                     }
-                        break;
-                    case 2:
-                        MessageBox("internet", "pressed");
-                        break;
-                    case 3:
-                        MessageBox("system", "pressed");
-                        break;
                 }
             }
         }
