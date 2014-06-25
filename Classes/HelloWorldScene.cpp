@@ -1,6 +1,5 @@
 #include "HelloWorldScene.h"
 #include "MaskLayer.h"
-#include "AdLayer.h"
 #include "RotateLayer.h"
 USING_NS_CC;
 

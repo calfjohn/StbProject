@@ -190,8 +190,8 @@ void MaskLayer::createCellTv(bool invokeCallback)
     _selectedParticle->setVisible(false);
     _selectedParticle->setGlobalZOrder(0);
     
-    //_selectedSprite = Sprite::create("selectedBlock.png");
-    _selectedSprite = Sprite::create("select_block.png");
+    _selectedSprite = Sprite::create("selectedBlock.png");
+    //_selectedSprite = Sprite::create("select_block.png");
     pTvNode->addChild(_selectedSprite);
     _selectedSprite->setScale(1.0);
     _selectedSprite->setVisible(false);
@@ -440,11 +440,11 @@ void MaskLayer::callback24()
     initWithDotGuyMap();
     Size blockSize = Size(RectangleInterface::getCellSize().width - RectangleInterface::getSpace(), RectangleInterface::getCellSize().height - RectangleInterface::getSpace());
     int dotpoint_x, dotpoint_y;
-    if (tempIndex == 1){
+    if (currentRectangleIndex == 1){
         dotpoint_y = 7;
         dotpoint_x = 11;
     }
-    else if (tempIndex == 2){
+    else if (currentRectangleIndex == 2){
         dotpoint_y = 7;
         dotpoint_x = 5;
     }
@@ -582,8 +582,8 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         if (m_pic){
             
             if(currentFocusCellType > 1){
-                int tempRandom = int(++tempIndex%3) + 1;//1-3之间
-                initTvMap(tempRandom);
+                currentRectangleIndex = int(++tempIndex%3) + 1;//1-3之间
+                initTvMap(currentRectangleIndex);
                 createCellTv();
                 this->lostFocus();
                 m_dotGuy[0]->removeFromParentAndCleanup(true);
