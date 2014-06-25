@@ -1,9 +1,9 @@
 #include "cellTv.h"
-//#include "SpriteBlur.h"
 
 #define COVER_TAG 1111
 #define CELL_TAG 1112
-#define FRAME_TAG 1113
+//#define FRAME_TAG 1113
+#define TOP_GLOBEL_ZORER 1000
 
 cellTv::cellTv(void)
 {
@@ -31,27 +31,27 @@ cellTv* cellTv::createNode(const std::string& filename, float globalZorder, bool
 {
     auto node = cellTv::create();
     node->setGlobalZOrder(globalZorder);
+    node->saveGlobelZorder(globalZorder);
     
-//    SpriteBlur* pcellTv = SpriteBlur::createWithSpriteFrameName(filename.c_str());
-    Sprite* pcellTv = Sprite::createWithSpriteFrameName(filename);
-    pcellTv->setGlobalZOrder(globalZorder);
+    auto* pcellTv = Sprite::createWithSpriteFrameName(filename);
+    pcellTv->setGlobalZOrder(globalZorder+0.01);
     pcellTv->setTag(CELL_TAG);
     
-    node->addChild(pcellTv);
+    node->addChild(pcellTv, 0);
     
-    Sprite* pcellFrame = Sprite::createWithSpriteFrameName("cellframe.png");
-    pcellFrame->setGlobalZOrder(globalZorder);
-    pcellFrame->setTag(FRAME_TAG);
-    node->addChild(pcellFrame);
+//    auto* pcellFrame = Sprite::createWithSpriteFrameName("cellframe.png");
+//    pcellFrame->setGlobalZOrder(globalZorder+0.02);
+//    pcellFrame->setTag(FRAME_TAG);
+//    node->addChild(pcellFrame, 1);
 
     if (withCover) {
-        Sprite* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
+        auto* pCover = Sprite::createWithSpriteFrameName("cellbackground.png");
         pCover->setTag(COVER_TAG);
         pCover->setOpacity(255*3/4);
-        pCover->setGlobalZOrder(globalZorder+0.01);
-        node->addChild(pCover, 1);
+        pCover->setGlobalZOrder(globalZorder+0.03);
+        node->addChild(pCover, 2);
     }
-
+    
     return node;
 }
 
@@ -102,14 +102,14 @@ void cellTv::setCoverVisible()
 
 void cellTv::resetGlobelZorder()
 {
-    getChildByTag(CELL_TAG)->setGlobalZOrder(_globelZorder);
-    getChildByTag(FRAME_TAG)->setGlobalZOrder(_globelZorder);
+    getChildByTag(CELL_TAG)->setGlobalZOrder(_globelZorder+0.01);
+//    getChildByTag(FRAME_TAG)->setGlobalZOrder(_globelZorder+0.02);
 }
 
 void cellTv::bringNodeToTop()
 {
-    getChildByTag(CELL_TAG)->setGlobalZOrder(10000);
-    getChildByTag(FRAME_TAG)->setGlobalZOrder(10000);
+    getChildByTag(CELL_TAG)->setGlobalZOrder(TOP_GLOBEL_ZORER);
+//    getChildByTag(FRAME_TAG)->setGlobalZOrder(TOP_GLOBEL_ZORER);
 }
 
 

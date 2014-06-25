@@ -40,7 +40,7 @@ public:
     
     void setCoverVisible();
 
-    void setGlobelZorder(float zorder){_globelZorder = zorder;}
+    void saveGlobelZorder(float zorder){_globelZorder = zorder;}
 
     void bringNodeToTop();
     void resetGlobelZorder();

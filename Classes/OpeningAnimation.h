@@ -27,9 +27,6 @@ protected:
     void addRotateLayerCallback();
     Vector<Light*> lightVec;
     Node *lightNode;
-    Sprite *boardSprite;
-    Sprite *lightBackground;
-    bool rotateLayerFlag;
 };
 
 class Light : public Sprite{
