@@ -185,7 +185,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
         MessageBox("up", "pressed");
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT || keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW) {
         //MessageBox("left", "pressed");
         if (! isLocked){
             rotateLeft();
@@ -214,7 +214,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("window_show.wav");
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT || keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW) {
         //MessageBox("right", "pressed");
         if (! isLocked){
             rotateRight();
@@ -248,7 +248,7 @@ void RotateLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
         Director::getInstance()->getRunningScene()->removeAllChildrenWithCleanup(true);
         Director::getInstance()->getRunningScene()->addChild(SetTopBoxMainScene::create());
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_SPACE) {
         if(!isLocked){
             for(auto i = 0; i < 4; i++){
                 if (iconGroup.at(i)->getTag() == 0){

@@ -101,7 +101,7 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
     if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE ) {
         _preMaskLater->closeMoreDetailLayer();
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_MENU) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_MENU || keyCode == EventKeyboard::KeyCode::KEY_SPACE) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         //this->addChild(PlayVideoLayer::create());
         int x = nowTag / 100;
@@ -116,19 +116,19 @@ void MoreDetailLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* 
         }
 #endif
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN || keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
         simulateFocusMove(MoreDetailLayer::DIRECTION::DOWN);
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP || keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
         simulateFocusMove(MoreDetailLayer::DIRECTION::UP);
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT || keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
         simulateFocusMove(MoreDetailLayer::DIRECTION::LEFT);
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT || keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
         simulateFocusMove(MoreDetailLayer::DIRECTION::RIGHT);
     }

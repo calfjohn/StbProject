@@ -67,7 +67,6 @@ bool MaskLayer::init()
     createCellTv();
     
     addLight();
-
     return true;
 }
 
@@ -556,31 +555,31 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             Director::getInstance()->replaceScene(SetTopBoxMainScene::createScene());
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN || keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
         if(!isLocked){
             simulateFocusMove(MaskLayer::DIRECTION::DOWN);
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP || keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
         if(!isLocked){
             simulateFocusMove(MaskLayer::DIRECTION::UP);
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT || keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
         if(!isLocked){
             simulateFocusMove(MaskLayer::DIRECTION::LEFT);
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT || keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
         if(!isLocked){
             simulateFocusMove(MaskLayer::DIRECTION::RIGHT);
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
+    else if (keyCode == EventKeyboard::KeyCode::KEY_MENU || keyCode == EventKeyboard::KeyCode::KEY_RETURN){
         if(!isLocked){
             isLocked = true;
             auto winSize = Director::getInstance()->getWinSize();
@@ -603,7 +602,7 @@ void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
             }
         }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER/*||keyCode == EventKeyboard::KeyCode::KEY_ESCAPE*/) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_SPACE ) {
         if (m_pic){
             
             if(currentFocusCellType > 1){
