@@ -75,7 +75,7 @@ private:
     int currentFocusCellType;
     cocos2d::Node *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
-    cocos2d::Sprite* selectedSprite;
+    cocos2d::ParticleSystemQuad * _selectedParticle;
     cocos2d::Sprite* _rotateLight;
     cocos2d::Point recoverPoint;
     int recoverzOrder;

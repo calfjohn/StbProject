@@ -12,6 +12,8 @@
 #include "RectangleInterface.h"
 #include "SetTopBoxMainScene.h"
 #include "DotGuy.h"
+#include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 using namespace cocos2d::ui;
 
@@ -123,7 +125,7 @@ void MaskLayer::initTvMap(int type)
             tempMap[5] = "110000011";
             tempMap[6] = "112121211";
             tempMap[7] = "111121111";
-        break;
+            break;
         case 3:
             RectangleInterface::initialize(6, 12, Size(135, 135), 5, Vec2(s.width/2, s.height/2));
             tempMap[1] = "000110000000";
@@ -170,9 +172,9 @@ void MaskLayer::initTvMap(int type)
 void MaskLayer::createCellTv(bool invokeCallback)
 {
     removeChildByTag(NODE_TAG);
-
+    
     Size s = Director::getInstance()->getVisibleSize();
-
+    
     Node *pTvNode = Node::create();
     this->addChild(pTvNode);
     pTvNode->setPosition(RectangleInterface::getCenterPosition());
@@ -180,10 +182,12 @@ void MaskLayer::createCellTv(bool invokeCallback)
     pTvNode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     pTvNode->setContentSize(RectangleInterface::getCellSize());
     
-    selectedSprite = Sprite::create("selectedBlock.png");
-    pTvNode->addChild(selectedSprite);
-    selectedSprite->setVisible(false);
-    selectedSprite->setGlobalZOrder(999);
+    _selectedParticle = ParticleSystemQuad::create("shadow.plist");
+    pTvNode->addChild(_selectedParticle);
+    _selectedParticle->setPositionType(ParticleSystem::PositionType::GROUPED);
+    _selectedParticle->setScale(1.8);
+    _selectedParticle->setVisible(false);
+    _selectedParticle->setGlobalZOrder(0);
     
     float marginX = s.width;
     float marginY = s.height;
@@ -274,8 +278,10 @@ void MaskLayer::callback20()
                                     EaseSineOut::create(ScaleTo::create(3, 1.5)), NULL);
     
     pNode->runAction(EaseSineOut::create(
-                     Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL))
+                                         Sequence::create(DelayTime::create(3), move_scale, CallFunc::create( CC_CALLBACK_0(MaskLayer::callback21,this)), NULL))
                      );
+    
+    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
 }
 
 void MaskLayer::callback21()
@@ -298,16 +304,18 @@ void MaskLayer::callback21()
     
     pNode->stopAllActions();
     pNode->runAction(EaseSineOut::create(
-                     Sequence::create(DelayTime::create(delayTime),
-                                      EaseQuadraticActionIn::create(Spawn::create(
-                                                                                  ScaleTo::create(0.3, 1.0),
-                                                                                  RotateBy::create(0.3, Vec3(-30, 30, 15)),
-                                                                                  MoveBy::create(0.3, Vec2(300, 250)),
-                                                                                  NULL)),
-                                      DelayTime::create(0.1),
-                                      CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
-                                      NULL))
-                    );
+                                         Sequence::create(DelayTime::create(delayTime),
+                                                          EaseQuadraticActionIn::create(Spawn::create(
+                                                                                                      ScaleTo::create(0.3, 1.0),
+                                                                                                      RotateBy::create(0.3, Vec3(-30, 30, 15)),
+                                                                                                      MoveBy::create(0.3, Vec2(300, 250)),
+                                                                                                      NULL)),
+                                                          DelayTime::create(0.1),
+                                                          CallFunc::create( CC_CALLBACK_0(MaskLayer::callback22,this)),
+                                                          NULL))
+                     );
+    
+    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
 }
 
 void MaskLayer::callback22()
@@ -339,7 +347,9 @@ void MaskLayer::callback22()
                                                           CallFunc::create( CC_CALLBACK_0(MaskLayer::callback23,this)),
                                                           EaseSineOut::create(MoveBy::create(3.0, Point(-250, -100))),
                                                           NULL)
-                     ));
+                                         ));
+    
+    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
 }
 
 void MaskLayer::callback23()
@@ -355,16 +365,16 @@ void MaskLayer::callback23()
     flash->setGlobalZOrder(10000);
     
     flash->runAction(EaseSineOut::create(Sequence::create(DelayTime::create(1.8f),
-                                      Show::create(),
-                                      EaseQuadraticActionIn::create(ScaleTo::create(0.1, 70)),
-                                      CallFunc::create([=](){
-                                            _rotateLight->setPosition(winSize.width/2+300,winSize.height + 100);
-                                            flash->setPosition(_rotateLight->getPosition());
-                                        }),
-                                      EaseQuadraticActionOut::create(ScaleTo::create(0.1, 5)),
-                                      RemoveSelf::create(),
-                                      NULL)));
-
+                                                          Show::create(),
+                                                          EaseQuadraticActionIn::create(ScaleTo::create(0.1, 70)),
+                                                          CallFunc::create([=](){
+        _rotateLight->setPosition(winSize.width/2+300,winSize.height + 100);
+        flash->setPosition(_rotateLight->getPosition());
+    }),
+                                                          EaseQuadraticActionIn::create(ScaleTo::create(0.1, 5)),
+                                                          RemoveSelf::create(),
+                                                          NULL)));
+    
     
     Node *pNode = getChildByTag(NODE_TAG);
     if (pNode == NULL) return;
@@ -385,10 +395,12 @@ void MaskLayer::callback23()
     
     pNode->stopAllActions();
     pNode->runAction(EaseSineOut::create(Sequence::create(
-                                      DelayTime::create(3.0),
-                                      CallFunc::create( CC_CALLBACK_0(MaskLayer::callback24,this)),
-                                      NULL)
-                     ));
+                                                          DelayTime::create(3.0),
+                                                          CallFunc::create( CC_CALLBACK_0(MaskLayer::callback24,this)),
+                                                          NULL)
+                                         ));
+    
+    //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Track26.wav");
 }
 
 void MaskLayer::callback24()
@@ -411,7 +423,7 @@ void MaskLayer::callback24()
             if(pNode == NULL) continue;
             
             pNode->moveToDestination();
-//            pNode->runRotateAction();
+            //            pNode->runRotateAction();
         }
     }
     
@@ -443,7 +455,6 @@ void MaskLayer::initRemoteControl()
 {
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
-    /* ==============test============== */
     LinearLayoutParameter *layoutParams = LinearLayoutParameter::create();
     layoutParams->setMargin(Margin(59,40,0,0));
     
@@ -456,15 +467,17 @@ void MaskLayer::initRemoteControl()
     /* ==============test============== */
     
     bool isFirst = true;
+
     for(int y = 1; y <= RectangleInterface::getRows(); y++){
         for(int x = 1; x <= RectangleInterface::getColumns(); x++){
             if ( _mapTv[y][x].pNode && _mapTv[y][x].type == 2 ){
                 if (isFirst){
                     m_pic = (Sprite*)_mapTv[y][x].pNode;
                     nowTag = x * 100 + y;
-                    selectedSprite->setVisible(true);
-                    selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
-                    selectedSprite->setLocalZOrder(100);
+                    _selectedParticle->setVisible(true);
+                    _selectedParticle->setPosition(RectangleInterface::getPosition(y, x));
+                    _selectedParticle->setLocalZOrder(100);
+                    
                     isFirst = false;
                 }
             }
@@ -477,28 +490,28 @@ void MaskLayer::initRemoteControl()
 
 void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui::Widget *widgetGetFocus)
 {
-//    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
-//    if (!getLayout1 && widgetLostFocus) {
-//        int x = widgetLostFocus->getTag() / 100;
-//        int y = widgetLostFocus->getTag() % 100;
-//        
-//        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
-//        pNode->runAction(ScaleTo::create(0.02, 1.0));
-//        pNode->resetGlobelZorder();
-//    }
-//    
-//    Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
-//    if (!getLayout && widgetGetFocus) {
-//        int x = widgetGetFocus->getTag() / 100;
-//        int y = widgetGetFocus->getTag() % 100;
-//        m_pic = (Sprite*)_mapTv[y][x].pNode;
-//        cellTv *pNode = (cellTv *)m_pic;
-//        if (pNode){
-//            pNode->runAction(ScaleTo::create(0.05, 1.5));
-//            pNode->bringNodeToTop();
-//            selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
-//        }
-//    }
+    //    Layout *getLayout1 = dynamic_cast<Layout*>(widgetLostFocus);
+    //    if (!getLayout1 && widgetLostFocus) {
+    //        int x = widgetLostFocus->getTag() / 100;
+    //        int y = widgetLostFocus->getTag() % 100;
+    //
+    //        cellTv *pNode = (cellTv*)_mapTv[y][x].pNode;
+    //        pNode->runAction(ScaleTo::create(0.02, 1.0));
+    //        pNode->resetGlobelZorder();
+    //    }
+    //
+    //    Layout *getLayout = dynamic_cast<Layout*>(widgetGetFocus);
+    //    if (!getLayout && widgetGetFocus) {
+    //        int x = widgetGetFocus->getTag() / 100;
+    //        int y = widgetGetFocus->getTag() % 100;
+    //        m_pic = (Sprite*)_mapTv[y][x].pNode;
+    //        cellTv *pNode = (cellTv *)m_pic;
+    //        if (pNode){
+    //            pNode->runAction(ScaleTo::create(0.05, 1.5));
+    //            pNode->bringNodeToTop();
+    //            selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
+    //        }
+    //    }
 }
 
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
@@ -653,7 +666,9 @@ void MaskLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
         cellTv *pNode = (cellTv*)_mapTv[getFocus_y][getFocus_x].pNode;
         pNode->runAction(ScaleTo::create(0.05, 1.5));
         pNode->bringNodeToTop();
-        selectedSprite->runAction(EaseSineOut::create(Spawn::create(MoveTo::create(0.05, pNode->getPosition()), ScaleTo::create(0.05, 1.5), NULL)));
+        auto position = pNode->getPosition();
+        _selectedParticle->setGlobalZOrder(600);
+        _selectedParticle->runAction(Spawn::create(MoveTo::create(0.05, position), ScaleTo::create(0.05, 2.5), NULL));
         m_pic = pNode;
         currentFocusCellType = _mapTv[getFocus_y][getFocus_x].type;
     }
@@ -665,6 +680,8 @@ void MaskLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
         pNode->runAction(ScaleTo::create(0.02, 1.0));
         pNode->resetGlobelZorder();
     }
+    
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("cell_switch1.wav");
 }
 
 bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
@@ -722,14 +739,6 @@ bool MaskLayer::simulateFocusMove(MaskLayer::DIRECTION direction)
 
 void MaskLayer::initWithDotGuyMap()
 {
-    /*
-    for(int y = 1; y <= ROW / 2; y++){
-        for(int x = 1; x <= COL; x++){
-            char temp = mapStr[y][x];
-            mapStr[y][x] = mapStr[ROW + 1 - y][x];
-            mapStr[ROW + 1 - y][x] = temp;
-        }
-    }*/
     for(int y = 0; y <= RectangleInterface::getRows(); y++){
         std::string tempStr = "";
         for(int x = 0; x <= RectangleInterface::getColumns(); x++){
