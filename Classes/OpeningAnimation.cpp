@@ -9,6 +9,7 @@
 #include "OpeningAnimation.h"
 #include "RotateLayer.h"
 #include "ExplosionEffect.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -74,7 +75,7 @@ bool OpeningAnimation::init()
     addChild(emitter);
     
     emitter->setPosition(Point(origin.x + visibleSize.width/2, 200 + origin.y));
-
+    
     return true;
 }
 
@@ -87,5 +88,5 @@ void OpeningAnimation::addExplosionCallback(){
 }
 
 void OpeningAnimation::addRotateLayerCallback(){
-    this->addChild(RotateLayer::create());
+    this->addChild(RotateLayer::create(),2);
 }
