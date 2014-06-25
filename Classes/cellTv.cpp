@@ -67,7 +67,7 @@ void cellTv::runRotateAction()
 
 void cellTv::rotateDelay(int delayTime)
 {
-    auto delayAction = DelayTime::create(0.25*delayTime);
+    auto delayAction = DelayTime::create(0.25*delayTime + CCRANDOM_0_1());
     ActionInterval* action1 = EaseSineOut::create(OrbitCamera::create(0.5, 1, 0, 0, 360, 0, 0));
     runAction(EaseSineOut::create(Sequence::create(delayAction,
                                action1,
@@ -98,12 +98,7 @@ void cellTv::setCoverVisible()
     auto node = this->getChildByTag(COVER_TAG);
     if(node == NULL) return;
     
-    node->setVisible(false);
-    
-//    SpriteBlur *node = (SpriteBlur *)this->getChildByTag(CELL_TAG);
-//    if(node == NULL) return;
-//    
-//    node->setBlurSize(1.0);
+    node->runAction(EaseSineIn::create(Sequence::create(FadeOut::create(0.2), RemoveSelf::create(), NULL) ));
 }
 
 void cellTv::resetGlobelZorder()

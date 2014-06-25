@@ -56,8 +56,6 @@
 		26F769781945530E00723075 /* MaskLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769731945530E00723075 /* MaskLayer.cpp */; };
 		26F769791945530E00723075 /* MoreDetailLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769751945530E00723075 /* MoreDetailLayer.cpp */; };
 		26F7697A1945530E00723075 /* MoreDetailLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F769751945530E00723075 /* MoreDetailLayer.cpp */; };
-		26F7698419455D8F00723075 /* AdLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F7698219455D8F00723075 /* AdLayer.cpp */; };
-		26F7698519455D8F00723075 /* AdLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F7698219455D8F00723075 /* AdLayer.cpp */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
@@ -359,8 +357,6 @@
 		26F769741945530E00723075 /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
 		26F769751945530E00723075 /* MoreDetailLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoreDetailLayer.cpp; sourceTree = "<group>"; };
 		26F769761945530E00723075 /* MoreDetailLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreDetailLayer.h; sourceTree = "<group>"; };
-		26F7698219455D8F00723075 /* AdLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AdLayer.cpp; path = ../Classes/AdLayer.cpp; sourceTree = "<group>"; };
-		26F7698319455D8F00723075 /* AdLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdLayer.h; path = ../Classes/AdLayer.h; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -532,8 +528,6 @@
 				26C145981954429E00EB091C /* ExplosionEffect.h */,
 				26F769751945530E00723075 /* MoreDetailLayer.cpp */,
 				26F769761945530E00723075 /* MoreDetailLayer.h */,
-				26F7698219455D8F00723075 /* AdLayer.cpp */,
-				26F7698319455D8F00723075 /* AdLayer.h */,
 				26B7AF9E1946AF67009893DA /* RotateLayer.cpp */,
 				26B7AF9F1946AF67009893DA /* RotateLayer.h */,
 				265BB9A419484CEE00D9A051 /* SetTopBoxMainScene.cpp */,
@@ -1000,7 +994,6 @@
 				26B7AFA01946AF67009893DA /* RotateLayer.cpp in Sources */,
 				26F769771945530E00723075 /* MaskLayer.cpp in Sources */,
 				BB2E8EDE1959135B00BF1402 /* SpriteBlur.cpp in Sources */,
-				26F7698419455D8F00723075 /* AdLayer.cpp in Sources */,
 				26C1459B1954429E00EB091C /* ExplosionEffect.cpp in Sources */,
 				265BB9A619484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */,
 				265BB9AB19484FE200D9A051 /* OpeningAnimation.cpp in Sources */,
@@ -1023,7 +1016,6 @@
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				265BB9A719484CEE00D9A051 /* SetTopBoxMainScene.cpp in Sources */,
 				26C6D89B1958789100A65546 /* DotGuy.cpp in Sources */,
-				26F7698519455D8F00723075 /* AdLayer.cpp in Sources */,
 				26B7AFA11946AF67009893DA /* RotateLayer.cpp in Sources */,
 				BB2E8ECF19584C4500BF1402 /* SelectedEffect.cpp in Sources */,
 				26C1459C1954429E00EB091C /* ExplosionEffect.cpp in Sources */,
