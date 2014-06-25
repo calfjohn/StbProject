@@ -80,7 +80,7 @@ void PlayVideoLayer::createVideo()
     _videoPlayer = VideoPlayer::create();
     _videoPlayer->setPosition(centerPos);
     _videoPlayer->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    _videoPlayer->setContentSize(_visibleRect.size);
+    //_videoPlayer->setContentSize(_visibleRect.size);
     this->addChild(_videoPlayer);
     _videoPlayer->setFullScreenEnabled(true);
 }
