@@ -126,7 +126,7 @@ void OpeningAnimation::addExplosionCallback(){
 }
 
 void OpeningAnimation::addRotateLayerCallback(){
-    this->addChild(RotateLayer::create(),2);
+    this->addChild(RotateLayer::create(),10);
 }
 
 void OpeningAnimation::update(float dt){

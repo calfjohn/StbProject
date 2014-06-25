@@ -181,6 +181,10 @@
 		BB2E8F31195A67A500BF1402 /* introduce_cocostudio.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */; };
 		BB2E8F34195A6A3300BF1402 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F33195A6A3300BF1402 /* icon1.png */; };
 		BB2E8F35195A6A3300BF1402 /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F33195A6A3300BF1402 /* icon1.png */; };
+		BB2E8F3C195A7A9B00BF1402 /* shadow3.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F3B195A7A9B00BF1402 /* shadow3.plist */; };
+		BB2E8F3D195A7A9B00BF1402 /* shadow3.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F3B195A7A9B00BF1402 /* shadow3.plist */; };
+		BB2E8F42195A7FF900BF1402 /* shadow4.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F41195A7FF900BF1402 /* shadow4.plist */; };
+		BB2E8F43195A7FF900BF1402 /* shadow4.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2E8F41195A7FF900BF1402 /* shadow4.plist */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -456,6 +460,8 @@
 		BB2E8F2C195A675200BF1402 /* introduce_graphic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduce_graphic.png; sourceTree = "<group>"; };
 		BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = introduce_cocostudio.png; sourceTree = "<group>"; };
 		BB2E8F33195A6A3300BF1402 /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = "<group>"; };
+		BB2E8F3B195A7A9B00BF1402 /* shadow3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shadow3.plist; sourceTree = "<group>"; };
+		BB2E8F41195A7FF900BF1402 /* shadow4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shadow4.plist; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -681,6 +687,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BB2E8F41195A7FF900BF1402 /* shadow4.plist */,
+				BB2E8F3B195A7A9B00BF1402 /* shadow3.plist */,
 				BB2E8F33195A6A3300BF1402 /* icon1.png */,
 				BB2E8F2F195A67A500BF1402 /* introduce_cocostudio.png */,
 				BB2E8F2C195A675200BF1402 /* introduce_graphic.png */,
@@ -942,6 +950,7 @@
 				BB2E8F30195A67A500BF1402 /* introduce_cocostudio.png in Resources */,
 				2606FA8F195023C200FF577D /* cocosvideo.mp4 in Resources */,
 				662256A719501F8A00EBC69D /* picture01.jpg in Resources */,
+				BB2E8F42195A7FF900BF1402 /* shadow4.plist in Resources */,
 				662256A519501F8A00EBC69D /* mystic.plist in Resources */,
 				BB2E8EE51959138800BF1402 /* tvChannel.plist in Resources */,
 				BB2E8F0F195980AB00BF1402 /* explosion.wav in Resources */,
@@ -953,6 +962,7 @@
 				BB2E8EF41959604100BF1402 /* flash.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				26C6D89D19587A7300A65546 /* body.png in Resources */,
+				BB2E8F3C195A7A9B00BF1402 /* shadow3.plist in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				BB2E8F191959853C00BF1402 /* cell_switch1.wav in Resources */,
 				662256B319501F8A00EBC69D /* text_light_top.png in Resources */,
@@ -974,6 +984,7 @@
 			files = (
 				662256AA19501F8A00EBC69D /* radioNormal.png in Resources */,
 				26C145B1195442BC00EB091C /* Phoenix.plist in Resources */,
+				BB2E8F3D195A7A9B00BF1402 /* shadow3.plist in Resources */,
 				662256A419501F8A00EBC69D /* light.png in Resources */,
 				662256A819501F8A00EBC69D /* picture01.jpg in Resources */,
 				26C1458119540F1000EB091C /* selectedBlock.png in Resources */,
@@ -997,6 +1008,7 @@
 				6622569C19501F8A00EBC69D /* icon0.png in Resources */,
 				6622569219501F8A00EBC69D /* Comet.png in Resources */,
 				662256B019501F8A00EBC69D /* text_effect.plist in Resources */,
+				BB2E8F43195A7FF900BF1402 /* shadow4.plist in Resources */,
 				662256AE19501F8A00EBC69D /* star_up.plist in Resources */,
 				662256AC19501F8A00EBC69D /* radioSelected.png in Resources */,
 				BB2E8F1F1959898F00BF1402 /* boot.wav in Resources */,

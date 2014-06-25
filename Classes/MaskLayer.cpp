@@ -182,12 +182,20 @@ void MaskLayer::createCellTv(bool invokeCallback)
     pTvNode->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     pTvNode->setContentSize(RectangleInterface::getCellSize());
     
+//    _selectedParticle = ParticleSystemQuad::create("shadow4.plist");
     _selectedParticle = ParticleSystemQuad::create("shadow.plist");
     pTvNode->addChild(_selectedParticle);
     _selectedParticle->setPositionType(ParticleSystem::PositionType::GROUPED);
-    _selectedParticle->setScale(1.8);
+    _selectedParticle->setScale(1.0);
     _selectedParticle->setVisible(false);
     _selectedParticle->setGlobalZOrder(0);
+    
+    //_selectedSprite = Sprite::create("selectedBlock.png");
+    _selectedSprite = Sprite::create("select_block.png");
+    pTvNode->addChild(_selectedSprite);
+    _selectedSprite->setScale(1.0);
+    _selectedSprite->setVisible(false);
+    _selectedSprite->setGlobalZOrder(0);
     
     float marginX = s.width;
     float marginY = s.height;
@@ -478,6 +486,10 @@ void MaskLayer::initRemoteControl()
                     _selectedParticle->setPosition(RectangleInterface::getPosition(y, x));
                     _selectedParticle->setLocalZOrder(100);
                     
+                    _selectedSprite->setVisible(true);
+                    _selectedSprite->setPosition(RectangleInterface::getPosition(y, x));
+                    _selectedSprite->setLocalZOrder(100);
+                    
                     isFirst = false;
                 }
             }
@@ -516,29 +528,57 @@ void MaskLayer::onFocusChanged(cocos2d::ui::Widget *widgetLostFocus, cocos2d::ui
 
 void MaskLayer::onKeyboardReleased(EventKeyboard::KeyCode keyCode, Event* e)
 {
-    /*if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
-        
+    if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
+        if(!isLocked){
+            Director::getInstance()->replaceScene(SetTopBoxMainScene::createScene());
+        }
     }
-    else */if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_DOWN) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::DOWN, _widget);
-        simulateFocusMove(MaskLayer::DIRECTION::DOWN);
+        if(!isLocked){
+            simulateFocusMove(MaskLayer::DIRECTION::DOWN);
+        }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_UP) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::UP, _widget);
-        simulateFocusMove(MaskLayer::DIRECTION::UP);
+        if(!isLocked){
+            simulateFocusMove(MaskLayer::DIRECTION::UP);
+        }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_LEFT) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::LEFT, _widget);
-        simulateFocusMove(MaskLayer::DIRECTION::LEFT);
+        if(!isLocked){
+            simulateFocusMove(MaskLayer::DIRECTION::LEFT);
+        }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_RIGHT) {
         //_widget = _widget->findNextFocusedWidget(Widget::FocusDirection::RIGHT, _widget);
-        simulateFocusMove(MaskLayer::DIRECTION::RIGHT);
+        if(!isLocked){
+            simulateFocusMove(MaskLayer::DIRECTION::RIGHT);
+        }
     }
     else if (keyCode == EventKeyboard::KeyCode::KEY_MENU){
-        MessageBox("menu", "pressed");
+        if(!isLocked){
+            isLocked = true;
+            auto winSize = Director::getInstance()->getWinSize();
+            _introduceBoard = Sprite::create("introduce_cocos.png");
+            _introduceBoard->setGlobalZOrder(100001);
+            this->addChild(_introduceBoard);
+            _introduceBoard->setPosition(Vec2(winSize.width/2, winSize.height + 500));
+            _introduceBoard->runAction(EaseElasticOut::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height/2)), 0.15));
+        }
+        else {
+            if(_introduceBoard){
+                auto winSize = Director::getInstance()->getWinSize();
+                _introduceBoard->runAction(Sequence::create(EaseElasticIn::create(MoveTo::create(1, Vec2(winSize.width/2, winSize.height+500)), 0.7),
+                                                            CallFunc::create([&](){
+                    _introduceBoard->removeFromParentAndCleanup(true);
+                    isLocked = false;}),
+                                                            NULL));
+            }
+        }
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER||keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DPAD_CENTER || keyCode == EventKeyboard::KeyCode::KEY_ENTER/*||keyCode == EventKeyboard::KeyCode::KEY_ESCAPE*/) {
         if (m_pic){
             
             if(currentFocusCellType > 1){
@@ -667,8 +707,14 @@ void MaskLayer::simulateFocusChanged(int tagLostFocus, int tagGetFocus)
         pNode->runAction(ScaleTo::create(0.05, 1.5));
         pNode->bringNodeToTop();
         auto position = pNode->getPosition();
-        _selectedParticle->setGlobalZOrder(600);
+        
+        _selectedParticle->setGlobalZOrder(601);
+        //_selectedParticle->runAction(Spawn::create(MoveTo::create(0.05, position), ScaleTo::create(0.05, 1.0), NULL)); //4
         _selectedParticle->runAction(Spawn::create(MoveTo::create(0.05, position), ScaleTo::create(0.05, 2.5), NULL));
+        
+        _selectedSprite->setGlobalZOrder(602);
+        _selectedSprite->runAction(Spawn::create(MoveTo::create(0.05, position), ScaleTo::create(0.05, 1.50), NULL));
+        
         m_pic = pNode;
         currentFocusCellType = _mapTv[getFocus_y][getFocus_x].type;
     }

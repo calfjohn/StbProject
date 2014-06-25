@@ -71,11 +71,14 @@ protected:
     
     std::map<int, std::map<int, structCell>> _mapTv;
 private:
+    bool isLocked = false;
     int currentFocusCellType;
     cocos2d::Node *m_pic;
     MoreDetailLayer *m_moreDetailLayer;
     cocos2d::ParticleSystemQuad * _selectedParticle;
+    cocos2d::Sprite* _selectedSprite;
     cocos2d::Sprite* _rotateLight;
+    cocos2d::Sprite* _introduceBoard = NULL;
     cocos2d::Point recoverPoint;
     int recoverzOrder;
     cocos2d::Point _beginPoint;
