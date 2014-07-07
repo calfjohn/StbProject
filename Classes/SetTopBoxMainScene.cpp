@@ -55,11 +55,12 @@ bool SetTopBoxMainScene::init()
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
+    menu->setVisible(false);
     
     this->addChild(OpeningAnimation::create());
     
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic("BMG.ogg");
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("BMG.ogg");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("BMG.ogg", true);
     
     return true;
 }
